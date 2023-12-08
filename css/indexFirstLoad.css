@@ -1,0 +1,75 @@
+.header-opacity {
+    background-color: rgba(0, 0, 0, 0.35);
+
+    animation: introOpacity ease-in-out 1.5s 1;
+}
+
+@keyframes introOpacity {
+    from {
+        background-color: rgba(0, 0, 0);
+    }
+
+    to {
+        background-color: rgba(0, 0, 0, 0.35);
+    }
+}
+
+.header-title-info h1 {
+    animation: introTitle 1.5s ease-in-out 1;
+}
+
+@keyframes introTitle {
+    from {
+        opacity: 0;
+        font-size: 0px;
+        transform: translate(-50px, 275px);
+    }
+
+    to {
+        opacity: 1;
+        font-size: clamp(80px, 13vw , 200px);
+        transform: translate(0px, 0px);
+    }
+}
+
+.header-title p {
+    animation: introSubtitle 3s ease-in-out 1;
+}
+
+@keyframes introSubtitle {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0;
+        font-size: 0px;
+        transform: translate(-35px, 70px);
+    }
+
+    100% {
+        opacity: 1;
+        font-size: clamp(40px, 6vw ,75px);
+        transform: translate(0px, 0px);
+    }
+}
+
+.header-logo {
+    animation: introIcon 4s ease-in-out 1;
+}
+
+@keyframes introIcon {
+    0% {
+        opacity: 0;
+    }
+    
+    70% {
+        opacity: 0;
+        transform: translateX(75px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}

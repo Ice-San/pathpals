@@ -1,0 +1,148 @@
+.header {
+    position: fixed;
+
+    overflow: hidden;
+
+    width: 100%;
+    height: 100vh;
+}
+
+.header-container {
+    background-image: url("../src/test.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    transition: transform, filter 0.3s ease-out;
+}
+
+.header-opacity {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    transition: opacity 0.3s ease-out;
+}
+
+.header-title {
+    cursor: default;
+
+    width: 100%;
+    height: 100%;
+
+    transition: opacity 0.3s ease-out;
+}
+
+.header-title-all {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.header-title-all p {
+    color: white;
+    text-shadow: 0px 0px 13px #000000;
+
+    position: absolute;
+    z-index: 2;
+
+    margin-bottom: clamp(120px, 18vw, 285px);
+
+    font-family: 'Allison', cursive;
+    font-style: italic;
+    font-size: clamp(40px, 6vw ,75px);
+}
+
+.header-title-info {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.header-logo {
+    background-image: url("../src/pathPalsIcon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    margin-bottom: clamp(32px, 5vw, 75px);
+
+    width: clamp(35px, 5vw, 80px);
+    height: clamp(35px, 5vw, 80px);
+    
+    animation: iconLogo 3s infinite forwards;
+}
+
+.header-title-info h1 {
+    color: white;
+    text-shadow: 0px 0px 13px #000000;
+    
+    font-family: 'Viga', cursive;
+    font-size: clamp(80px, 13vw , 200px);
+}
+
+.header-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    transition: opacity 0.3s ease-out;
+}
+
+.header-text {
+    cursor: default;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 700px;
+    height: 100%;
+}
+
+.header-text h1 {
+    font-size: clamp(48px, 7vw, 85px);
+    text-shadow: 0px 0px 13px #000000;
+}
+
+.header-text p {
+    font-size: clamp(18px, 4vw, 23px);
+    text-align: center;
+    text-shadow: 0px 0px 13px #000000;
+    word-wrap: break-word;
+
+    padding: 0 5px;
+    padding-bottom: 30px;
+}
+
+#header-text {
+    transition: padding-top 0.3s ease-out;
+}
+
+.header-final-line {
+    background-color: white;
+
+    transition: height 0.3s ease-out;
+}

@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'PT Sans', Arial, Helvetica, sans-serif;
+
+    background-color: black;
+}
+
+.test {
+    height: 10000px;
+}
+
+.displayVisible {
+    display: unset;
+}
+
+.displayNone {
+    display: none;
+}
