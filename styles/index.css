@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Mallanna', 'Manrope', Arial, Helvetica, sans-serif;
+    font-weight: 100;
+}
+
+input {
+    border: none;
+    outline: none;
+    background: none;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
