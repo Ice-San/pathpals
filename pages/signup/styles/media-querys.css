@@ -1,0 +1,52 @@
+@media (max-width: 1440px) {
+    .top-circle {
+        background-color: rgba(255, 255, 255, 0.75);
+    
+        margin-top: -10vw;
+        margin-right: -10vw;
+    
+        width: clamp(200px, 19vw, 750px);
+        height: clamp(200px, 19vw, 750px);
+    }
+    
+    .bottom-circle {
+        background-color: rgba(255, 255, 255, 0.75);
+    
+        margin-bottom: -8vw;
+    
+        width: clamp(75px, 100vw, 1850px);
+        height: clamp(75px, 15vw, 750px);
+    }
+}
+
+@media (max-width: 850px) {
+    .back-btn {
+        margin-left: 20px;
+        margin-top: 30px;
+    
+        width: 60px;
+        height: 60px;
+    }
+
+    .header h1 {
+        font-size: clamp(42.5px, 10vw, 150px);
+    }
+    
+    .header p {
+        font-size: clamp(18px, 3vw, 30px);
+    
+        margin-left: 4px;
+        margin-top: 0px
+    }
+
+    .center-signup form { 
+        width: 95%;
+    }
+
+    .view-pass {
+        margin-left: 5px;
+
+        width: clamp(39px, 3vw, 42px);
+        height: clamp(35px, 3vw, 40px);
+    }
+}
