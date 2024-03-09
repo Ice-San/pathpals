@@ -1,5 +1,5 @@
 /*
-    Mouse XY
+    Mouse X and Y
 */
 
 const circle = document.querySelector(".circle");
