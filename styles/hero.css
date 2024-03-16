@@ -1,0 +1,131 @@
+.background {
+    width: 100%;
+    height: 100vh;
+
+    margin-bottom: 100vh;
+}
+
+.background-container {
+    background-image: url("../src/background.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+
+    width: 100%;
+    height: 100%;
+}
+
+.background-overlay {
+    background-color: rgba(255, 255, 255, 0.50);
+    backdrop-filter: blur(12px);
+
+    width: 100%;
+    height: 100%;
+}
+
+.signup-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    width: 100%;
+    height: 60px;
+}
+
+.signup-btn-content {
+    background-color: #DCDCDC;
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 6px;
+
+    margin-right: 20px;
+
+    transition: all 0.3s ease-in-out;
+
+    width: 135px;
+    height: 35px;
+}
+
+.signup-btn-content p {
+    font-family: 'Mallana', 'Manrope', Arial, Helvetica, sans-serif;
+    font-size: 21px;
+    font-weight: 500;
+
+    color: black;
+}
+
+.signup-btn-content:hover {
+    transform: scale(0.95);
+
+    background-color: #cecece;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    position: relative;
+
+    overflow: hidden;
+
+    width: 100%;
+    height: 93.9vh;
+}
+
+.content-text {
+    display: flex;
+    justify-content: center;
+
+    cursor: default;
+
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-width: 1635px) {
+    .content-text h1 {  
+        padding-top: 175px;
+    }
+
+    .content-img {
+        width: clamp(1000px, 75vw, 1600px);
+        height: clamp(650px, 50vw, 1000px);
+    }
+}
+
+.content-text h1 {
+    font-family: 'Kaushan Script', 'Manrope', 'Mallana', Arial, Helvetica, sans-serif;
+    font-size: clamp(100px, 15vw, 325px);
+    font-weight: 100;
+
+    padding-top: 100px;
+
+    position: absolute;
+    z-index: 1;
+}
+
+.content-img {
+    position: absolute;
+    z-index: 2;
+
+    width: clamp(1000px, 75vw, 1600px);
+    height: clamp(650px, 50vw, 1000px);
+}
+
+.content-img-container {
+    background-image: url("../src/persons-render.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 100%;
+    height: 100%;
+}

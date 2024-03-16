@@ -39,8 +39,8 @@
             <div class="center-signup">
                 <div class="center-signup-content">
                     <div class="header">
-                        <h1>Welcome Back!</h1>
-                        <p>We're happy to see you again!</p>
+                        <h1>Bem-vindo de volta!</h1>
+                        <p>Estamos felizes por vos ver de novo!</p>
                     </div>
 
                     <div class="car">
@@ -49,11 +49,11 @@
 
                     <form action="">
                         <div class="form-content form-content-effect">
-                            <input type="email" placeholder="Email">
+                            <input type="email" placeholder="Email" maxlength="100" required>
                         </div>
 
                         <div class="form-content form-content-effect password">
-                            <input id="password-input" type="password" placeholder="Password">
+                            <input id="password-input" type="password" placeholder="Password" maxlength="255" required>
 
                             <div class="view-pass">
                                 <div class="view-pass-container" id="password-view"></div>
@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="submit">
-                            <p>Do you already have an account? <a href="../signup/">Sign Up!</a></p>
+                            <p>Já tem uma conta? <a href="../signup/">Sign Up!</a></p>
 
                             <input type="button" value="Sign In">
                         </div>

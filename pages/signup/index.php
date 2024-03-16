@@ -1,3 +1,6 @@
+<?php
+include "../../server/auth.php";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,29 +42,29 @@
             <div class="center-signup">
                 <div class="center-signup-content">
                     <div class="header">
-                        <h1>Let's Sign You Up!</h1>
-                        <p>Come and join our family!</p>
+                        <h1>Vamos Inscrever-te!</h1>
+                        <p>Venha juntar-se à nossa família!</p>
                     </div>
 
                     <div class="car">
                         <div class="car-container"></div>
                     </div>
 
-                    <form action="">
+                    <form method="POST" action="./test.php" enctype="application/x-www-form-urlencoded">
                         <div class="form-content form-content-effect form-content-txt-inputs">
-                            <input type="text" placeholder="Username">
+                            <input type="text" placeholder="Username" maxlength="50" required> 
                         </div>
 
                         <div class="form-content form-content-effect form-content-txt-inputs">
-                            <input type="email" placeholder="Email">
+                            <input type="email" placeholder="Email" maxlength="100" required>
                         </div>
 
                         <div class="form-content form-content-effect form-content-txt-inputs">
-                            <input type="text" placeholder="Institution Code">
+                            <input type="text" placeholder="Código da Instituição" required>
                         </div>
 
                         <div class="form-content form-content-effect password">
-                            <input id="password-input" type="password" placeholder="Password">
+                            <input id="password-input" type="password" placeholder="Password" maxlength="255" required>
 
                             <div class="view-pass">
                                 <div class="view-pass-container" id="password-view"></div>
@@ -69,9 +72,9 @@
                         </div>
 
                         <div class="submit">
-                            <p>Do you have an account? <a href="../signin/">Sign In!</a></p>
-
-                            <input type="button" value="Sign Up">
+                            <p>Tem uma conta? <a href="../signin/">Sign In!</a></p>
+                            
+                            <input type="submit" value="Sign Up">
                         </div>
                     </form>
                 </div>

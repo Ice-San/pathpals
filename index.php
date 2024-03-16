@@ -1,3 +1,6 @@
+<?php
+include "./server/auth.php";
+?>
 <!DOCTYPE html>
 <html>
 <head>
