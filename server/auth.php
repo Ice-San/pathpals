@@ -7,12 +7,12 @@ $database = "path_pals_db";
 
 $conn = mysqli_connect($servername, $username, $password, $database);
 
-# echo "Pre Connection";
+# echo "Pre-Connection";
 
 if(!$conn) {
     die("Connect Failed" . mysqli_connect_error());
 }
 
-# echo "Pós Connection";
+# echo "Pós-Connection";
 
 ?>
