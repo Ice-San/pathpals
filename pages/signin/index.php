@@ -43,8 +43,8 @@
                         <p>Estamos felizes por vos ver de novo!</p>
                     </div>
 
-                    <div class="car">
-                        <div class="car-container"></div>
+                    <div class="cars">
+                        <div class="cars-container"></div>
                     </div>
 
                     <form action="">

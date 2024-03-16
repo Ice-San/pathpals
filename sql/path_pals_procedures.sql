@@ -29,6 +29,14 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE create_user(un VARCHAR(50), e VARCHAR(100), n VARCHAR(50), ln VARCHAR(50), g VARCHAR(20), p VARCHAR(255), t VARCHAR(10), l INT)
 BEGIN
+	DECLARE user_exists INT;
+
+    SELECT COUNT(*) INTO user_exists FROM users WHERE u_email = e;
+
+    IF user_exists > 0 THEN
+        LEAVE create_user;
+    END IF;
+
 	INSERT INTO users(u_username, u_email, p_id)
 	VALUES(un, e, create_person(n, ln, g));
 
@@ -41,18 +49,36 @@ BEGIN
 
 	SET @ut_admin_id = (
 		SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = t
-	)
+	);
 
 	SET @up_admin_id = (
 		SELECT up_id FROM user_permissions AS up WHERE up.up_level = l
-	)
+	);
 
 	INSERT INTO accounts(u_id, ut_id, up_id)
 	VALUES(@u_id, @ut_admin_id, @up_admin_id);
 END $$
 DELIMITER ;
 
--- 4. UPDATE STATUS TICKET
+-- 4. REQUEST ACCOUNT
+
+DELIMITER $$
+CREATE PROCEDURE request_account(c VARCHAR(40), un VARCHAR(50), e VARCHAR(100), n VARCHAR(50), ln VARCHAR(50), g VARCHAR(20), p VARCHAR(255), t VARCHAR(10), l INT)
+BEGIN
+	SET @i_id = (
+		SELECT i_id FROM institutions AS i WHERE i.i_code = c
+	);
+    
+    IF EXISTS (SELECT i_id FROM institutions AS i WHERE i.i_code = c) THEN
+		CALL create_user(un, e, n, ln, g, p, t, l);
+    
+		INSERT INTO institutions_account(i_id, a_id)
+		VALUES(@i_id, LAST_INSERT_ID());
+    END IF;
+END $$
+DELIMITER ;
+
+-- 5. UPDATE STATUS TICKET
 
 DELIMITER $$
 CREATE PROCEDURE update_status_ticket(e VARCHAR(100), s VARCHAR(20))
@@ -70,7 +96,7 @@ BEGIN
 END $$
 DELIMITER ;
 
--- 5. CREATE A CONNECTION
+-- 6. CREATE A CONNECTION
 
 DELIMITER $$
 CREATE PROCEDURE create_connection(r INT,de VARCHAR(100), te VARCHAR(100))

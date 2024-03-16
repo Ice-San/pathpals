@@ -163,18 +163,18 @@
     font-size: clamp(15px, 5vw, 35px);
     font-weight: 100;
 
-    margin-left: 8px;
+    margin-left: 20px;
     margin-top: -8px;
 }
 
-.car {
+.cars {
     margin: -85px 0px -40px 0px;
 
     width: 350px;
     height: 350px;
 }
 
-.car-container {
+.cars-container {
     background-image: url("../../signin/src/car-animation.gif");
     background-position: center;
     background-repeat: no-repeat;

@@ -46,8 +46,8 @@ include "../../server/auth.php";
                         <p>Venha juntar-se à nossa família!</p>
                     </div>
 
-                    <div class="car">
-                        <div class="car-container"></div>
+                    <div class="cars">
+                        <div class="cars-container"></div>
                     </div>
 
                     <form method="POST" action="./test.php" enctype="application/x-www-form-urlencoded">

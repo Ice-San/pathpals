@@ -79,7 +79,33 @@ CREATE TABLE accounts (
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- 7. TICKET STATUS
+-- 7. INSTITUTIONS
+
+CREATE TABLE institutions (
+	i_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    i_code VARCHAR(30) NOT NULL,
+    i_name VARCHAR(40) NULL,
+    i_description TEXT NULL,
+    
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 8. INSTITUTIONS ACCOUNT
+
+CREATE TABLE institutions_account (
+	ia_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    i_id INT NOT NULL,
+    a_id INT NOT NULL,
+    
+    FOREIGN KEY (i_id) REFERENCES institutions(i_id),
+    FOREIGN KEY (a_id) REFERENCES accounts(a_id),
+	
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 9. TICKET STATUS
 
 CREATE TABLE ticket_status (
 	ts_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -89,7 +115,7 @@ CREATE TABLE ticket_status (
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- 8. TICKETS
+-- 10. TICKETS
 
 CREATE TABLE tickets (
 	t_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -103,7 +129,7 @@ CREATE TABLE tickets (
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- 9. RIDES TYPES
+-- 11. RIDES TYPES
 
 CREATE TABLE ride_types (
 	rt_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -113,7 +139,7 @@ CREATE TABLE ride_types (
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- 10. RIDES
+-- 12. RIDES
 
 CREATE TABLE rides (
 	r_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -131,7 +157,7 @@ CREATE TABLE rides (
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- 11. CONNECTIONS
+-- 13. CONNECTIONS
 
 CREATE TABLE connections (
 	c_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -323,9 +349,29 @@ SET @up_user_id = (
 INSERT INTO accounts(u_id, ut_id, up_id)
 VALUES(@u_id, @ut_user_id, @up_user_id);
 
+SET @accounts_a_id = (
+	SELECT a_id FROM accounts AS a WHERE a.a_id = LAST_INSERT_ID()
+);
+
 -- 11. CREATE A CONNECTION
 INSERT INTO connections(r_id, u_id_driver, u_id_traveler)
 VALUES(@r_id, @driver_u_id, @u_id);
+
+-- 12. CREATE INSTITUTIONS
+INSERT INTO institutions(i_code, i_name, i_description)
+VALUES("5D84V546ED", "IPC", "Instituto Politécnico de Castelo Branco");
+
+INSERT INTO institutions(i_code, i_name, i_description)
+VALUES("5478DF54C1", "ETPS", "Escola Técnologica e Profissional da Sertã");
+
+SET @institutions_i_id = (
+	SELECT i_id FROM institutions AS i WHERE i.i_id = LAST_INSERT_ID()
+);
+
+-- 13. CONNECT INSTITUTION
+
+INSERT INTO institutions_account(i_id, a_id)
+VALUES(@institutions_i_id, @accounts_a_id);
 
 -- === FUNCTIONS ===
 
@@ -453,30 +499,54 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE create_user(un VARCHAR(50), e VARCHAR(100), n VARCHAR(50), ln VARCHAR(50), g VARCHAR(20), p VARCHAR(255), t VARCHAR(10), l INT)
 BEGIN
-	INSERT INTO users(u_username, u_email, p_id)
-	VALUES(un, e, create_person(n, ln, g));
+	DECLARE user_exists INT;
 
-	SET @u_id = (
-		SELECT u_id FROM users AS u WHERE u.u_id = LAST_INSERT_ID()
-	);
+    SELECT COUNT(*) INTO user_exists FROM users WHERE u_email = e;
 
-	INSERT INTO passwords(pw_hashed_password, u_id)
-	VALUES(p, @u_id);
+    IF user_exists = 0 THEN
+		INSERT INTO users(u_username, u_email, p_id)
+		VALUES(un, e, create_person(n, ln, g));
 
-	SET @ut_admin_id = (
-		SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = t
-	)
+		SET @u_id = (
+			SELECT u_id FROM users AS u WHERE u.u_id = LAST_INSERT_ID()
+		);
 
-	SET @up_admin_id = (
-		SELECT up_id FROM user_permissions AS up WHERE up.up_level = l
-	)
+		INSERT INTO passwords(pw_hashed_password, u_id)
+		VALUES(p, @u_id);
 
-	INSERT INTO accounts(u_id, ut_id, up_id)
-	VALUES(@u_id, @ut_admin_id, @up_admin_id);
+		SET @ut_admin_id = (
+			SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = t
+		);
+
+		SET @up_admin_id = (
+			SELECT up_id FROM user_permissions AS up WHERE up.up_level = l
+		);
+
+		INSERT INTO accounts(u_id, ut_id, up_id)
+		VALUES(@u_id, @ut_admin_id, @up_admin_id);
+    END IF;
 END $$
 DELIMITER ;
 
--- 4. UPDATE STATUS TICKET
+-- 4. REQUEST ACCOUNT
+
+DELIMITER $$
+CREATE PROCEDURE request_account(c VARCHAR(40), un VARCHAR(50), e VARCHAR(100), n VARCHAR(50), ln VARCHAR(50), g VARCHAR(20), p VARCHAR(255), t VARCHAR(10), l INT)
+BEGIN
+	SET @i_id = (
+		SELECT i_id FROM institutions AS i WHERE i.i_code = c
+	);
+    
+    IF EXISTS (SELECT i_id FROM institutions AS i WHERE i.i_code = c) THEN
+		CALL create_user(un, e, n, ln, g, p, t, l);
+    
+		INSERT INTO institutions_account(i_id, a_id)
+		VALUES(@i_id, LAST_INSERT_ID());
+    END IF;
+END $$
+DELIMITER ;
+
+-- 5. UPDATE STATUS TICKET
 
 DELIMITER $$
 CREATE PROCEDURE update_status_ticket(e VARCHAR(100), s VARCHAR(20))
@@ -494,7 +564,7 @@ BEGIN
 END $$
 DELIMITER ;
 
--- 5. CREATE A CONNECTION
+-- 6. CREATE A CONNECTION
 
 DELIMITER $$
 CREATE PROCEDURE create_connection(r INT,de VARCHAR(100), te VARCHAR(100))
