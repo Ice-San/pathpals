@@ -19,3 +19,7 @@ a {
     color: white;
     text-decoration: none;
 }
+
+.unvisibility {
+    display: none;
+}

@@ -153,6 +153,8 @@
 
 .header {
     cursor: default;
+
+    margin-top: -75px;
 }
 
 .header h1 {
@@ -225,6 +227,22 @@
     height: auto;
 }
 
+.form-error {
+    color: rgb(255, 119, 119);
+
+    font-size: 13.5px;
+
+    border-bottom: 3px solid rgba(255, 119, 119, 0.658);
+
+    margin-top: 5px;
+    margin-left: 10px;
+
+    padding-bottom: 2px;
+
+    width: 300px;
+    height: auto;
+}
+
 .password {
     display: flex;
     justify-content: space-between;
@@ -274,7 +292,7 @@
 }
 
 .submit {
-    margin-top: 50px;
+    margin-top: 25px;
 
     width: 100%;
     height: auto;

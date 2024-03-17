@@ -1,5 +1,7 @@
 <?php
 include "../../server/auth.php";
+
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,26 +52,31 @@ include "../../server/auth.php";
                         <div class="cars-container"></div>
                     </div>
 
-                    <form method="POST" action="./test.php" enctype="application/x-www-form-urlencoded">
+                    <form action="./server/user/post.php" method="POST" enctype="application/x-www-form-urlencoded">
                         <div class="form-content form-content-effect form-content-txt-inputs">
-                            <input type="text" placeholder="Username" maxlength="50" required> 
+                            <input id="username-input" type="text" name="username" placeholder="Username" maxlength="50" required> 
                         </div>
+                        <div class="form-error error-username unvisibility"></div>
 
                         <div class="form-content form-content-effect form-content-txt-inputs">
-                            <input type="email" placeholder="Email" maxlength="100" required>
+                            <input id="email-input" type="email" name="email" placeholder="Email" maxlength="100" required>
                         </div>
+                        <div class="form-error error-email unvisibility"></div>
+                        <?php if(isset($_SESSION['error_email'])) { echo "<div class='form-error error-email'>* ".$_SESSION['error_email']."</div>"; } ?>
 
                         <div class="form-content form-content-effect form-content-txt-inputs">
-                            <input type="text" placeholder="Código da Instituição" required>
+                            <input id="institution-input" type="text" name="institution-code" placeholder="Código da Instituição" required>
                         </div>
+                        <div class="form-error error-institution unvisibility"></div>
 
                         <div class="form-content form-content-effect password">
-                            <input id="password-input" type="password" placeholder="Password" maxlength="255" required>
+                            <input id="password-input" type="password" name="password" placeholder="Password" maxlength="255" required>
 
                             <div class="view-pass">
                                 <div class="view-pass-container" id="password-view"></div>
                             </div>
                         </div>
+                        <div class="form-error error-password unvisibility"></div>
 
                         <div class="submit">
                             <p>Tem uma conta? <a href="../signin/">Sign In!</a></p>
@@ -83,5 +90,12 @@ include "../../server/auth.php";
     </div>
 
     <script src="../signin/scripts/index.js"></script>
+    <script src="./scripts/form-validation.js"></script>
 </body>
 </html>
+
+<?php
+
+session_unset();
+
+?>

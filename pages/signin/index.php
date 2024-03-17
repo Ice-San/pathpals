@@ -1,3 +1,9 @@
+<?php
+include "../../server/auth.php";
+
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,23 +53,27 @@
                         <div class="cars-container"></div>
                     </div>
 
-                    <form action="">
+                    <form action="./server/user/get.php" method="GET" enctype="application/x-www-form-urlencoded">
                         <div class="form-content form-content-effect">
-                            <input type="email" placeholder="Email" maxlength="100" required>
+                            <input id="email-input" type="email" name="email" placeholder="Email" maxlength="100" required>
                         </div>
+                        <div class="form-error error-email unvisibility"></div>
+                        <?php if(isset($_SESSION['error_email_matches'])) { echo "<div class='form-error error-email'>* ".$_SESSION['error_email_matches']."</div>"; } ?>
 
                         <div class="form-content form-content-effect password">
-                            <input id="password-input" type="password" placeholder="Password" maxlength="255" required>
+                            <input id="password-input" type="password" name="password" placeholder="Password" maxlength="255" required>
 
                             <div class="view-pass">
                                 <div class="view-pass-container" id="password-view"></div>
                             </div>
                         </div>
+                        <div class="form-error error-password unvisibility"></div>
+                        <?php if(isset($_SESSION['error_password_matches'])) { echo "<div class='form-error error-email'>* ".$_SESSION['error_password_matches']."</div>"; } ?>
 
                         <div class="submit">
                             <p>Já tem uma conta? <a href="../signup/">Sign Up!</a></p>
 
-                            <input type="button" value="Sign In">
+                            <input type="submit" value="Sign In">
                         </div>
                     </form>
                 </div>
@@ -72,5 +82,12 @@
     </div>
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/form-validation.js"></script>
 </body>
 </html>
+
+<?php
+
+session_unset();
+
+?>

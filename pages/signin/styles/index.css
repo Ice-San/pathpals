@@ -221,6 +221,23 @@
     height: auto;
 }
 
+.form-error {
+    color: rgb(255, 119, 119);
+
+    font-size: 13.5px;
+
+    border-bottom: 3px solid rgba(255, 119, 119, 0.658);
+
+    margin-top: 5px;
+    margin-left: 10px;
+
+    padding-bottom: 2px;
+
+    width: 350px;
+    height: auto;
+}
+
+
 .password {
     display: flex;
     justify-content: space-between;
