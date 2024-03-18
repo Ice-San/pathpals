@@ -1,0 +1,60 @@
+.form-list-enter-animation {
+    animation: formRequestEnterAnimation 0.5s 1 ease-in-out;
+}
+
+@keyframes formRequestEnterAnimation {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.form-list-exit-animation {
+    animation: formRequestExitAnimation 0.5s 1 ease-in-out;
+}
+
+@keyframes formRequestExitAnimation {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+
+
+.form-list-container-animation {
+    animation: formListContainer 1s 1 ease-in-out;
+}
+
+@keyframes formListContainer {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+.form-list-container-animation-exit {
+    animation: formListContainerExit 1s 1 ease-in-out;
+}
+
+@keyframes formListContainerExit {
+    0% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+}

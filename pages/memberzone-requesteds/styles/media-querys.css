@@ -1,0 +1,48 @@
+@media (max-width: 1586px) {
+    .form-list-input-title {
+        margin-left: clamp(-15px, 15vw, -50px);
+    }
+}
+
+@media (max-width: 1085px) {
+    .menu-container {
+        width: 65%;
+    }
+
+    .menu-container a {
+        font-size: clamp(15px, 3.5vw, 45px);
+    
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 785px) {
+    .menu-container {
+        width: 75%;
+        min-width: 380px;
+    }
+
+    .menu-container a {
+        font-size: clamp(19px, 3.6vw, 45px);
+    }
+
+    .menu {
+        height: 75px;
+    }
+}
+
+@media (max-width: 600px) {
+    .bottom-menu {
+        width: 100%;
+        height: 65px;
+    }
+
+    .bottom-menu-container {
+        height: 65px;
+    }
+
+    .bottom-options {
+        width: 50px;
+        height: 50px;
+    }
+}
