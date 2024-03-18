@@ -1,5 +1,12 @@
 <?php
 include "../../server/auth.php";
+include "../signup/server/utils.php";
+
+session_start();
+
+if(!isset($_SESSION['signin'])) {
+    redirect("../../pages/signin/");
+}
 ?>
 <!DOCTYPE html>
 <html>

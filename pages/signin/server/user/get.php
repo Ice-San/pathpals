@@ -19,7 +19,8 @@ if ($check_password->num_rows > 0) {
     $hashed_password = password_hash($not_hashed_password, PASSWORD_DEFAULT);
 
     if (password_verify($password, $hashed_password)) {
-        redirect("../../../../");
+        $_SESSION['signin'] = "online";
+        redirect("../../../memberzone-requesteds/");
     } else {
         $_SESSION['error_password_matches'] = "A password esta incorrecta!";
         redirect("../../");
