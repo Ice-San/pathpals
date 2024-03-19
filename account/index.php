@@ -1,11 +1,11 @@
 <?php
-include "../../server/auth.php";
-include "../signup/server/utils.php";
+include "../src/server/auth.php";
+include "../src/server/utils.php";
 
 session_start();
 
 if(!isset($_SESSION['signin'])) {
-    redirect("../../pages/signin/");
+    redirect("../../signin/");
 }
 ?>
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ if(!isset($_SESSION['signin'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Mallanna&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../styles/index.css">
+    <link rel="stylesheet" href="../../src/styles/index.css">
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/form-list.css">
     <link rel="stylesheet" href="./styles/animations.css">

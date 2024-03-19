@@ -1,5 +1,5 @@
 <?php
-include "../../server/auth.php";
+include "../src/server/auth.php";
 
 session_start();
 ?>
@@ -16,7 +16,7 @@ session_start();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mallanna&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../styles/index.css">
+    <link rel="stylesheet" href="../../src/styles/index.css">
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/animations.css">
     <link rel="stylesheet" href="./styles/media-querys.css">
@@ -53,7 +53,7 @@ session_start();
                         <div class="cars-container"></div>
                     </div>
 
-                    <form action="./server/user/get.php" method="GET" enctype="application/x-www-form-urlencoded">
+                    <form action="../src/server/user/get.php" method="POST" enctype="application/x-www-form-urlencoded">
                         <div class="form-content form-content-effect">
                             <input id="email-input" type="email" name="email" placeholder="Email" maxlength="100" required>
                         </div>

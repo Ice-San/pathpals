@@ -1,5 +1,5 @@
 <?php
-include "./server/auth.php";
+include "./src/server/auth.php";
 ?>
 <!DOCTYPE html>
 <html>

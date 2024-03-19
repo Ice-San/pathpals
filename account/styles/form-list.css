@@ -51,7 +51,7 @@
 }
 
 .close-btn-container {
-    background-image: url("../src/close-btn.png");
+    background-image: url("../assets/images/close-btn.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -122,11 +122,11 @@
 }
 
 .form-list-from {
-    background-image: url("../src/from-icon.png");
+    background-image: url("../assets/images/from-icon.png");
 }
 
 .form-list-to {
-    background-image: url("../src/to-icon.png");
+    background-image: url("../assets/images/to-icon.png");
 }
 
 .form-list-input-title h1 {

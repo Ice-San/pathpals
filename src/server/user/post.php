@@ -1,6 +1,6 @@
 <?php
 include "../utils.php";
-include "../../../../server/auth.php";
+include "../auth.php";
 
 session_start();
 
@@ -14,13 +14,13 @@ $check_email_exists = mysqli_query($conn, $check_email);
 
 if($check_email_exists->num_rows > 0) {
     $_SESSION['error_email'] = "Já existe um utilizador com esse email!";
-    redirect("../../"); 
+    redirect("../../../signup/"); 
 }
 
 $register_users = "CALL create_user('$username', '$email', 'User1', 'Test1', 'M', '$password', 'user', 3)";
 $create_user = mysqli_query($conn, $register_users);
 
 if($create_user) {
-    redirect("../../../signin");
+    redirect("../../../signin/");
 }
 ?>

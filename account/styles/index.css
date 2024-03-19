@@ -12,7 +12,7 @@
 }
 
 .banner-container {
-    background-image: url("../src/background.png");
+    background-image: url("../assets/images/background.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -152,7 +152,7 @@
 }
 
 .add-request-container {
-    background-image: url("../src/addBtn.png");
+    background-image: url("../assets/images/addBtn.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -220,7 +220,7 @@
 }
 
 .lists-container {
-    background-image: url("../src/perfilIcon.png");
+    background-image: url("../assets/images/perfilIcon.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -230,7 +230,7 @@
 }
 
 .profile-container {
-    background-image: url("../src/menuIcon.png");
+    background-image: url("../assets/images/menuIcon.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -240,7 +240,7 @@
 }
 
 .exit-container {
-    background-image: url("../src/logoutIcon.png");
+    background-image: url("../assets/images/logoutIcon.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

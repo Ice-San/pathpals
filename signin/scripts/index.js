@@ -1,6 +1,4 @@
-/*
-    Mouse XY
-*/
+// Mouse XY
 
 const circle = document.querySelector(".circle");
 
@@ -12,9 +10,7 @@ document.addEventListener("mousemove", (event) => {
     circle.style.top = y + "px";
 });
 
-/*
-    View Password
-*/
+// View Password
 
 const hidePassword = document.querySelector(".view-pass");
 const passwordImg = document.getElementById("password-view");
