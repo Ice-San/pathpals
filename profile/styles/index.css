@@ -1,0 +1,318 @@
+.background {
+    position: relative;
+
+    font-family: "Manrope", "Mallanna", Arial, Helvetica, sans-serif;
+
+    width: 100%;
+    height: 100vh;
+}
+
+.banner {
+    position: absolute;
+    z-index: 1;
+
+    background: rgb(174,174,174);
+    background: linear-gradient(148deg, rgba(174,174,174,1) 0%, rgba(217,217,217,1) 100%);
+
+    clip-path: polygon(0 0, 100% 0%, 100% 35%, 0% 100%);
+
+    width: 100%;
+    height: 300px;
+}
+
+.edit-background {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+    width: 100%;
+    height: 100px;
+}
+
+.edit {
+    background-color: #F6F6F6;
+    border-radius: 50%;
+
+    margin-right: 20px;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.3s ease-in-out;
+
+    width: 75px;
+    height: 75px;
+}
+
+.edit:hover {
+    transform: scale(0.8) rotate(15deg);
+
+    transition: all 0.3s ease-in-out;
+}
+
+.edit-container {
+    background-image: url("../assets/images/edit-btn.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 55%;
+    height: 55%;
+}
+
+.all-content {
+    position: absolute;
+    z-index: 2;
+
+    margin-top: 100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.icon-background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 0px;
+
+    width: 100%;
+    height: 300px;
+}
+
+.icon {
+    background-color: #ABABAB;
+    border-radius: 50%;
+
+    margin-top: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    overflow: hidden;
+
+    width: 175px;
+    height: 175px;
+}
+
+.icon-container {
+    background-image: url("../assets/images/user-icon.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    margin-bottom: -15px;
+
+    width: 85%;
+    height: 85%;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+
+    cursor: default;
+
+    margin-top: 25px;
+
+    width: 100%;
+    height: 100%;
+}
+
+.username-background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 100%;
+    height: auto;
+}
+
+.username-position {
+    display: flex;
+    justify-content: center;
+    
+    width: 100%;
+    height: auto;
+}
+
+.username {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 75px;
+    height: 75px;
+}
+
+.username-container {
+    background-image: url("../assets/images/username-icon.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 65%;
+    height: 65%;
+}
+
+.username-background p {
+    font-size: 45px;
+    font-weight: 400;
+
+    margin-top: 5px;
+    margin-right: 60px;
+}
+
+.name-background {
+    display: flex;
+    justify-content: center;
+
+    margin-top: -15px;
+
+    width: 100%;
+    height: auto;
+}
+
+.name-background p {
+    color: #808080;
+    font-size: 24px;
+
+    margin-left: 60px;
+}
+
+.info-background {
+    margin-top: 50px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    grid-gap: 50px 15px;
+
+    padding: 0 25px;
+
+    width: 100%;
+    height: auto;
+}
+
+.info-title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    grid-gap: 15px;
+
+    margin-top: 15px;
+
+    width: 100%;
+    height: 100%;
+}
+
+.info-icon {
+    width: 45px;
+    height: 45px;
+}
+
+.career-container {
+    background-image: url("../assets/images/career-icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    width: 100%;
+    height: 100%;
+}
+
+.age-container {
+    background-image: url("../assets/images/age-icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    width: 100%;
+    height: 100%;
+}
+
+.class-container {
+    background-image: url("../assets/images/class-icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+.school-container {
+    background-image: url("../assets/images/book-icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+    width: 100%;
+    height: 100%;
+}
+
+.location-container {
+    background-image: url("../assets/images/location-icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    width: 100%;
+    height: 100%;
+}
+
+.aboutme-container {
+    background-image: url("../assets/images/aboutme-icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    width: 100%;
+    height: 100%;
+}
+
+.info-breakline {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 60px;
+
+    width: 100%;
+    height: 100%;
+}
+
+.info-breakline .info-description {
+    display: flex;
+    justify-content: flex-start;
+
+    padding: 5px 0;
+}
+
+.info-description {
+    background-color: #D9D9D9;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: auto;
+}
+
+.info-description p {
+    font-size: 22px;
+    font-weight: 350;
+
+    margin: 5px 25px;
+}

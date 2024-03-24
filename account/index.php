@@ -22,6 +22,7 @@ if(!isset($_SESSION['signin'])) {
 
     <link rel="stylesheet" href="../../src/styles/index.css">
     <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="../../src/styles/bottom-menu.css">
     <link rel="stylesheet" href="./styles/form-list.css">
     <link rel="stylesheet" href="./styles/animations.css">
     <link rel="stylesheet" href="./styles/media-querys.css">
@@ -56,19 +57,19 @@ if(!isset($_SESSION['signin'])) {
             <div class="bottom-menu">
                 <div class="bottom-menu-container">
                     <div class="bottom-menu-position">
+                        <a href="../profile/">
+                            <div class="bottom-options">
+                                <div class="profile-container"></div>
+                            </div>
+                        </a>
+
                         <a href="./">
                             <div class="bottom-options">
                                 <div class="lists-container"></div>
                             </div>
                         </a>
 
-                        <a href="">
-                            <div class="bottom-options">
-                                <div class="profile-container"></div>
-                            </div>
-                        </a>
-
-                        <a href="">
+                        <a href="../signin/">
                             <div class="bottom-options">
                                 <div class="exit-container"></div>
                             </div>
