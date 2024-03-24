@@ -19,11 +19,11 @@
 <body>
     
     <div class="background">
-        <div class="banner">
-            <div class="edit-background">
-                <div class="edit">
-                    <div class="edit-container"></div>
-                </div>
+        <div class="banner"></div>
+
+        <div class="edit-background">
+            <div class="edit">
+                <div class="edit-container"></div>
             </div>
         </div>
 
