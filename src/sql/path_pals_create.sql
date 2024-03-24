@@ -153,6 +153,7 @@ CREATE TABLE rides (
     FOREIGN KEY (t_id) REFERENCES tickets(t_id),
     FOREIGN KEY (rt_id) REFERENCES ride_types(rt_id),
     
+    rideAt DATETIME,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -573,3 +574,32 @@ BEGIN
 	VALUES(r, get_user_id(de), get_user_id(te));
 END $$
 DELIMITER ;
+
+-- CREATE VIEWS
+
+-- 1. CREATE GET OFFERS VIEW
+
+CREATE VIEW all_offers_view AS
+SELECT
+    u.u_id AS user_id,
+    u.u_username AS username,
+    t.t_id AS ticket_id,
+    ts.ts_status AS ticket_status,
+    r.r_id AS ride_id,
+    rt.rt_type AS ride_type,
+    r.rideAt AS rideAt
+FROM
+    tickets AS t
+INNER JOIN
+    users AS u ON t.u_id = u.u_id
+INNER JOIN
+    ticket_status AS ts ON t.ts_id = ts.ts_id
+INNER JOIN
+    rides AS r ON t.t_id = r.t_id
+INNER JOIN
+    ride_types AS rt ON r.rt_id = rt.rt_id
+WHERE
+    DATE(t.createdAt) = CURDATE()
+ORDER BY
+    t.createdAt ASC
+LIMIT 100;
