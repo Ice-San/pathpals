@@ -105,3 +105,53 @@ BEGIN
 	VALUES(r, get_user_id(de), get_user_id(te));
 END $$
 DELIMITER ;
+
+-- 7. GET ALL OFFERS
+
+DELIMITER $$
+CREATE PROCEDURE get_all_offers()
+BEGIN
+    SELECT * FROM all_offers_view;
+END $$
+DELIMITER ;
+
+-- 8. GET ALL REQUESTS
+
+DELIMITER $$
+CREATE PROCEDURE get_all_requests()
+BEGIN
+    SELECT * FROM all_requested_view;
+END $$
+DELIMITER ;
+
+-- 9. GET USER OFFER
+
+DELIMITER $$
+CREATE PROCEDURE get_user_offer(IN user_id INT)
+BEGIN
+    SELECT
+        u.u_id AS user_id,
+        u.u_username AS username,
+        t.t_id AS ticket_id,
+        ts.ts_status AS ticket_status,
+        r.r_id AS ride_id,
+        rt.rt_type AS ride_type,
+        r.rideAt AS rideAt
+    FROM
+        tickets AS t
+    INNER JOIN
+        users AS u ON t.u_id = u.u_id
+    INNER JOIN
+        ticket_status AS ts ON t.ts_id = ts.ts_id
+    INNER JOIN
+        rides AS r ON t.t_id = r.t_id
+    INNER JOIN
+        ride_types AS rt ON r.rt_id = rt.rt_id
+    WHERE
+        u.u_id = user_id
+        AND DATE(t.createdAt) = CURDATE()
+    ORDER BY
+        t.createdAt ASC
+    LIMIT 100;
+END $$
+DELIMITER ;
