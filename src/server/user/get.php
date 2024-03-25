@@ -28,5 +28,5 @@ if(!(password_verify($password, $hashed_password))) {
 }
 
 $_SESSION['signin'] = "online";
-redirect("../../../account/");
+redirect("../../../account/requests");
 ?>

@@ -1,11 +1,11 @@
 <?php
-include "../src/server/auth.php";
-include "../src/server/utils.php";
+include "../../src/server/auth.php";
+include "../../src/server/utils.php";
 
 session_start();
 
 if(!isset($_SESSION['signin'])) {
-    redirect("../../signin/");
+    redirect("../../../signin/");
 }
 ?>
 <!DOCTYPE html>
@@ -20,12 +20,12 @@ if(!isset($_SESSION['signin'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Mallanna&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../src/styles/index.css">
-    <link rel="stylesheet" href="./styles/index.css">
-    <link rel="stylesheet" href="../../src/styles/bottom-menu.css">
-    <link rel="stylesheet" href="./styles/form-list.css">
-    <link rel="stylesheet" href="./styles/animations.css">
-    <link rel="stylesheet" href="./styles/media-querys.css">
+    <link rel="stylesheet" href="../../../src/styles/index.css">
+    <link rel="stylesheet" href="../src/styles/index.css">
+    <link rel="stylesheet" href="../../../src/styles/bottom-menu.css">
+    <link rel="stylesheet" href="../src/styles/form-list.css">
+    <link rel="stylesheet" href="../src/styles/animations.css">
+    <link rel="stylesheet" href="../src/styles/media-querys.css">
 </head>
 
 <body>
@@ -69,7 +69,7 @@ if(!isset($_SESSION['signin'])) {
                             </div>
                         </a>
 
-                        <a href="../signin/">
+                        <a href="../../signin/">
                             <div class="bottom-options">
                                 <div class="exit-container"></div>
                             </div>
@@ -124,8 +124,8 @@ if(!isset($_SESSION['signin'])) {
         </div>
     </div>
 
-    <script src="./scripts/close-btn.js"></script>
-    <script src="./scripts/add-request.js"></script>
-    <script src="./scripts/add-request-container.js"></script>
+    <script src="../src/scripts/close-btn.js"></script>
+    <script src="../src/scripts/add-request.js"></script>
+    <script src="../src/scripts/add-request-container.js"></script>
 </body>
 </html>

@@ -147,7 +147,7 @@
                             </div>
                         </a>
 
-                        <a href="../account/">
+                        <a href="../requests">
                             <div class="bottom-options">
                                 <div class="lists-container"></div>
                             </div>
