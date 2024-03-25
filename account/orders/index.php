@@ -14,7 +14,7 @@ if(!isset($_SESSION['signin'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
 
-    <title>PathPals - Ofertas</title>
+    <title>PathPals - Pedidos</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,17 +43,13 @@ if(!isset($_SESSION['signin'])) {
         <div class="menu">
             <div class="menu-container">
                 <a href="../requests">Solicitadas</a>
-                <a href="./">Ofertas</a>
-                <a href="../orders">Pedidos</a>
+                <a href="../offers">Ofertas</a>
+                <a href="./">Pedidos</a>
             </div>
         </div>
 
         <div class="content">
             <div class="list"></div>
-
-            <div class="add-request">
-                <div class="add-request-container"></div>
-            </div>
 
             <div class="bottom-menu">
                 <div class="bottom-menu-container">
@@ -124,9 +120,5 @@ if(!isset($_SESSION['signin'])) {
             </div>
         </div>
     </div>
-
-    <script src="../src/scripts/close-btn.js"></script>
-    <script src="../src/scripts/add-request.js"></script>
-    <script src="../src/scripts/add-request-container.js"></script>
 </body>
 </html>

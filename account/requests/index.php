@@ -44,7 +44,7 @@ if(!isset($_SESSION['signin'])) {
             <div class="menu-container">
                 <a href="./">Solicitadas</a>
                 <a href="../offers">Ofertas</a>
-                <a href="">Meus Pedidos</a>
+                <a href="../orders">Pedidos</a>
             </div>
         </div>
 
