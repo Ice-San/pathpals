@@ -1,3 +1,13 @@
+<?php
+include "../../src/server/auth.php";
+include "../../src/server/utils.php";
+
+session_start();
+
+if(!isset($_SESSION['signin'])) {
+    redirect("../../../signin/");
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>

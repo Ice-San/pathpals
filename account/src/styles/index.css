@@ -73,11 +73,6 @@
     transition: all 0.3s ease-in-out;
 }
 
-.menu-container a:first-child {
-    background-color: #D9D9D9;
-    border-radius: 50px;
-}
-
 .menu-container a:hover {
     background-color: #D9D9D9;
     border-radius: 50px;
