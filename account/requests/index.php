@@ -160,7 +160,7 @@ if(!isset($_SESSION['email'])) {
                         </div>";
                         }
                     } else {
-                        echo "<p class=\"error-message\">Parece que hoje ninguém precisa de boleias! :D</p>";
+                        echo "<p class=\"error-message\">Parece que hoje ninguém precisa de transporte! :D</p>";
                     }
                 ?>
             </div>
