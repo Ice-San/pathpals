@@ -4,6 +4,31 @@
     }
 }
 
+@media (max-width: 1388px) {
+    .request-container {
+        max-height: 200px;
+        height: 13vw;
+        min-height: 175px;
+    }
+}
+
+@media (max-width: 970px) {
+    .request-container {
+        max-height: 200px;
+        height: 13vw;
+        min-height: 175px;
+    }
+}
+
+@media (max-width: 602px) {
+    .request-container {
+        max-height: 200px;
+        height: 13vw;
+        min-height: 165px;
+    }
+}
+
+
 @media (max-width: 1085px) {
     .menu-container {
         width: 65%;

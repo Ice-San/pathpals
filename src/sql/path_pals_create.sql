@@ -24,6 +24,10 @@ CREATE TABLE users (
 	u_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     u_username VARCHAR(50) NULL,
     u_email VARCHAR(100) NOT NULL,
+    u_career VARCHAR(30) NULL,
+    u_class VARCHAR(30) NULL,
+    u_location VARCHAR(255) NULL,
+    u_about VARCHAR(255) NULL,
     p_id INT NOT NULL,
     
     FOREIGN KEY (p_id) REFERENCES persons(p_id),
@@ -153,7 +157,6 @@ CREATE TABLE rides (
     FOREIGN KEY (t_id) REFERENCES tickets(t_id),
     FOREIGN KEY (rt_id) REFERENCES ride_types(rt_id),
     
-    rideAt DATETIME,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -317,8 +320,22 @@ SET @rt_id = (
 	SELECT rt_id FROM ride_types AS rt WHERE rt.rt_type = 'proposed'
 );
 
+SET @t_id = (
+	LAST_INSERT_ID()
+);
+
 INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
 VALUES('Castelo Branco', 'Lisboa', NOW(), NULL, LAST_INSERT_ID(), @rt_id);
+
+-- === TESTS BEGIN ===
+
+INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
+VALUES('Porto', 'Lisboa', DATE("2023-03-24 13:34:04"), NULL,  @t_id, @rt_id);
+
+INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
+VALUES('Coimbra', 'Lisboa', DATE("2030-03-14 03:34:04"), NULL,  @t_id, @rt_id);
+
+-- === TEST END ===
 
 SET @r_id = (
 	SELECT r_id FROM rides AS r WHERE r.r_id = LAST_INSERT_ID()
@@ -380,13 +397,16 @@ VALUES(@institutions_i_id, @accounts_a_id);
 
 CREATE VIEW all_offers_view AS
 SELECT
-    u.u_id AS user_id,
+    u.u_email AS user_email,
     u.u_username AS username,
+    u.u_career AS career,
+    u.u_class AS class,
     t.t_id AS ticket_id,
     ts.ts_status AS ticket_status,
-    r.r_id AS ride_id,
+    r.r_from AS ride_from,
+    r.r_to AS ride_to,
     rt.rt_type AS ride_type,
-    r.rideAt AS rideAt
+    r.r_start AS ride_start
 FROM
     tickets AS t
 INNER JOIN
@@ -399,22 +419,25 @@ INNER JOIN
     ride_types AS rt ON r.rt_id = rt.rt_id
 WHERE
     rt.rt_type = 'proposed'
-    AND DATE(t.createdAt) = CURDATE()
+    AND DATE(r.r_start) >= CURDATE()
 ORDER BY
-    t.createdAt ASC
+    r.r_start ASC
 LIMIT 100;
 
 -- 2. CREATE GET REQUESTED VIEW
 
 CREATE VIEW all_requested_view AS
 SELECT
-    u.u_id AS user_id,
+    u.u_email AS user_email,
     u.u_username AS username,
+    u.u_career AS career,
+    u.u_class AS class,
     t.t_id AS ticket_id,
     ts.ts_status AS ticket_status,
-    r.r_id AS ride_id,
+    r.r_from AS ride_from,
+    r.r_to AS ride_to,
     rt.rt_type AS ride_type,
-    r.rideAt AS rideAt
+    r.r_start AS ride_start
 FROM
     tickets AS t
 INNER JOIN
@@ -427,9 +450,9 @@ INNER JOIN
     ride_types AS rt ON r.rt_id = rt.rt_id
 WHERE
     rt.rt_type = 'requested'
-    AND DATE(t.createdAt) = CURDATE()
+    AND DATE(r.r_start) >= CURDATE()
 ORDER BY
-    t.createdAt ASC
+    r.r_start ASC
 LIMIT 100;
 
 -- === FUNCTIONS ===
@@ -654,65 +677,17 @@ DELIMITER ;
 -- 9. GET USER OFFER
 
 DELIMITER $$
-CREATE PROCEDURE get_user_offers(user_id INT)
+CREATE PROCEDURE get_user_offers(user_email VARCHAR(255))
 BEGIN
-    SELECT
-        u.u_id AS user_id,
-        u.u_username AS username,
-        t.t_id AS ticket_id,
-        ts.ts_status AS ticket_status,
-        r.r_id AS ride_id,
-        rt.rt_type AS ride_type,
-        r.rideAt AS rideAt
-    FROM
-        tickets AS t
-    INNER JOIN
-        users AS u ON t.u_id = u.u_id
-    INNER JOIN
-        ticket_status AS ts ON t.ts_id = ts.ts_id
-    INNER JOIN
-        rides AS r ON t.t_id = r.t_id
-    INNER JOIN
-        ride_types AS rt ON r.rt_id = rt.rt_id
-    WHERE
-        u.u_id = user_id
-        AND rt.rt_type = 'proposed'
-        AND DATE(t.createdAt) = CURDATE()
-    ORDER BY
-        t.createdAt ASC
-    LIMIT 100;
+    SELECT * FROM all_offers_view AS aov WHERE aov.user_email = user_email;
 END $$
 DELIMITER ;
 
--- 10. GET USER OFFER
+-- 10. GET USER REQUESTS
 
 DELIMITER $$
-CREATE PROCEDURE get_user_requests(user_id INT)
+CREATE PROCEDURE get_user_requests(user_email VARCHAR(255))
 BEGIN
-    SELECT
-        u.u_id AS user_id,
-        u.u_username AS username,
-        t.t_id AS ticket_id,
-        ts.ts_status AS ticket_status,
-        r.r_id AS ride_id,
-        rt.rt_type AS ride_type,
-        r.rideAt AS rideAt
-    FROM
-        tickets AS t
-    INNER JOIN
-        users AS u ON t.u_id = u.u_id
-    INNER JOIN
-        ticket_status AS ts ON t.ts_id = ts.ts_id
-    INNER JOIN
-        rides AS r ON t.t_id = r.t_id
-    INNER JOIN
-        ride_types AS rt ON r.rt_id = rt.rt_id
-    WHERE
-        u.u_id = user_id
-        AND rt.rt_type = 'requested'
-        AND DATE(t.createdAt) = CURDATE()
-    ORDER BY
-        t.createdAt ASC
-    LIMIT 100;
+    SELECT * FROM all_requested_view AS arv WHERE arv.user_email = user_email;
 END $$
 DELIMITER ;

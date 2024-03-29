@@ -1,0 +1,155 @@
+.request-position-left {
+    width: 80%;
+    height: auto;
+}
+
+.requests-user-info {
+    display: flex;
+    grid-gap: 20px;
+
+    margin: 15px;
+    
+    width: 100%;
+    height: auto;
+}
+
+.requests-icon {
+    background-color: #A1A1A1;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    width: clamp(45px, 5vw, 75px);
+    height: clamp(45px, 5vw, 75px);
+}
+
+.requests-icon-container {
+    background-image: url("../../src/assets/images/user-icon.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    margin-bottom: -15px;
+
+    width: 85%;
+    height: 85%;
+}
+
+.requests-user-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.requests-user-text h1 {
+    font-size: clamp(20px, 5vw, 30px);
+    font-weight: 500;
+}
+
+.requests-user-text p {
+    font-size: clamp(15px, 2vw, 18px);
+}
+
+.request-position-left .requests-division {
+    display: flex;
+
+    margin: 15px 0;
+    margin-left: clamp(80px, 7vw, 110px);
+
+    width: 75%;
+}
+
+.requests-division-container {
+    background-color: #818181;
+
+    border-radius: 36px;
+
+    width: 100%;
+    height: 1.5px;
+}
+
+.requests-destinations {
+    margin-left: clamp(80px, 7vw, 110px);
+
+    width: 75%;
+    height: auto;
+}
+
+.requests-destinations span {
+    font-weight: 600;
+}
+
+.requests-destinations p {
+    font-size: clamp(15px, 2vw, 20px);
+    
+    margin-top: 5px;
+}
+
+.request-position-right {
+    display: flex;
+    align-items: center;
+
+    width: 20%;
+    height: 100%;
+}
+
+.request-position-right .requests-division {
+    background-color: #818181;
+
+    border-radius: 36px;
+
+    width: 1.5px;
+    height: 75%;
+}
+
+.requests-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.requests-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    width: clamp(55px, 5vw, 85px);
+    height: clamp(55px, 5vw, 85px);
+
+    transition: all 0.3s ease-in-out;
+}
+
+.requests-btn-container:hover {
+    transform: scale(0.8) rotate(15deg);
+
+    transition: all 0.3s ease-in-out;
+}
+
+.requests-delete {
+    background-image: url("../assets/images/trash.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 100%;
+    height: 100%;
+}
+
+.requests-check {
+    background-image: url("../assets/images/checkMark.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 100%;
+    height: 100%;
+}

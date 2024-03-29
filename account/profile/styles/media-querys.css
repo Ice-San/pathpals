@@ -6,18 +6,10 @@
     .icon {  
         margin-top: 125px;
     }
-
-    .info-breakline {
-        margin-bottom: 75px;
-    }
 }
 
 @media (max-width: 609px) {
     .icon-background {
         margin-top: 100px;
-    }
-
-    .info-breakline {
-        grid-gap: 80px;
     }
 }

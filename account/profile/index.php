@@ -4,7 +4,7 @@ include "../../src/server/utils.php";
 
 session_start();
 
-if(!isset($_SESSION['signin'])) {
+if(!isset($_SESSION['email'])) {
     redirect("../../../signin/");
 }
 ?>
@@ -60,49 +60,51 @@ if(!isset($_SESSION['signin'])) {
                 </div>
 
                 <div class="info-background">
-                    <div class="info-content">
-                        <div class="info-title">
-                            <div class="info-icon">
-                                <div class="career-container"></div>
+                    <div class="info-background-top">
+                        <div class="info-content">
+                            <div class="info-title">
+                                <div class="info-icon">
+                                    <div class="career-container"></div>
+                                </div>
+
+                                <h1>Profissão</h1>
                             </div>
 
-                            <h1>Profissão</h1>
+                            <div class="info-description">
+                                <p>Aluno</p>
+                            </div>
                         </div>
 
-                        <div class="info-description">
-                            <p>Aluno</p>
+                        <div class="info-content">
+                            <div class="info-title">
+                                <div class="info-icon">
+                                    <div class="age-container"></div>
+                                </div>
+
+                                <h1>Idade</h1>
+                            </div>
+
+                            <div class="info-description">
+                                <p>17</p>
+                            </div>
+                        </div>
+
+                        <div class="info-content">
+                            <div class="info-title">
+                                <div class="info-icon">
+                                    <div class="class-container"></div>
+                                </div>
+
+                                <h1>Turma</h1>
+                            </div>
+
+                            <div class="info-description">
+                                <p>12ºA</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="info-content">
-                        <div class="info-title">
-                            <div class="info-icon">
-                                <div class="age-container"></div>
-                            </div>
-
-                            <h1>Idade</h1>
-                        </div>
-
-                        <div class="info-description">
-                            <p>17</p>
-                        </div>
-                    </div>
-
-                    <div class="info-content">
-                        <div class="info-title">
-                            <div class="info-icon">
-                                <div class="class-container"></div>
-                            </div>
-
-                            <h1>Turma</h1>
-                        </div>
-
-                        <div class="info-description">
-                            <p>12ºA</p>
-                        </div>
-                    </div>
-
-                    <div class="info-breakline">
+                    <div class="info-background-bottom">
                         <div class="info-content">
                             <div class="info-title">
                                 <div class="info-icon">
@@ -163,7 +165,7 @@ if(!isset($_SESSION['signin'])) {
                             </div>
                         </a>
 
-                        <a href="../signin/">
+                        <a href="../../signin/">
                             <div class="bottom-options">
                                 <div class="exit-container"></div>
                             </div>
@@ -172,6 +174,6 @@ if(!isset($_SESSION['signin'])) {
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 </body>
 </html>

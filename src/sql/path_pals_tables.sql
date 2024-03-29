@@ -24,6 +24,10 @@ CREATE TABLE users (
 	u_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     u_username VARCHAR(50) NULL,
     u_email VARCHAR(100) NOT NULL,
+    u_career VARCHAR(30) NULL,
+    u_class VARCHAR(30) NULL,
+    u_location VARCHAR(255) NULL,
+    u_about VARCHAR(255) NULL,
     p_id INT NOT NULL,
     
     FOREIGN KEY (p_id) REFERENCES persons(p_id),

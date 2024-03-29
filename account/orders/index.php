@@ -4,7 +4,7 @@ include "../../src/server/utils.php";
 
 session_start();
 
-if(!isset($_SESSION['signin'])) {
+if(!isset($_SESSION['email'])) {
     redirect("../../../signin/");
 }
 ?>
@@ -49,7 +49,7 @@ if(!isset($_SESSION['signin'])) {
         </div>
 
         <div class="content">
-            <div class="list"></div>
+        <div class="list"></div>
 
             <div class="bottom-menu">
                 <div class="bottom-menu-container">
