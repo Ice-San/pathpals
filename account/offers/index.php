@@ -61,11 +61,11 @@ if(!isset($_SESSION['email'])) {
 
                 <?php
 
-                    $displayMyRequests = "CALL get_user_offers('". $_SESSION['email'] . "');";
-                    $requestsMyQuery = mysqli_query($conn , $displayMyRequests);
+                    $displayMyOffers = "CALL get_user_offers('". $_SESSION['email'] . "');";
+                    $offersMyQuery = mysqli_query($conn , $displayMyOffers);
 
-                    if (mysqli_num_rows($requestsMyQuery) > 0) {
-                        while($row = mysqli_fetch_assoc($requestsMyQuery)) {
+                    if (mysqli_num_rows($offersMyQuery) > 0) {
+                        while($row = mysqli_fetch_assoc($offersMyQuery)) {
                             echo "<div class=\"request-container\">
                             <div class=\"request-position-left\">
                                 <div class=\"requests-user-info\">
@@ -104,7 +104,7 @@ if(!isset($_SESSION['email'])) {
                         echo "<p class=\"error-message\">Ohh... parece que hoje você não consegue oferecer um transporte. :(</p>";
                     }
 
-                    mysqli_free_result($requestsMyQuery);
+                    mysqli_free_result($offersMyQuery);
                     mysqli_next_result($conn);
                 ?>
 
@@ -120,11 +120,11 @@ if(!isset($_SESSION['email'])) {
 
                 <?php
 
-                    $displayAllRequests = "SELECT * FROM all_offers_view;";
-                    $requestsAllQuery = mysqli_query($conn , $displayAllRequests);
+                    $displayAllOffers = "SELECT * FROM all_offers_view;";
+                    $offersAllQuery = mysqli_query($conn , $displayAllOffers);
 
-                    if (mysqli_num_rows($requestsAllQuery) > 0) {
-                        while($row = mysqli_fetch_assoc($requestsAllQuery)) {
+                    if (mysqli_num_rows($offersAllQuery) > 0) {
+                        while($row = mysqli_fetch_assoc($offersAllQuery)) {
                             echo "<div class=\"request-container\">
                             <div class=\"request-position-left\">
                                 <div class=\"requests-user-info\">

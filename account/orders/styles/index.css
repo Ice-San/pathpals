@@ -1,0 +1,238 @@
+.background {
+    position: absolute;
+    z-index: 1;
+
+    width: 100%;
+    height: 100vh;
+}
+
+.banner {
+    width: 100%;
+    height: 200px;
+}
+
+.banner-container {
+    background-image: url("../../src/assets/images/background.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 100%;
+    height: 100%;
+}
+
+.banner-overlay {
+    background-color: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.banner-overlay h1 {
+    font-family: "Kaushan Script", "Mallanna", "Manrope", Arial, Helvetica, sans-serif;
+    font-size: clamp(100px, 10vw, 150px);
+    font-weight: 500;
+
+    cursor: default;
+
+    color: white;
+    text-shadow: 8px 9px 4px rgba(0,0,0,0.5);
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 125px;
+}
+
+.menu-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 75%;
+    height: 100%;
+}
+
+.menu-container a {
+    color: black;
+    font-family: "Manrope", "Mallana", Arial, Helvetica, sans-serif;
+    font-size: clamp(8px, 4.5vw, 45px);
+    font-weight: 350;
+
+    padding: 0 25px;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.menu-container a:hover {
+    background-color: #D9D9D9;
+    border-radius: 50px;
+
+    transform: scale(0.9) rotate(10deg);
+
+    transition: all 0.3s ease-in-out;
+}
+
+.content {
+    position: relative;
+
+    width: 100%;
+    height: 66.7vh;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    grid-gap: 40px;
+
+    cursor: default;
+
+    margin-top: 50px;
+
+    width: 100%;
+    height: auto;
+}
+
+.list-direction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    height: auto;
+}
+
+.list-titles {
+    display: flex;
+    justify-content: center;
+    grid-gap: 15px;
+
+    width: 100%;
+    height: auto;
+}
+
+.list-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 5px;
+
+    width: clamp(35px, 5vw, 60px);
+    height: clamp(35px, 5vw, 60px);
+}
+
+.list-icon-my {
+    background-image: url("../assets/images/requests-icon.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 100%;
+    height: 100%;
+}
+
+.list-icon-global {
+    background-image: url("../assets/images/offers-icon.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 100%;
+    height: 100%;
+}
+
+.list-titles h1 {
+    font-family: "Manrope", "Mallana", Arial, Helvetica, sans-serif;
+    font-size: clamp(30px, 5vw, 50px);
+    font-weight: 400;
+
+    margin-bottom: 50px;
+}
+
+.list-division {
+    background-color: #A1A1A1;
+
+    border-radius: 50px;
+
+    width: 1.5px;
+    height: 45vh;
+}
+
+.request-container {
+    background-color: #D9D9D9;
+
+    font-family: "Manrope", "Mallanna", Arial, Helvetica, sans-serif;
+
+    border-radius: 16px;
+
+    display: flex;
+    align-items: center;
+    grid-gap: 30px;
+
+    max-width: 900px;
+    width: 95%;
+    min-width: 350px;
+    
+    max-height: 200px;
+    height: 13vw;
+    min-height: 150px;
+}
+
+.request-container:last-child {
+    margin-bottom: 125px;
+}
+
+.add-request {
+    background-color: #1FE586;
+    
+    border-radius: 50%;
+    box-shadow: 3px 4px 4.2px 0px rgba(0,0,0,0.4);
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    margin: 135px 35px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease-in-out;
+
+    width: clamp(90px, 7vw, 350px);
+    height: clamp(90px, 7vw, 350px);
+}
+
+.add-request:hover {
+    transform: scale(0.85) rotate(360deg);
+
+    transition: all 0.3s ease-in-out;
+}
+
+.add-request-container {
+    background-image: url("../assets/images/addBtn.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 45%;
+    height: 45%;
+}
+
+.error-message {
+    font-family: "Manrope", "Mallanna", Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
