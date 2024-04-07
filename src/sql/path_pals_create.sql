@@ -707,3 +707,19 @@ BEGIN
     VALUES(email, (SELECT u_username FROM users WHERE u_id = u_id), (SELECT u_career FROM users WHERE u_id = u_id), (SELECT u_class FROM users WHERE u_id = u_id), NULL, 'pending', from_location, to_location, 'proposed', start_datetime);
 END $$
 DELIMITER ;
+
+-- 12. CREATE A NEW PROCEDURE TO ADD REQUEST
+
+DELIMITER $$
+CREATE PROCEDURE add_request(email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME)
+BEGIN
+    DECLARE u_id INT;
+
+    SET u_id = (
+        SELECT u_id FROM users WHERE u_email = email
+    );
+
+    INSERT INTO rides(r_from, r_to, r_start, t_id, rt_id)
+    VALUES(from_location, to_location, start_datetime, NULL, (SELECT rt_id FROM ride_types WHERE rt_type = 'requested'));
+END $$
+DELIMITER ;
