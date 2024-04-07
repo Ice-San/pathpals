@@ -691,3 +691,19 @@ BEGIN
     SELECT * FROM all_requested_view AS arv WHERE arv.user_email = user_email;
 END $$
 DELIMITER ;
+
+-- 11. CREATE ADD OFFERS
+
+DELIMITER $$
+CREATE PROCEDURE add_offer(email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME, end_datetime DATETIME)
+BEGIN
+	DECLARE u_id INT;
+
+    SET u_id = (
+        SELECT u_id FROM users WHERE u_email = email
+    );
+
+    INSERT INTO all_offers_view(email, username, career, class, ticket_id, ticket_status, ride_from, ride_to, ride_type, ride_start)
+    VALUES(email, (SELECT u_username FROM users WHERE u_id = u_id), (SELECT u_career FROM users WHERE u_id = u_id), (SELECT u_class FROM users WHERE u_id = u_id), NULL, 'pending', from_location, to_location, 'proposed', start_datetime);
+END $$
+DELIMITER ;
