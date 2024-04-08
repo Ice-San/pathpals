@@ -173,3 +173,28 @@ BEGIN
     VALUES(from_location, to_location, start_datetime, NULL, (SELECT rt_id FROM ride_types WHERE rt_type = 'requested'));
 END $$
 DELIMITER ;
+
+-- 13. CREATE ACCEPT OFFER
+
+DELIMITER $$
+CREATE PROCEDURE accept_offer(r_id INT, accepting_user_email VARCHAR(255))
+BEGIN
+    DECLARE driver_u_id INT;
+    DECLARE traveler_u_id INT;
+
+    SET traveler_u_id = (
+        SELECT u_id FROM users WHERE u_email = accepting_user_email
+    );
+
+    SET driver_u_id = (
+        SELECT u_id_driver FROM connections WHERE r_id = r_id
+    );
+
+    UPDATE rides
+    SET u_id_traveler = traveler_u_id
+    WHERE r_id = r_id;
+    
+    INSERT INTO connections(r_id, u_id_driver, u_id_traveler)
+    VALUES(r_id, driver_u_id, traveler_u_id);
+END $$
+DELIMITER ;
