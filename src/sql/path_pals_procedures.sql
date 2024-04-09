@@ -299,3 +299,14 @@ BEGIN
     DELETE FROM connections WHERE u_id_driver = u_id;
 END $$
 DELIMITER ;
+
+-- 18. GET USER INFO
+
+DELIMITER $$
+CREATE PROCEDURE get_user_info(user_email VARCHAR(255))
+BEGIN
+    SELECT *
+    FROM user_data_view
+    WHERE u_email = user_email;
+END $$
+DELIMITER ;

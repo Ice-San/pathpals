@@ -59,3 +59,23 @@ WHERE
 ORDER BY
     r.r_start ASC
 LIMIT 100;
+
+-- 3. CREATE GET USER INFO VIEW
+
+CREATE VIEW user_data_view AS
+SELECT
+    p.p_id,
+    p.p_first_name,
+    p.p_last_name,
+    p.p_birth_date,
+    p.p_genre,
+    u.u_username,
+    u.u_email,
+    u.u_career,
+    u.u_class,
+    u.u_location,
+    u.u_about
+FROM
+    persons AS p
+JOIN
+    users AS u ON p.p_id = u.p_id;
