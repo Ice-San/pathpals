@@ -273,3 +273,29 @@ BEGIN
         u_id = u_id;
 END $$
 DELIMITER ;
+
+-- 16. CANCEL REQUESTS
+
+DELIMITER $$
+CREATE PROCEDURE cancel_requests(user_email VARCHAR(255))
+BEGIN
+    DECLARE u_id INT;
+    
+    SET u_id = (SELECT u_id FROM users WHERE u_email = user_email);
+
+    DELETE FROM connections WHERE u_id_traveler = u_id;
+END $$
+DELIMITER ;
+
+-- 17. CANCEL OFFERS
+
+DELIMITER $$
+CREATE PROCEDURE cancel_offers(user_email VARCHAR(255))
+BEGIN
+    DECLARE u_id INT;
+    
+    SET u_id = (SELECT u_id FROM users WHERE u_email = user_email);
+    
+    DELETE FROM connections WHERE u_id_driver = u_id;
+END $$
+DELIMITER ;
