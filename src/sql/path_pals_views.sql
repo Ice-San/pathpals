@@ -60,7 +60,35 @@ ORDER BY
     r.r_start ASC
 LIMIT 100;
 
--- 3. CREATE GET USER INFO VIEW
+-- 3. CREATE GET ALL CONNECTION VIEW
+
+CREATE VIEW all_connections_view AS
+SELECT
+    c.c_id AS connection_id,
+    r.r_id AS ride_id,
+    r.r_from AS ride_from,
+    r.r_to AS ride_to,
+    r.r_start AS ride_start,
+    r.r_end AS ride_end,
+    rt.rt_type AS ride_type,
+    u_driver.u_id AS driver_id,
+    u_driver.u_username AS driver_username,
+    u_driver.u_email AS driver_email,
+    u_traveler.u_id AS traveler_id,
+    u_traveler.u_username AS traveler_username,
+    u_traveler.u_email AS traveler_email
+FROM
+    connections AS c
+INNER JOIN
+    rides AS r ON c.r_id = r.r_id
+INNER JOIN
+    ride_types AS rt ON r.rt_id = rt.rt_id
+INNER JOIN
+    users AS u_driver ON c.u_id_driver = u_driver.u_id
+INNER JOIN
+    users AS u_traveler ON c.u_id_traveler = u_traveler.u_id;
+
+-- 4. CREATE GET USER INFO VIEW
 
 CREATE VIEW user_data_view AS
 SELECT

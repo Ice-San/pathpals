@@ -193,31 +193,23 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE accept_offer(r_id INT, accepting_user_email VARCHAR(255))
 BEGIN
-    DECLARE num_accepted INT;
-    DECLARE driver_u_id INT;
-    DECLARE traveler_u_id INT;
-
-    SET num_accepted = (
-        SELECT COUNT(*) FROM connections WHERE u_id_traveler = (SELECT u_id FROM users WHERE u_email = accepting_user_email)
-    );
-
-    IF num_accepted > 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O usuário já aceitou uma oferta';
-    ELSE
-        SET traveler_u_id = (
+    SET @traveler_id = (
             SELECT u_id FROM users WHERE u_email = accepting_user_email
         );
 
-        SET driver_u_id = (
+    SET @num_accepted = (
+        SELECT COUNT(*) FROM connections WHERE u_id_traveler = @traveler_id
+    );
+
+    IF @num_accepted > 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O usuário já aceitou uma oferta';
+    ELSE
+        SET @driver_id = (
             SELECT u_id_driver FROM connections WHERE r_id = r_id
         );
 
-        UPDATE rides
-        SET u_id_traveler = traveler_u_id
-        WHERE r_id = r_id;
-
         INSERT INTO connections(r_id, u_id_driver, u_id_traveler)
-        VALUES(r_id, driver_u_id, traveler_u_id);
+        VALUES(r_id, @driver_id, @traveler_id);
     END IF;
 END $$
 DELIMITER ;
@@ -227,31 +219,23 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE accept_request(r_id INT, accepting_user_email VARCHAR(255))
 BEGIN
-    DECLARE num_accepted INT;
-    DECLARE driver_u_id INT;
-    DECLARE traveler_u_id INT;
-
-    SET num_accepted = (
-        SELECT COUNT(*) FROM connections WHERE u_id_driver = (SELECT u_id FROM users WHERE u_email = accepting_user_email)
-    );
-
-    IF num_accepted > 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O usuário já aceitou uma solicitação';
-    ELSE
-        SET driver_u_id = (
+    SET @driver_id = (
             SELECT u_id FROM users WHERE u_email = accepting_user_email
         );
 
-        SET traveler_u_id = (
+    SET @num_accepted = (
+        SELECT COUNT(*) FROM connections WHERE u_id_driver = @driver_id
+    );
+
+    IF @num_accepted > 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O utilizador já aceitou uma oferta ou um pedido';
+    ELSE
+        SET @traveler_id = (
             SELECT u_id_traveler FROM connections WHERE r_id = r_id
         );
 
-        UPDATE rides
-        SET u_id_driver = driver_u_id
-        WHERE r_id = r_id;
-
-        INSERT INTO connections(r_id, u_id_driver, u_id_traveler)
-        VALUES(r_id, driver_u_id, traveler_u_id);
+        INSERT INTO connections(r_id, u_id_traveler, u_id_driver)
+        VALUES(r_id, @traveler_id, @driver_id);
     END IF;
 END $$
 DELIMITER ;
@@ -261,30 +245,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE get_connections(user_email VARCHAR(255))
 BEGIN
-    DECLARE u_id INT;
-    SET u_id = (SELECT u_id FROM users WHERE u_email = user_email);
-
-    SELECT 
-        c.c_id,
-        r.r_id,
-        r.r_from,
-        r.r_to,
-        r.r_start,
-        r.r_end,
-        u_driver.u_username AS driver_username,
-        u_driver.u_email AS driver_email,
-        u_traveler.u_username AS traveler_username,
-        u_traveler.u_email AS traveler_email
-    FROM 
-        connections AS c
-    INNER JOIN 
-        rides AS r ON c.r_id = r.r_id
-    INNER JOIN 
-        users AS u_driver ON c.u_id_driver = u_driver.u_id
-    INNER JOIN 
-        users AS u_traveler ON c.u_id_traveler = u_traveler.u_id
-    WHERE 
-        u_id = u_id;
+    SELECT * FROM all_connections_view WHERE driver_email = user_email OR traveler_email = user_email;
 END $$
 DELIMITER ;
 
@@ -293,11 +254,11 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE cancel_requests(user_email VARCHAR(255))
 BEGIN
-    DECLARE u_id INT;
-    
-    SET u_id = (SELECT u_id FROM users WHERE u_email = user_email);
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = user_email
+        );
 
-    DELETE FROM connections WHERE u_id_traveler = u_id;
+    DELETE FROM connections WHERE u_id_traveler = @u_id;
 END $$
 DELIMITER ;
 
@@ -306,11 +267,11 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE cancel_offers(user_email VARCHAR(255))
 BEGIN
-    DECLARE u_id INT;
-    
-    SET u_id = (SELECT u_id FROM users WHERE u_email = user_email);
-    
-    DELETE FROM connections WHERE u_id_driver = u_id;
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = user_email
+        );
+
+    DELETE FROM connections WHERE u_id_driver = @u_id;
 END $$
 DELIMITER ;
 
