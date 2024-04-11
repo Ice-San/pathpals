@@ -17,7 +17,7 @@ if($check_email_exists->num_rows > 0) {
     redirect("../../../signup/"); 
 }
 
-$register_users = "CALL create_user('$username', '$email', 'User1', 'Test1', 'M', '$password', 'user', 3)";
+$register_users = "CALL create_user('$username', '$email', '', '', '', '$password', 'user', 3)";
 $create_user = mysqli_query($conn, $register_users);
 
 if($create_user) {

@@ -459,17 +459,17 @@ LIMIT 100;
 
 CREATE VIEW user_data_view AS
 SELECT
-    p.p_id,
-    p.p_first_name,
-    p.p_last_name,
-    p.p_birth_date,
-    p.p_genre,
-    u.u_username,
-    u.u_email,
-    u.u_career,
-    u.u_class,
-    u.u_location,
-    u.u_about
+    p.p_first_name AS first_name,
+    p.p_last_name AS last_name,
+    p.p_birth_date AS user_birthday,
+    p.p_genre AS user_genre,
+    YEAR(CURDATE()) - YEAR(p.p_birth_date) - (RIGHT(CURDATE(), 5) < RIGHT(p.p_birth_date, 5)) AS user_age,
+    u.u_username AS user_username,
+    u.u_email AS user_email,
+    u.u_career AS user_career,
+    u.u_class AS user_class,
+    u.u_location AS user_location,
+    u.u_about AS user_about
 FROM
     persons AS p
 JOIN
@@ -715,32 +715,46 @@ DELIMITER ;
 -- 11. CREATE ADD OFFERS
 
 DELIMITER $$
-CREATE PROCEDURE add_offer(email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME, end_datetime DATETIME)
+CREATE PROCEDURE add_offer(user_email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME, end_datetime DATETIME)
 BEGIN
-	DECLARE u_id INT;
-
-    SET u_id = (
-        SELECT u_id FROM users WHERE u_email = email
+    SET @u_id = (
+        SELECT u_id FROM users WHERE u_email = user_email
     );
 
-    INSERT INTO all_offers_view(email, username, career, class, ticket_id, ticket_status, ride_from, ride_to, ride_type, ride_start)
-    VALUES(email, (SELECT u_username FROM users WHERE u_id = u_id), (SELECT u_career FROM users WHERE u_id = u_id), (SELECT u_class FROM users WHERE u_id = u_id), NULL, 'pending', from_location, to_location, 'proposed', start_datetime);
+    INSERT INTO tickets(u_id, ts_id)
+    VALUES(@u_id, (SELECT ts_id FROM ticket_status WHERE ts_status = 'pending'));
+
+    SET @t_id = LAST_INSERT_ID();
+
+    SET @rt_id = (
+		SELECT rt_id FROM ride_types WHERE rt_type = 'proposed'
+    );
+
+    INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
+    VALUES(from_location, to_location, start_datetime, end_datetime, @t_id, @rt_id);
 END $$
 DELIMITER ;
 
 -- 12. CREATE ADD REQUEST
 
 DELIMITER $$
-CREATE PROCEDURE add_request(email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME)
+CREATE PROCEDURE add_request(user_email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME)
 BEGIN
-    DECLARE u_id INT;
+    SET @u_id = (
+        SELECT u_id FROM users WHERE u_email = user_email
+    );
 
-    SET u_id = (
-        SELECT u_id FROM users WHERE u_email = email
+    INSERT INTO tickets(u_id, ts_id)
+    VALUES(@u_id, (SELECT ts_id FROM ticket_status WHERE ts_status = 'pending'));
+
+    SET @t_id = LAST_INSERT_ID();
+
+    SET @rt_id = (
+		SELECT rt_id FROM ride_types WHERE rt_type = 'requested'
     );
 
     INSERT INTO rides(r_from, r_to, r_start, t_id, rt_id)
-    VALUES(from_location, to_location, start_datetime, NULL, (SELECT rt_id FROM ride_types WHERE rt_type = 'requested'));
+    VALUES(from_location, to_location, start_datetime, @t_id, @rt_id);
 END $$
 DELIMITER ;
 
@@ -875,8 +889,6 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE get_user_info(user_email VARCHAR(255))
 BEGIN
-    SELECT *
-    FROM user_data_view
-    WHERE u_email = user_email;
+    SELECT * FROM user_data_view AS udv WHERE udv.user_email = user_email;
 END $$
 DELIMITER ;

@@ -64,17 +64,17 @@ LIMIT 100;
 
 CREATE VIEW user_data_view AS
 SELECT
-    p.p_id,
-    p.p_first_name,
-    p.p_last_name,
-    p.p_birth_date,
-    p.p_genre,
-    u.u_username,
-    u.u_email,
-    u.u_career,
-    u.u_class,
-    u.u_location,
-    u.u_about
+    p.p_first_name AS first_name,
+    p.p_last_name AS last_name,
+    p.p_birth_date AS user_birthday,
+    p.p_genre AS user_genre,
+    YEAR(CURDATE()) - YEAR(p.p_birth_date) - (RIGHT(CURDATE(), 5) < RIGHT(p.p_birth_date, 5)) AS user_age,
+    u.u_username AS user_username,
+    u.u_email AS user_email,
+    u.u_career AS user_career,
+    u.u_class AS user_class,
+    u.u_location AS user_location,
+    u.u_about AS user_about
 FROM
     persons AS p
 JOIN
