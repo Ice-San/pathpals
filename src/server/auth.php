@@ -2,7 +2,7 @@
 
 $servername = "localhost:3306";
 $username = "root";
-$password = "root";
+$password = "root1996";
 $database = "path_pals_db";
 
 $conn = mysqli_connect($servername, $username, $password, $database);

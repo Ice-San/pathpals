@@ -1,12 +1,16 @@
 <?php
 include "../../src/server/auth.php";
 include "../../src/server/utils.php";
+include "../../src/server/user/info/get.php";
 
 session_start();
 
 if(!isset($_SESSION['email'])) {
     redirect("../../../signin/");
 }
+
+$userInfo = getUserInfo($conn);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,9 +49,117 @@ if(!isset($_SESSION['email'])) {
             </div>
 
             <div class="content">
-                <?php
-                    include "../../src/server/user/user-info/get.php";
-                ?>
+                <!-- ====== Rodrigo was here (Start) ====== -->
+                <div class="username-background">
+                    <div class="username-position">
+                        <div class="username">
+                            <div class="username-container"></div>
+                        </div>
+                        <!-- NEW -->
+                        <p><?php echo $userInfo['user_username']; ?></p>
+                    </div>
+                
+                    <div class="name-background">
+                        <!-- NEW -->
+                        <p><?php echo $userInfo['first_name'] . ' ' . $userInfo['last_name']; ?></p>
+                    </div>
+                </div>
+                
+                <div class="info-background">
+                    <div class="info-background-top">
+                        <div class="info-content">
+                            <div class="info-title">
+                                <div class="info-icon">
+                                    <div class="career-container"></div>
+                                </div>
+                
+                                <h1>Profissão</h1>
+                            </div>
+                
+                            <div class="info-description">
+                                <!-- NEW -->
+                                <?php echo isset($userInfo['user_career']) ? '<p>'. $userInfo['user_career'] . '</p>' : ''; ?>
+                            </div>
+                        </div>
+                
+                        <div class="info-content">
+                            <div class="info-title">
+                                <div class="info-icon">
+                                    <div class="age-container"></div>
+                                </div>
+                
+                                <h1>Idade</h1>
+                            </div>
+                
+                            <div class="info-description">
+                                <!-- NEW -->
+                                <?php echo isset($userInfo['user_age']) ? '<p>'. $userInfo['user_age'] . '</p>' : ''; ?>
+                            </div>
+                        </div>
+                
+                        <div class="info-content">
+                            <div class="info-title">
+                                <div class="info-icon">
+                                    <div class="class-container"></div>
+                                </div>
+                
+                                <h1>Turma</h1>
+                            </div>
+                
+                            <div class="info-description">
+                                <!-- NEW -->
+                                <?php echo isset($userInfo['user_class']) ? '<p>'. $userInfo['user_class'] . '</p>' : ''; ?>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="info-background-bottom">
+                        <div class="info-content">
+                            <div class="info-title">
+                                <div class="info-icon">
+                                    <div class="school-container"></div>
+                                </div>
+                
+                                <h1>Escola</h1>
+                            </div>
+                
+                            <div class="info-description">
+                                <p></p>
+                            </div>
+                        </div>
+                
+                        <div class="info-content">
+                            <div class="info-title">
+                                <div class="info-icon">
+                                    <div class="location-container"></div>
+                                </div>
+                
+                                <h1>Localização</h1>
+                            </div>
+                
+                            <div class="info-description">
+                                <!-- NEW -->
+                                <?php echo isset($userInfo['user_location']) ? '<p>'. $userInfo['user_location'] . '</p>' : ''; ?>
+                            </div>
+                        </div>
+                
+                        <div class="info-content">
+                            <div class="info-title">
+                                <div class="info-icon">
+                                    <div class="aboutme-container"></div>
+                                </div>
+                
+                                <h1>Sobre Mim</h1>
+                            </div>
+                
+                            <div class="info-description">
+                                <!-- NEW -->
+                                <?php echo isset($userInfo['user_about']) ? '<p>'. $userInfo['user_about'] . '</p>' : ''; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ====== Rodrigo was here (End) ====== -->
             </div>
 
             <div class="bottom-menu">
