@@ -49,18 +49,15 @@ $userInfo = getUserInfo($conn);
             </div>
 
             <div class="content">
-                <!-- ====== Rodrigo was here (Start) ====== -->
                 <div class="username-background">
                     <div class="username-position">
                         <div class="username">
                             <div class="username-container"></div>
                         </div>
-                        <!-- NEW -->
                         <p><?php echo $userInfo['user_username']; ?></p>
                     </div>
                 
                     <div class="name-background">
-                        <!-- NEW -->
                         <p><?php echo $userInfo['first_name'] . ' ' . $userInfo['last_name']; ?></p>
                     </div>
                 </div>
@@ -77,7 +74,6 @@ $userInfo = getUserInfo($conn);
                             </div>
                 
                             <div class="info-description">
-                                <!-- NEW -->
                                 <?php echo isset($userInfo['user_career']) ? '<p>'. $userInfo['user_career'] . '</p>' : ''; ?>
                             </div>
                         </div>
@@ -92,7 +88,6 @@ $userInfo = getUserInfo($conn);
                             </div>
                 
                             <div class="info-description">
-                                <!-- NEW -->
                                 <?php echo isset($userInfo['user_age']) ? '<p>'. $userInfo['user_age'] . '</p>' : ''; ?>
                             </div>
                         </div>
@@ -107,7 +102,6 @@ $userInfo = getUserInfo($conn);
                             </div>
                 
                             <div class="info-description">
-                                <!-- NEW -->
                                 <?php echo isset($userInfo['user_class']) ? '<p>'. $userInfo['user_class'] . '</p>' : ''; ?>
                             </div>
                         </div>
@@ -138,7 +132,6 @@ $userInfo = getUserInfo($conn);
                             </div>
                 
                             <div class="info-description">
-                                <!-- NEW -->
                                 <?php echo isset($userInfo['user_location']) ? '<p>'. $userInfo['user_location'] . '</p>' : ''; ?>
                             </div>
                         </div>
@@ -153,13 +146,11 @@ $userInfo = getUserInfo($conn);
                             </div>
                 
                             <div class="info-description">
-                                <!-- NEW -->
                                 <?php echo isset($userInfo['user_about']) ? '<p>'. $userInfo['user_about'] . '</p>' : ''; ?>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- ====== Rodrigo was here (End) ====== -->
             </div>
 
             <div class="bottom-menu">

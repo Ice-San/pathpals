@@ -1,7 +1,6 @@
 <?php
     include "../../src/server/auth.php";
 
-    // ====== Rodrigo was here (Start) ======
     function getUserInfo($conn) {
         $userInfo = "CALL get_user_info('". $_SESSION['email'] . "');";
         $userInfoQuery = mysqli_query($conn, $userInfo);
@@ -14,5 +13,4 @@
         }
         return $final_data[0];
     }
-    // ====== Rodrigo was here (End) ======
 ?>
