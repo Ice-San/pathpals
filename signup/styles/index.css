@@ -139,7 +139,7 @@
     justify-content: center;
 
     width: 100%;
-    height: 90%;
+    height: 85%;
 }
 
 .center-signup-content {
@@ -154,26 +154,26 @@
 .header {
     cursor: default;
 
-    margin-top: -75px;
+    margin-top: -5vw;
 }
 
 .header h1 {
-    font-size: clamp(30px, 10vw, 100px);
+    font-size: 5vw;
 }
 
 .header p {
-    font-size: clamp(15px, 5vw, 35px);
+    font-size: 1.45vw;
     font-weight: 100;
 
-    margin-left: 20px;
-    margin-top: -8px;
+    margin-left: 6px;
+    margin-top: -10px;
 }
 
 .cars {
-    margin: -85px 0px -40px 0px;
+    margin-top: -80px;
 
-    width: 350px;
-    height: 350px;
+    width: 17vw;
+    height: 17vw;
 }
 
 .cars-container {
@@ -193,6 +193,31 @@
     height: auto;
 }
 
+.form-flex-all {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 10px;
+
+    width: 100%;
+    height: 100%;
+}
+
+.form-flex {
+    display: flex;
+    grid-gap: 10px;
+
+    width: 100%;
+    height: 100%;
+}
+
+.form-no-flex {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+}
+
 .form-content {
     background-color: rgba(21, 21, 21, 0.50);
 
@@ -204,11 +229,7 @@
     align-items: center;
 
     width: 100%;
-    height: 60px;
-}
-
-.form-content-txt-inputs {
-    margin-top: 15px;
+    height: 3.8vw;
 }
 
 .form-content:focus-within {
@@ -219,7 +240,7 @@
 
 .form-content input {
     color: #C2C4C5;
-    font-size: 18px;
+    font-size: 1.1vw;
 
     margin-left: 15px;
 
@@ -230,7 +251,7 @@
 .form-error {
     color: rgb(255, 119, 119);
 
-    font-size: 13.5px;
+    font-size: 0.85vw;
 
     border-bottom: 3px solid rgba(255, 119, 119, 0.658);
 
@@ -239,9 +260,10 @@
 
     padding-bottom: 2px;
 
-    width: 300px;
+    width: 350px;
     height: auto;
 }
+
 
 .password {
     display: flex;
@@ -292,13 +314,15 @@
 }
 
 .submit {
-    margin-top: 25px;
+    margin-top: 2vw;
 
     width: 100%;
     height: auto;
 }
 
 .submit p {
+    font-size: 1.2vw;
+
     text-align: center;
 }
 
@@ -309,7 +333,7 @@
 }
 
 .submit a:hover {
-    font-size: 14px;
+    font-size: 1vw;
     text-decoration: underline;
 
     transition: all 0.2s ease-in-out;
@@ -321,15 +345,15 @@
     border-radius: 16px;
 
     color: black;
-    font-size: 30px;
+    font-size: 2vw;
     font-weight: bold;
 
     cursor: pointer;
 
-    margin-top: 15px;
+    margin-top: 1vw;
 
     width: 100%;
-    height: 60px;
+    height: 4vw;
 
     transition: all 0.3s ease-in-out;
 }

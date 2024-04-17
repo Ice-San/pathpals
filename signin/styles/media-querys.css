@@ -19,34 +19,187 @@
     }
 }
 
+@media (max-width: 1260px) {
+    .header h1 {
+        font-size: 7vw;
+    }
+    
+    .header p {
+        font-size: 2.3vw;
+    
+        margin-left: 4.5px;
+        margin-top: -5px;
+    }
+
+    .cars {
+        margin-top: -6vw;
+    
+        width: 25vw;
+        height: 25vw;
+    }
+
+    .form-content {
+        height: 5vw;
+    }
+
+    .form-content input {
+        font-size: 1.5vw;
+    }
+
+    .submit {
+        margin-top: 4vw;
+    }
+
+    .submit input {
+        font-size: 2.5vw;
+    
+        margin-top: 1vw;
+    
+        width: 100%;
+        height: 5vw;
+    }
+}
+
+
 @media (max-width: 850px) {
     .back-btn {
         margin-left: 20px;
-        margin-top: 30px;
+        margin-top: 35px;
     
         width: 60px;
         height: 60px;
     }
-
+    
     .header h1 {
-        font-size: clamp(50px, 10vw, 150px);
+        font-size: 7vw;
     }
     
     .header p {
-        font-size: clamp(18px, 3vw, 30px);
+        font-size: 2.5vw;
     
-        margin-left: 8px;
-        margin-top: -10px;
+        margin-left: 4.5px;
+        margin-top: -5px;
+    }
+
+    .cars {
+        margin-top: -2vw;
+        margin-bottom: 4vw;
+    
+        width: 23vw;
+        height: 23vw;
     }
 
     .center-signup form { 
         width: 95%;
     }
 
+    .form-content {
+        height: 6vw;
+    }
+
+    .form-content input {
+        font-size: 2vw;
+    }
+    
     .view-pass {
         margin-left: 5px;
 
-        width: clamp(39px, 3vw, 42px);
-        height: clamp(35px, 3vw, 40px);
+        width: 7.5vw;
+        height: 7vw;
+    }
+
+    .form-error {
+        font-size: 1.5vw;
+
+        width: 90%;
+        height: auto;
+    }
+
+    .submit {
+        margin-top: 5vw;
+    
+        width: 100%;
+        height: auto;
+    }
+    
+    .submit p {
+        font-size: 2vw;
+    
+        text-align: center;
+    }
+
+    .submit a:hover {
+        font-size: 1.3vw;
+    }
+
+    .submit input {
+        font-size: 3.5vw;
+    
+        margin-top: 1vw;
+    
+        width: 100%;
+        height: 6vw;
+    }
+}
+
+@media (max-width: 670px) {
+    .header h1 {
+        font-size: 9vw;
+    }
+    
+    .header p {
+        font-size: 3vw;
+    
+        margin-left: 4.5px;
+        margin-top: -5px;
+    }
+
+    .cars {
+        margin-top: -2vw;
+        margin-bottom: 4vw;
+    
+        width: 30vw;
+        height: 30vw;
+    }
+
+    .form-content {
+        height: 7vw;
+    }
+
+    .form-content input {
+        font-size: 2.4vw;
+    }
+
+    .submit input {
+        font-size: 3.5vw;
+    
+        margin-top: 1vw;
+    
+        width: 100%;
+        height: 7vw;
+    }
+}
+
+@media (max-width: 530px) {
+    .cars {
+        margin-top: -2vw;
+        margin-bottom: 9vw;
+    
+        width: 30vw;
+        height: 30vw;
+    }
+
+    .form-content {
+        height: 8vw;
+    }
+
+    .form-content input {
+        font-size: 2.4vw;
+    }
+
+    .submit input {
+        font-size: 3.5vw;
+        
+        height: 8vw;
     }
 }
