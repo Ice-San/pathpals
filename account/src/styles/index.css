@@ -35,7 +35,7 @@
 
 .banner-overlay h1 {
     font-family: "Kaushan Script", "Mallanna", "Manrope", Arial, Helvetica, sans-serif;
-    font-size: clamp(100px, 10vw, 150px);
+    font-size: clamp(90px, 10vw, 150px);
     font-weight: 500;
 
     cursor: default;
@@ -48,6 +48,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    overflow: hidden;
 
     width: 100%;
     height: 125px;
@@ -227,4 +229,6 @@
 .error-message {
     font-family: "Manrope", "Mallanna", Arial, Helvetica, sans-serif;
     font-size: 20px;
+
+    margin: 0 25px;
 }

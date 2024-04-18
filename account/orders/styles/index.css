@@ -235,4 +235,6 @@
 .error-message {
     font-family: "Manrope", "Mallanna", Arial, Helvetica, sans-serif;
     font-size: 20px;
+    
+    margin: 0 25px;
 }

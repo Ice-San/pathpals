@@ -205,36 +205,73 @@ if(!isset($_SESSION['email'])) {
                 </div>
 
                 <div class="form-list-title">
-                    <h1>Criar uma Solicitação</h1>
+                    <h1>Criar uma Oferta</h1>
                 </div>
 
-                <form action="">
+                <form action="../../src/server/rides/offers/post.php" method="POST" enctype="application/x-www-form-urlencoded">
                     <div class="form-list-inputs">
                         <div class="form-list-input-title">
                             <div class="form-list-icon">
                                 <div class="form-list-icon-container form-list-from"></div>
                             </div>
 
-                            <h1>From:</h1>
+                            <h1>De:</h1>
                         </div>
-                        <input type="text">
+                        <input id="tripFrom" type="text" name="offerFrom" maxlength="100" required>
+                        <div class="error-input">
+                            <div class="error-input-message tripFrom unvisibility"></div>
+                        </div>
 
                         <div class="form-list-input-title">
                             <div class="form-list-icon">
                                 <div class="form-list-icon-container form-list-to"></div>
                             </div>
                             
-                            <h1>To:</h1>
+                            <h1>Para:</h1>
                         </div>
-                        <input type="text">
+                        <input id="tripTo" type="text" name="offerTo" maxlength="100" required>
+                        <div class="error-input">
+                            <div class="error-input-message tripTo unvisibility"></div>
+                        </div>
+
+                        <div class="form-list-dates">
+                            <div class="form-list-date">
+                                <div class="form-list-input-title">
+                                    <div class="form-list-icon">
+                                        <div class="form-list-icon-container form-list-start"></div>
+                                    </div>
+                                    
+                                    <h1>Começa:</h1>
+                                </div>
+                                <?php 
+                                    $minTimeDate = date("Y-m-d");
+                                    $minTimeHour = date("H:i");
+                                    echo '<input id="tripAt" type="datetime-local" name="offerAt" maxlength="100" required value="'. $minTimeDate .'T00:00" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $minTimeDate .'T23:59" />'
+                                ?>
+                            </div>
+
+                            <div class="form-list-date">
+                                <div class="form-list-input-title">
+                                    <div class="form-list-icon">
+                                        <div class="form-list-icon-container form-list-end"></div>
+                                    </div>
+                                    
+                                    <h1>Termina:</h1>
+                                </div>
+                                <?php 
+                                    $timestamp = time();
+                                    $timestampNextWeek = $timestamp + (7 * 24 * 60 * 60);
+                                    $dateNextWeek = date('Y-m-d', $timestampNextWeek);
+                                    echo '<input id="timeToBtn" type="datetime-local" name="offerToTime" maxlength="100" required value="'. $minTimeDate .'T00:00" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $dateNextWeek .'T23:59" />'
+                                ?>
+                            </div>
+
+                            <div class="submit-btn">
+                                <input type="submit" value="Criar Oferta">
+                            </div>
+                        </div>
                     </div>
                 </form>
-
-                <div class="submit-btn">
-                    <div class="submit-btn-container">
-                        <p>Criar Solicitação</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -242,5 +279,6 @@ if(!isset($_SESSION['email'])) {
     <script src="../src/scripts/close-btn.js"></script>
     <script src="../src/scripts/add-request.js"></script>
     <script src="../src/scripts/add-request-container.js"></script>
+    <script src="../src/scripts/form-validation.js"></script>
 </body>
 </html>

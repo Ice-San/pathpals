@@ -1,9 +1,3 @@
-@media (max-width: 1586px) {
-    .form-list-input-title {
-        margin-left: clamp(-15px, 15vw, -50px);
-    }
-}
-
 @media (max-width: 1388px) {
     .request-container {
         max-height: 200px;
@@ -29,7 +23,7 @@
 }
 
 
-@media (max-width: 1085px) {
+@media (max-width: 1086px) {
     .menu-container {
         width: 65%;
     }
@@ -53,5 +47,28 @@
 
     .menu {
         height: 75px;
+    }
+}
+
+@media (max-width: 640px) {
+    .form-list-inputs {
+        align-items: flex-start;
+    }
+
+    .form-list-inputs input {
+        width: 95%;
+    }
+
+    .form-list-dates {
+        justify-content: flex-start;
+        grid-gap: 25px;
+    }
+
+    .form-list-date input {
+        width: 100%;
+    }
+
+    .submit-btn {
+        margin-top: 5px;
     }
 }
