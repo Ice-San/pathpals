@@ -1,6 +1,6 @@
 <?php
-include "../../utils.php";
-include "../../auth.php";
+include "../../../utils.php";
+include "../../../auth.php";
 
 $requestFrom = $_POST['requestFrom'];
 $requestTo = $_POST['requestTo'];
@@ -12,6 +12,6 @@ $createrequestsQuery = "CALL add_request('". $_SESSION['email'] . "', '$requestF
 $createrequests = mysqli_query($conn, $createrequestsQuery);
 
 if($createrequests) {
-    redirect("../../../../account/requests");
+    redirect("../../../../../account/requests");
 }
 ?>
