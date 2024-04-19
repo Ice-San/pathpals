@@ -74,7 +74,7 @@ if(!isset($_SESSION['email'])) {
                 </div>
 
                 <?php
-                    include "../../src/server/user/rides/requests/get.php";
+                    include "../../src/server/rides/solicitations/all/get.php";
                 ?>
             </div>
 
