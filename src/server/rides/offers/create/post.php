@@ -1,6 +1,6 @@
 <?php
-include "../../utils.php";
-include "../../auth.php";
+include "../../../utils.php";
+include "../../../auth.php";
 
 $offerFrom = $_POST['offerFrom'];
 $offerTo = $_POST['offerTo'];
@@ -13,6 +13,6 @@ $createOffersQuery = "CALL add_offer('". $_SESSION['email'] . "', '$offerFrom', 
 $createOffers = mysqli_query($conn, $createOffersQuery);
 
 if($createOffers) {
-    redirect("../../../../account/offers");
+    redirect("../../../../../account/offers");
 }
 ?>
