@@ -60,7 +60,7 @@ if(!isset($_SESSION['email'])) {
                 </div>
 
                 <?php
-                    include "../../src/server/user/rides/requests/get.php";
+                    include "../../src/server/rides/solicitations/user/get.php";
                 ?>
 
                 <div class="list-division"></div>
