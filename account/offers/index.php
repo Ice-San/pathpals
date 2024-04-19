@@ -121,7 +121,7 @@ if(!isset($_SESSION['email'])) {
                     <h1>Criar uma Oferta</h1>
                 </div>
 
-                <form action="../../src/server/rides/offers/post.php" method="POST" enctype="application/x-www-form-urlencoded">
+                <form action="../../src/server/rides/offers/create/post.php" method="POST" enctype="application/x-www-form-urlencoded">
                     <div class="form-list-inputs">
                         <div class="form-list-input-title">
                             <div class="form-list-icon">
