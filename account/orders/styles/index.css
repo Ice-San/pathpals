@@ -175,6 +175,8 @@
 
     border-radius: 16px;
 
+    margin-bottom: 35px;
+
     display: flex;
     align-items: center;
     grid-gap: 30px;
