@@ -51,6 +51,14 @@
 }
 
 @media (max-width: 640px) {
+    .list-titles h1 {
+        font-family: "Manrope", "Mallana", Arial, Helvetica, sans-serif;
+        font-size: clamp(30px, 5vw, 50px);
+        font-weight: 400;
+    
+        margin-bottom: 10px;
+    }
+
     .form-list-inputs {
         align-items: flex-start;
     }

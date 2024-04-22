@@ -196,7 +196,7 @@
     bottom: 0;
     right: 0;
 
-    margin: 135px 35px;
+    margin: 90px 25px;
 
     display: flex;
     justify-content: center;
@@ -206,8 +206,8 @@
 
     transition: all 0.3s ease-in-out;
 
-    width: clamp(90px, 7vw, 350px);
-    height: clamp(90px, 7vw, 350px);
+    width: clamp(80px, 7vw, 350px);
+    height: clamp(80px, 7vw, 350px);
 }
 
 .add-request:hover {
@@ -228,7 +228,7 @@
 
 .error-message {
     font-family: "Manrope", "Mallanna", Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-size: clamp(15px, 3vw, 20px);
 
     margin: 0 25px;
 }

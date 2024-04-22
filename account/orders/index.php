@@ -28,6 +28,7 @@ if(!isset($_SESSION['email'])) {
     <link rel="stylesheet" href="../../../src/styles/index.css">
     <link rel="stylesheet" href="../../../src/styles/bottom-menu.css">
     <link rel="stylesheet" href="./styles/highlight-text.css">
+    <link rel="stylesheet" href="./styles/media-querys.css">
 </head>
 
 <body>
