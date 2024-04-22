@@ -159,7 +159,7 @@ if(!isset($_SESSION['email'])) {
                                 <?php 
                                     $minTimeDate = date("Y-m-d");
                                     $minTimeHour = date("H:i");
-                                    echo '<input id="tripAt" type="datetime-local" name="requestAt" maxlength="100" required value="'. $minTimeDate .'T00:00" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $minTimeDate .'T23:59" />'
+                                    echo '<input id="tripAt" type="datetime-local" name="requestAt" maxlength="100" required value="'. $minTimeDate .'T'. $minTimeHour .'" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $minTimeDate .'T23:59" />'
                                 ?>
                             </div>
 

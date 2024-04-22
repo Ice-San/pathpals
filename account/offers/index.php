@@ -159,7 +159,7 @@ if(!isset($_SESSION['email'])) {
                                 <?php 
                                     $minTimeDate = date("Y-m-d");
                                     $minTimeHour = date("H:i");
-                                    echo '<input id="tripAt" type="datetime-local" name="offerAt" maxlength="100" required value="'. $minTimeDate .'T00:00" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $minTimeDate .'T23:59" />'
+                                    echo '<input id="tripAt" type="datetime-local" name="offerAt" maxlength="100" required value="'. $minTimeDate .'T'. $minTimeHour .'" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $minTimeDate .'T23:59" />'
                                 ?>
                             </div>
 
@@ -175,7 +175,7 @@ if(!isset($_SESSION['email'])) {
                                     $timestamp = time();
                                     $timestampNextWeek = $timestamp + (7 * 24 * 60 * 60);
                                     $dateNextWeek = date('Y-m-d', $timestampNextWeek);
-                                    echo '<input id="timeToBtn" type="datetime-local" name="offerToTime" maxlength="100" required value="'. $minTimeDate .'T00:00" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $dateNextWeek .'T23:59" />'
+                                    echo '<input id="timeToBtn" type="datetime-local" name="offerToTime" maxlength="100" required value="'. $minTimeDate .'T'. $minTimeHour .'" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $dateNextWeek .'T23:59" />'
                                 ?>
                             </div>
 
