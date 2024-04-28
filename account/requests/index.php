@@ -1,12 +1,20 @@
 <?php
 include "../../src/server/auth.php";
 include "../../src/server/utils.php";
+include "../../src/server/rides/requests/user/get.php";
+include "../../src/server/rides/requests/get.php";
 
 session_start();
 
 if(!isset($_SESSION['email'])) {
     redirect("../../../signin/");
 }
+
+$userRequests = getUserRequests($conn);
+
+mysqli_next_result($conn);
+
+$allRequests = getAllRequests($conn);
 ?>
 <!DOCTYPE html>
 <html>
@@ -60,7 +68,45 @@ if(!isset($_SESSION['email'])) {
                 </div>
 
                 <?php
-                    include "../../src/server/rides/solicitations/user/get.php";
+                    if (isset($userRequests) && count($userRequests) > 0) {
+                        foreach ($userRequests as $userRequest) {
+                            echo '<div class="request-container">
+                                    <div class="request-position-left">
+                                        <div class="requests-user-info">
+                                            <div class="requests-icon">
+                                                <div class="requests-icon-container"></div>
+                                            </div>
+
+                                            <div class="requests-user-text">
+                                                <h1>'. $userRequest["username"] .'</h1>
+                                                <p>'. $userRequest["career"] .' - '. $userRequest["class"] .'</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="requests-division">
+                                            <div class="requests-division-container"></div>
+                                        </div>
+
+                                        <div class="requests-destinations">
+                                            <p><span>De: </span>'. $userRequest["ride_from"] .'</p>
+                                            <p><span>Para: </span>'. $userRequest["ride_to"] .'</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="request-position-right">
+                                        <div class="requests-division"></div>
+
+                                        <div class="requests-btn">
+                                            <div class="requests-btn-container">
+                                                <div class="requests-delete"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                        }
+                    } else {
+                        echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
+                    }
                 ?>
 
                 <div class="list-division"></div>
@@ -74,7 +120,45 @@ if(!isset($_SESSION['email'])) {
                 </div>
 
                 <?php
-                    include "../../src/server/rides/solicitations/all/get.php";
+                    if (isset($allRequests) && count($allRequests) > 0) {
+                        foreach ($allRequests as $allRequest) {
+                            echo '<div class="request-container">
+                                    <div class="request-position-left">
+                                        <div class="requests-user-info">
+                                            <div class="requests-icon">
+                                                <div class="requests-icon-container"></div>
+                                            </div>
+
+                                            <div class="requests-user-text">
+                                                <h1>'. $allRequest["username"] .'</h1>
+                                                <p>'. $allRequest["career"] .' - '. $allRequest["class"] .'</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="requests-division">
+                                            <div class="requests-division-container"></div>
+                                        </div>
+
+                                        <div class="requests-destinations">
+                                            <p><span>De: </span>'. $allRequest["ride_from"] .'</p>
+                                            <p><span>Para: </span>'. $allRequest["ride_to"] .'</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="request-position-right">
+                                        <div class="requests-division"></div>
+
+                                        <div class="requests-btn">
+                                            <div class="requests-btn-container">
+                                                <div class="requests-delete"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                        }
+                    } else {
+                        echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
+                    }
                 ?>
             </div>
 
@@ -121,7 +205,7 @@ if(!isset($_SESSION['email'])) {
                     <h1>Criar uma Solicitação</h1>
                 </div>
                 
-                <form action="../../src/server/rides/solicitations/create/post.php" method="POST" enctype="application/x-www-form-urlencoded">
+                <form action="../../src/server/rides/requests/post.php" method="POST" enctype="application/x-www-form-urlencoded">
                     <div class="form-list-inputs">
                         <div class="form-list-input-title">
                             <div class="form-list-icon">

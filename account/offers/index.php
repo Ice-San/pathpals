@@ -1,12 +1,20 @@
 <?php
 include "../../src/server/auth.php";
 include "../../src/server/utils.php";
+include "../../src/server/rides/offers/user/get.php";
+include "../../src/server/rides/offers/get.php";
 
 session_start();
 
-if(!isset($_SESSION['email'])) {
+if(!isset($_SESSION["email"])) {
     redirect("../../../signin/");
 }
+
+$userOffers = getUserOffers($conn);
+
+mysqli_next_result($conn);
+
+$allOffers = getAllOffers($conn);
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +39,7 @@ if(!isset($_SESSION['email'])) {
 </head>
 
 <body>
-    
+
     <div class="background">
         <div class="banner">
             <div class="banner-container">
@@ -60,7 +68,45 @@ if(!isset($_SESSION['email'])) {
                 </div>
 
                 <?php
-                    include "../../src/server/rides/offers/user/get.php";
+                    if (isset($userOffers) && count($userOffers) > 0) {
+                        foreach ($userOffers as $userOffer) {
+                            echo '<div class="request-container">
+                                    <div class="request-position-left">
+                                        <div class="requests-user-info">
+                                            <div class="requests-icon">
+                                                <div class="requests-icon-container"></div>
+                                            </div>
+
+                                            <div class="requests-user-text">
+                                                <h1>'. $userOffer["username"] .'</h1>
+                                                <p>'. $userOffer["career"] .' - '. $userOffer["class"] .'</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="requests-division">
+                                            <div class="requests-division-container"></div>
+                                        </div>
+
+                                        <div class="requests-destinations">
+                                            <p><span>De: </span>'. $userOffer["ride_from"] .'</p>
+                                            <p><span>Para: </span>'. $userOffer["ride_to"] .'</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="request-position-right">
+                                        <div class="requests-division"></div>
+
+                                        <div class="requests-btn">
+                                            <div class="requests-btn-container">
+                                                <div class="requests-delete"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                        }
+                    } else {
+                        echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
+                    }
                 ?>
 
                 <div class="list-division"></div>
@@ -74,7 +120,45 @@ if(!isset($_SESSION['email'])) {
                 </div>
 
                 <?php
-                    include "../../src/server/rides/offers/all/get.php";
+                    if (isset($allOffers) && count($allOffers) > 0) {
+                        foreach ($allOffers as $allOffer) {
+                            echo '<div class="request-container">
+                                    <div class="request-position-left">
+                                        <div class="requests-user-info">
+                                            <div class="requests-icon">
+                                                <div class="requests-icon-container"></div>
+                                            </div>
+
+                                            <div class="requests-user-text">
+                                                <h1>'. $allOffer["username"] .'</h1>
+                                                <p>'. $allOffer["career"] .' - '. $allOffer["class"] .'</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="requests-division">
+                                            <div class="requests-division-container"></div>
+                                        </div>
+
+                                        <div class="requests-destinations">
+                                            <p><span>De: </span>'. $allOffer["ride_from"] .'</p>
+                                            <p><span>Para: </span>'. $allOffer["ride_to"] .'</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="request-position-right">
+                                        <div class="requests-division"></div>
+
+                                        <div class="requests-btn">
+                                            <div class="requests-btn-container">
+                                                <div class="requests-delete"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                        }
+                    } else {
+                        echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
+                    }
                 ?>
             </div>
 
@@ -121,7 +205,7 @@ if(!isset($_SESSION['email'])) {
                     <h1>Criar uma Oferta</h1>
                 </div>
 
-                <form action="../../src/server/rides/offers/create/post.php" method="POST" enctype="application/x-www-form-urlencoded">
+                <form action="../../src/server/rides/offers/post.php" method="POST" enctype="application/x-www-form-urlencoded">
                     <div class="form-list-inputs">
                         <div class="form-list-input-title">
                             <div class="form-list-icon">
@@ -159,7 +243,7 @@ if(!isset($_SESSION['email'])) {
                                 <?php 
                                     $minTimeDate = date("Y-m-d");
                                     $minTimeHour = date("H:i");
-                                    echo '<input id="tripAt" type="datetime-local" name="offerAt" maxlength="100" required value="'. $minTimeDate .'T'. $minTimeHour .'" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $minTimeDate .'T23:59" />'
+                                    echo '<input id="tripAt" type="datetime-local" name="offerAt" maxlength="100" required value="'. $minTimeDate .'T'. $minTimeHour .'" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $minTimeDate .'"T23:59" />';
                                 ?>
                             </div>
 
@@ -174,8 +258,8 @@ if(!isset($_SESSION['email'])) {
                                 <?php 
                                     $timestamp = time();
                                     $timestampNextWeek = $timestamp + (7 * 24 * 60 * 60);
-                                    $dateNextWeek = date('Y-m-d', $timestampNextWeek);
-                                    echo '<input id="timeToBtn" type="datetime-local" name="offerToTime" maxlength="100" required value="'. $minTimeDate .'T'. $minTimeHour .'" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $dateNextWeek .'T23:59" />'
+                                    $dateNextWeek = date("Y-m-d", $timestampNextWeek);
+                                    echo '<input id="timeToBtn" type="datetime-local" name="offerToTime" maxlength="100" required value="'. $minTimeDate .'T'. $minTimeHour .'" min="'. $minTimeDate .'T'. $minTimeHour .'" max="'. $dateNextWeek .'T23:59" />';
                                 ?>
                             </div>
 
