@@ -881,3 +881,20 @@ BEGIN
     SELECT * FROM user_data_view AS udv WHERE udv.user_email = user_email;
 END $$
 DELIMITER ;
+
+-- 19. DELETE OFFERS
+
+DELIMITER $$
+CREATE PROCEDURE delete_offer(user_email VARCHAR(255), ride_id INT)
+BEGIN
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = user_email
+	);
+
+    IF EXISTS (SELECT * FROM rides WHERE r_id = ride_id AND t_id IN (SELECT t_id FROM tickets WHERE u_id = @u_id)) THEN
+        DELETE FROM rides WHERE r_id = ride_id;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O usuário não possui essa oferta.';
+    END IF;
+END $$
+DELIMITER ;
