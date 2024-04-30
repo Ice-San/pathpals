@@ -300,3 +300,20 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
+
+-- 20. DELETE REQUESTS
+
+DELIMITER $$
+CREATE PROCEDURE delete_request(user_email VARCHAR(255), ride_id INT)
+BEGIN
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = user_email
+	);
+
+    IF EXISTS (SELECT * FROM rides WHERE r_id = ride_id AND t_id IN (SELECT t_id FROM tickets WHERE u_id = @u_id)) THEN
+        DELETE FROM rides WHERE r_id = ride_id;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'A viagem especificada não é uma solicitação válida ou não está associada ao usuário.';
+    END IF;
+END $$
+DELIMITER ;
