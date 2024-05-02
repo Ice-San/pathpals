@@ -70,6 +70,8 @@ $allOffers = getAllOffers($conn);
                 <?php
                     if (isset($userOffers) && count($userOffers) > 0) {
                         foreach ($userOffers as $userOffer) {
+                            $rideId = $userOffer["ride_id"];
+
                             echo '<div class="request-container">
                                     <div class="request-position-left">
                                         <div class="requests-user-info">
@@ -97,7 +99,7 @@ $allOffers = getAllOffers($conn);
                                         <div class="requests-division"></div>
 
                                         <div class="requests-btn">
-                                            <a href="./">
+                                            <a href="../../src/server/rides/offers/delete.php?ride_id='. $rideId .'">
                                                 <div class="requests-btn-container">
                                                     <div class="requests-delete"></div>
                                                 </div>
