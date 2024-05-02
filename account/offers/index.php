@@ -97,9 +97,11 @@ $allOffers = getAllOffers($conn);
                                         <div class="requests-division"></div>
 
                                         <div class="requests-btn">
-                                            <div class="requests-btn-container">
-                                                <div class="requests-delete"></div>
-                                            </div>
+                                            <a href="./">
+                                                <div class="requests-btn-container">
+                                                    <div class="requests-delete"></div>
+                                                </div>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>';
