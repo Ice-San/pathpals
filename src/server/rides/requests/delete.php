@@ -9,7 +9,7 @@
         $deleteRequests = mysqli_query($conn, $deleteRequestsQuery);
 
         if($deleteRequests) {
-            redirect("../../../../../account/offers");
+            redirect("../../../../../account/requests");
         }
     }
 

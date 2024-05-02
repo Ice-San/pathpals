@@ -70,6 +70,8 @@ $allRequests = getAllRequests($conn);
                 <?php
                     if (isset($userRequests) && count($userRequests) > 0) {
                         foreach ($userRequests as $userRequest) {
+                            $rideId = $userRequest["ride_id"];
+
                             echo '<div class="request-container">
                                     <div class="request-position-left">
                                         <div class="requests-user-info">
@@ -97,9 +99,11 @@ $allRequests = getAllRequests($conn);
                                         <div class="requests-division"></div>
 
                                         <div class="requests-btn">
-                                            <div class="requests-btn-container">
-                                                <div class="requests-delete"></div>
-                                            </div>
+                                            <a href="../../src/server/rides/requests/delete.php?ride_id='. $rideId .'">
+                                                <div class="requests-btn-container">
+                                                    <div class="requests-delete"></div>
+                                                </div>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>';
@@ -150,7 +154,7 @@ $allRequests = getAllRequests($conn);
 
                                         <div class="requests-btn">
                                             <div class="requests-btn-container">
-                                                <div class="requests-delete"></div>
+                                                <div class="requests-check"></div>
                                             </div>
                                         </div>
                                     </div>

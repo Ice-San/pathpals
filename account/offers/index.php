@@ -154,7 +154,7 @@ $allOffers = getAllOffers($conn);
 
                                         <div class="requests-btn">
                                             <div class="requests-btn-container">
-                                                <div class="requests-delete"></div>
+                                                <div class="requests-check"></div>
                                             </div>
                                         </div>
                                     </div>
