@@ -4,7 +4,7 @@
 
     session_start();
 
-    function delete($conn, $offer_id) {
+    function deleteOffers($conn, $offer_id) {
         $deleteOffersQuery = "CALL delete_offer('". $_SESSION['email'] . "', $offer_id)";
         $deleteOffers = mysqli_query($conn, $deleteOffersQuery);
 
@@ -15,5 +15,5 @@
 
     $offerId = $_GET["ride_id"];
 
-    delete($conn, $offerId);
+    deleteOffers($conn, $offerId);
 ?>
