@@ -71,6 +71,8 @@ $allOffers = getAllOffers($conn);
                     if (isset($userOffers) && count($userOffers) > 0) {
                         foreach ($userOffers as $userOffer) {
                             $rideId = $userOffer["ride_id"];
+                            $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                            $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
 
                             echo '<div class="request-container">
                                     <div class="request-position-left">
@@ -99,7 +101,7 @@ $allOffers = getAllOffers($conn);
                                         <div class="requests-division"></div>
 
                                         <div class="requests-btn">
-                                            <a href="../../src/server/rides/offers/delete.php?ride_id='. $rideId .'">
+                                            <a href="../../src/server/rides/offers/delete.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
                                                 <div class="requests-btn-container">
                                                     <div class="requests-delete"></div>
                                                 </div>

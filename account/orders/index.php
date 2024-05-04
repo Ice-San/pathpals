@@ -72,6 +72,10 @@ $userOffers = getUserOffers($conn);
                     <?php
                         if (isset($userRequests) && count($userRequests) > 0) {
                             foreach ($userRequests as $userRequest) {
+                                $rideId = $userRequest["ride_id"];
+                                $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                                $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
+    
                                 echo '<div class="request-container">
                                         <div class="request-position-left">
                                             <div class="requests-user-info">
@@ -99,9 +103,11 @@ $userOffers = getUserOffers($conn);
                                             <div class="requests-division"></div>
     
                                             <div class="requests-btn">
-                                                <div class="requests-btn-container">
-                                                    <div class="requests-delete"></div>
-                                                </div>
+                                                <a href="../../src/server/rides/requests/delete.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
+                                                    <div class="requests-btn-container">
+                                                        <div class="requests-delete"></div>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>';
@@ -126,36 +132,42 @@ $userOffers = getUserOffers($conn);
                     <?php
                         if (isset($userOffers) && count($userOffers) > 0) {
                             foreach ($userOffers as $userOffer) {
+                                $rideId = $userOffer["ride_id"];
+                                $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                                $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
+
                                 echo '<div class="request-container">
                                         <div class="request-position-left">
                                             <div class="requests-user-info">
                                                 <div class="requests-icon">
                                                     <div class="requests-icon-container"></div>
                                                 </div>
-    
+
                                                 <div class="requests-user-text">
                                                     <h1>'. $userOffer["username"] .'</h1>
                                                     <p>'. $userOffer["career"] .' - '. $userOffer["class"] .'</p>
                                                 </div>
                                             </div>
-    
+
                                             <div class="requests-division">
                                                 <div class="requests-division-container"></div>
                                             </div>
-    
+
                                             <div class="requests-destinations">
                                                 <p><span>De: </span>'. $userOffer["ride_from"] .'</p>
                                                 <p><span>Para: </span>'. $userOffer["ride_to"] .'</p>
                                             </div>
                                         </div>
-    
+
                                         <div class="request-position-right">
                                             <div class="requests-division"></div>
-    
+
                                             <div class="requests-btn">
-                                                <div class="requests-btn-container">
-                                                    <div class="requests-delete"></div>
-                                                </div>
+                                                <a href="../../src/server/rides/offers/delete.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
+                                                    <div class="requests-btn-container">
+                                                        <div class="requests-delete"></div>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>';
