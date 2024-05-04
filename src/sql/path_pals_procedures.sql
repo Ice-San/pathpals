@@ -325,3 +325,16 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
+
+-- 21. GET USER PERMISSIONS LEVEL
+
+DELIMITER $$
+CREATE PROCEDURE get_user_permissions_level(user_email VARCHAR(255))
+BEGIN
+	SELECT up.up_level AS permission_level
+    FROM accounts AS acc
+    INNER JOIN user_permissions AS up ON acc.up_id = up.up_id
+    INNER JOIN users AS u ON acc.u_id = u.u_id
+    WHERE u.u_email = user_email;
+END $$
+DELIMITER ;
