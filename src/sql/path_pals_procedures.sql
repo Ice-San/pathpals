@@ -294,6 +294,10 @@ BEGIN
 	);
 
     IF EXISTS (SELECT * FROM rides WHERE r_id = ride_id AND t_id IN (SELECT t_id FROM tickets WHERE u_id = @u_id)) THEN
+        IF EXISTS (SELECT * FROM connections WHERE r_id = ride_id) THEN
+            DELETE FROM connections WHERE r_id = ride_id;
+        END IF;
+        
         DELETE FROM rides WHERE r_id = ride_id;
     ELSE
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O usuário não possui essa oferta.';
@@ -311,6 +315,10 @@ BEGIN
 	);
 
     IF EXISTS (SELECT * FROM rides WHERE r_id = ride_id AND t_id IN (SELECT t_id FROM tickets WHERE u_id = @u_id)) THEN
+        IF EXISTS (SELECT * FROM connections WHERE r_id = ride_id) THEN
+            DELETE FROM connections WHERE r_id = ride_id;
+        END IF;
+        
         DELETE FROM rides WHERE r_id = ride_id;
     ELSE
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'A viagem especificada não é uma solicitação válida ou não está associada ao usuário.';
