@@ -29,6 +29,7 @@ $allOffers = getAllOffers($conn);
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Mallanna&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../src/styles/index.css">
+    <link rel="stylesheet" href="../src/styles/banner.css">
     <link rel="stylesheet" href="../src/styles/form-list.css">
     <link rel="stylesheet" href="../src/styles/animations.css">
     <link rel="stylesheet" href="../src/styles/requests-cards.css">
