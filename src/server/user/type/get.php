@@ -1,8 +1,8 @@
 <?php
     include "../../src/server/auth.php";
 
-    function getUserPermission($conn) {
-        $userType = 'CALL get_user_permissions_level("'. $_SESSION['email'] . '")';
+    function getUserType($conn) {
+        $userType = 'CALL get_user_type("'. $_SESSION['email'] . '")';
         $userTypeQuery = mysqli_query($conn, $userType);
 
         $final_data = array();

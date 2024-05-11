@@ -2,10 +2,22 @@
     include "../../src/server/auth.php";
     include "../../src/server/utils.php";
     include "../../src/server/user/permission/get.php";
+    include "../../src/server/user/type/get.php";
+
+    session_start();
+
+    if(!isset($_SESSION["email"])) {
+        redirect("../../../signin/");
+    }
 
     $userPermission = getUserPermission($conn);
+    $userType = getUserType($conn);
     
     if($userPermission > 0) {
+        redirect("../../../signin/");
+    }
+
+    if($userType != "admin") {
         redirect("../../../signin/");
     }
 ?>
