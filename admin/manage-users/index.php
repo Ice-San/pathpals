@@ -1,3 +1,14 @@
+<?php
+    include "../../src/server/auth.php";
+    include "../../src/server/utils.php";
+    include "../../src/server/user/permission/get.php";
+
+    $userPermission = getUserPermission($conn);
+    
+    if($userPermission > 0) {
+        redirect("../../../signin/");
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
