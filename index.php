@@ -18,7 +18,7 @@ include "./src/server/auth.php";
 
 <body>
     
-    Hello World!
+    Hello World! :D
 
 </body>
 </html>
