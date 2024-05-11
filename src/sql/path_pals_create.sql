@@ -938,3 +938,17 @@ BEGIN
     WHERE u.u_email = user_email;
 END $$
 DELIMITER ;
+
+-- 22. GET USER TYPE
+
+DELIMITER $$
+CREATE PROCEDURE get_user_type(user_email VARCHAR(255))
+BEGIN
+    SELECT ut.ut_type AS user_type
+    FROM accounts AS acc
+    INNER JOIN user_types AS ut ON acc.ut_id = ut.ut_id
+    INNER JOIN users AS u ON acc.u_id = u.u_id
+    WHERE u.u_email = user_email;
+END $$
+$$
+DELIMITER ;
