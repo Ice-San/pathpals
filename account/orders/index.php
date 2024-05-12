@@ -1,12 +1,20 @@
 <?php
 include "../../src/server/auth.php";
 include "../../src/server/utils.php";
+include "../../src/server/rides/offers/user/get.php";
+include "../../src/server/rides/requests/user/get.php";
 
 session_start();
 
 if(!isset($_SESSION['email'])) {
     redirect("../../../signin/");
 }
+
+$userRequests = getUserRequests($conn);
+
+mysqli_next_result($conn);
+
+$userOffers = getUserOffers($conn);
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,6 +29,7 @@ if(!isset($_SESSION['email'])) {
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Mallanna&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="../src/styles/banner.css">
     <link rel="stylesheet" href="../src/styles/form-list.css">
     <link rel="stylesheet" href="../src/styles/animations.css">
     <link rel="stylesheet" href="../src/styles/requests-cards.css">
@@ -28,6 +37,7 @@ if(!isset($_SESSION['email'])) {
     <link rel="stylesheet" href="../../../src/styles/index.css">
     <link rel="stylesheet" href="../../../src/styles/bottom-menu.css">
     <link rel="stylesheet" href="./styles/highlight-text.css">
+    <link rel="stylesheet" href="./styles/media-querys.css">
 </head>
 
 <body>
@@ -61,53 +71,51 @@ if(!isset($_SESSION['email'])) {
                     </div>
 
                     <?php
-
-                        $displayMyRequests = "CALL get_user_requests('". $_SESSION['email'] . "');";
-                        $requestsMyQuery = mysqli_query($conn , $displayMyRequests);
-
-                        if (mysqli_num_rows($requestsMyQuery) > 0) {
-                            while($row = mysqli_fetch_assoc($requestsMyQuery)) {
-                                echo "
-                                <div class=\"request-container\">
-                                    <div class=\"request-position-left\">
-                                        <div class=\"requests-user-info\">
-                                            <div class=\"requests-icon\">
-                                                <div class=\"requests-icon-container\"></div>
+                        if (isset($userRequests) && count($userRequests) > 0) {
+                            foreach ($userRequests as $userRequest) {
+                                $rideId = $userRequest["ride_id"];
+                                $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                                $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
+    
+                                echo '<div class="request-container">
+                                        <div class="request-position-left">
+                                            <div class="requests-user-info">
+                                                <div class="requests-icon">
+                                                    <div class="requests-icon-container"></div>
+                                                </div>
+    
+                                                <div class="requests-user-text">
+                                                    <h1>'. $userRequest["username"] .'</h1>
+                                                    <p>'. $userRequest["career"] .' - '. $userRequest["class"] .'</p>
+                                                </div>
                                             </div>
-                
-                                            <div class=\"requests-user-text\">
-                                                <h1>". $row["username"] ."</h1>
-                                                <p>". $row["career"] . " - ". $row["class"] ."</p>
+    
+                                            <div class="requests-division">
+                                                <div class="requests-division-container"></div>
                                             </div>
-                                        </div>
-                
-                                        <div class=\"requests-division\">
-                                            <div class=\"requests-division-container\"></div>
-                                        </div>
-                
-                                        <div class=\"requests-destinations\">
-                                            <p><span>De: </span>" . $row["ride_from"] ."</p>
-                                            <p><span>Para: </span>" . $row["ride_to"] ."</p>
-                                        </div>
-                                    </div>
-                
-                                    <div class=\"request-position-right\">
-                                        <div class=\"requests-division\"></div>
-                
-                                        <div class=\"requests-btn\">
-                                            <div class=\"requests-btn-container\">
-                                                <div class=\"requests-delete\"></div>
+    
+                                            <div class="requests-destinations">
+                                                <p><span>De: </span>'. $userRequest["ride_from"] .'</p>
+                                                <p><span>Para: </span>'. $userRequest["ride_to"] .'</p>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>";
+    
+                                        <div class="request-position-right">
+                                            <div class="requests-division"></div>
+    
+                                            <div class="requests-btn">
+                                                <a href="../../src/server/rides/requests/delete.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
+                                                    <div class="requests-btn-container">
+                                                        <div class="requests-delete"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>';
                             }
                         } else {
-                            echo "<p class=\"error-message\">Ohh... parece que você não pediu nenhuma solicitação. :(</p>";
+                            echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
                         }
-
-                        mysqli_free_result($requestsMyQuery);
-                        mysqli_next_result($conn);
                     ?>
                 </div>
 
@@ -123,48 +131,50 @@ if(!isset($_SESSION['email'])) {
                     </div>
 
                     <?php
+                        if (isset($userOffers) && count($userOffers) > 0) {
+                            foreach ($userOffers as $userOffer) {
+                                $rideId = $userOffer["ride_id"];
+                                $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                                $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
 
-                        $displayMyOffers = "CALL get_user_offers('". $_SESSION['email'] . "');";
-                        $offersMyQuery = mysqli_query($conn , $displayMyOffers);
+                                echo '<div class="request-container">
+                                        <div class="request-position-left">
+                                            <div class="requests-user-info">
+                                                <div class="requests-icon">
+                                                    <div class="requests-icon-container"></div>
+                                                </div>
 
-                        if (mysqli_num_rows($offersMyQuery) > 0) {
-                            while($row = mysqli_fetch_assoc($offersMyQuery)) {
-                                echo "<div class=\"request-container\">
-                                <div class=\"request-position-left\">
-                                    <div class=\"requests-user-info\">
-                                        <div class=\"requests-icon\">
-                                            <div class=\"requests-icon-container\"></div>
+                                                <div class="requests-user-text">
+                                                    <h1>'. $userOffer["username"] .'</h1>
+                                                    <p>'. $userOffer["career"] .' - '. $userOffer["class"] .'</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="requests-division">
+                                                <div class="requests-division-container"></div>
+                                            </div>
+
+                                            <div class="requests-destinations">
+                                                <p><span>De: </span>'. $userOffer["ride_from"] .'</p>
+                                                <p><span>Para: </span>'. $userOffer["ride_to"] .'</p>
+                                            </div>
                                         </div>
-            
-                                        <div class=\"requests-user-text\">
-                                            <h1>". $row["username"] ."</h1>
-                                            <p>". $row["career"] . " - ". $row["class"] ."</p>
+
+                                        <div class="request-position-right">
+                                            <div class="requests-division"></div>
+
+                                            <div class="requests-btn">
+                                                <a href="../../src/server/rides/offers/delete.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
+                                                    <div class="requests-btn-container">
+                                                        <div class="requests-delete"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-            
-                                    <div class=\"requests-division\">
-                                        <div class=\"requests-division-container\"></div>
-                                    </div>
-            
-                                    <div class=\"requests-destinations\">
-                                        <p><span>De: </span>" . $row["ride_from"] ."</p>
-                                        <p><span>Para: </span>" . $row["ride_to"] ."</p>
-                                    </div>
-                                </div>
-            
-                                <div class=\"request-position-right\">
-                                    <div class=\"requests-division\"></div>
-            
-                                    <div class=\"requests-btn\">
-                                        <div class=\"requests-btn-container\">
-                                            <div class=\"requests-delete\"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>";
+                                    </div>';
                             }
                         } else {
-                            echo "<p class=\"error-message\">Ohh... parece que hoje você não consegue oferecer um transporte. :(</p>";
+                            echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
                         }
                     ?>
                 </div>

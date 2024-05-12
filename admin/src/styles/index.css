@@ -1,0 +1,249 @@
+.background {
+    cursor: default;
+
+    width: 100%;
+    height: 100vh;
+}
+
+.manage-background {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.data-count {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: auto;
+}
+
+.data-count h1 {
+    font-family: 'Manrope', 'Mallanna', Arial, Helvetica, sans-serif;
+    font-size: 7vw;
+
+    margin-top: 25px;
+}
+
+.data-count p {
+    color: #a7a7a7;
+
+    font-family: 'Manrope', 'Mallanna', Arial, Helvetica, sans-serif;
+    font-size: 1.3vw;
+    font-weight: 500;
+
+    margin-top: -20px;
+}
+
+#search-bar {
+    border: 2px solid #a7a7a7;
+    border-radius: 12px;
+
+    color: #6e6e6e;
+
+    font-family: 'Manrope', 'Mallanna', Arial, Helvetica, sans-serif;
+    font-size: 1.2vw;
+
+    padding: 15px;
+    margin-top: 35px;
+    
+    width: 90%;
+    height: auto;
+
+    transition: all 0.3s ease-in-out;
+}
+
+#search-bar:focus {
+    border: 2px solid #727272;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.table {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-gap: 50px;
+
+    margin-top: 35px;
+
+    padding-left: 25px;
+
+    width: 90%;
+}
+
+.check-user {
+    display: flex;
+    align-items: center;
+    grid-gap: 25px;
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.check-user input {
+    width: 1.4vw;
+    height: 1.4vw;
+}
+
+.check-user p {
+    color: #727272;
+
+    font-family: 'Manrope', 'Mallanna', Arial, Helvetica, sans-serif;
+    font-size: 1.6vw;
+    font-weight: 400;
+}
+
+.forgot-pass {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.forgot-pass p {
+    color: #727272;
+
+    font-family: 'Manrope', 'Mallanna', Arial, Helvetica, sans-serif;
+    font-size: 1.6vw;
+    font-weight: 400;
+}
+
+.delete-account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+.delete-account p {
+    color: #727272;
+
+    font-family: 'Manrope', 'Mallanna', Arial, Helvetica, sans-serif;
+    font-size: 1.6vw;
+    font-weight: 400;
+}
+
+.user-icon {
+    background-color: #6e6e6e;
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    width: 3vw;
+    height: 3vw;
+}
+
+.user-icon-container {
+    background-image: url("../assets/images/user-icon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    width: 85%;
+    height: 85%;
+}
+
+.table-extra {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-gap: 50px;
+
+    padding-left: 25px;
+
+    width: 90%;
+}
+
+.table-extra:not(.table-extra:first-child) {
+    margin-top: 25px;
+}
+
+.table-extra:last-child {
+    padding-bottom: 150px;
+}
+
+.table-content-extra {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    padding-left: 15px;
+
+    width: 90%;
+    height: auto;
+}
+
+.table-content-left-extra {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    grid-gap: 25px;
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.table-content-left-extra input {
+    width: 1.4vw;
+    height: 1.4vw;
+}
+
+.table-content-left-extra h1 {
+    color: #727272;
+
+    font-family: 'Manrope', 'Mallanna', Arial, Helvetica, sans-serif;
+    font-size: 1.6vw;
+    font-weight: 400;
+}
+
+.table-content-middle-extra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.table-content-middle-extra a {
+    color: #727272;
+
+    font-family: 'Manrope', 'Mallanna', Arial, Helvetica, sans-serif;
+    font-size: 1.2vw;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.table-content-middle-extra a:hover {
+    transform: scale(0.9) rotate(15deg);
+
+    transition: all 0.3s ease-in-out;
+}
+
+.table-content-right-extra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+.table-content-right-extra a {
+    color: #ff3f3f;
+
+    font-family: 'Manrope', 'Mallanna', Arial, Helvetica, sans-serif;
+    font-size: 1.2vw;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.table-content-right-extra a:hover {
+    transform: scale(0.9) rotate(15deg);
+
+    transition: all 0.3s ease-in-out;
+}

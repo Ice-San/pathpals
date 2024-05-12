@@ -403,6 +403,7 @@ SELECT
     u.u_class AS class,
     t.t_id AS ticket_id,
     ts.ts_status AS ticket_status,
+    r.r_id AS ride_id,
     r.r_from AS ride_from,
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
@@ -434,6 +435,7 @@ SELECT
     u.u_class AS class,
     t.t_id AS ticket_id,
     ts.ts_status AS ticket_status,
+    r.r_id AS ride_id,
     r.r_from AS ride_from,
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
@@ -880,4 +882,73 @@ CREATE PROCEDURE get_user_info(user_email VARCHAR(255))
 BEGIN
     SELECT * FROM user_data_view AS udv WHERE udv.user_email = user_email;
 END $$
+DELIMITER ;
+
+-- 19. DELETE OFFERS
+
+DELIMITER $$
+CREATE PROCEDURE delete_offer(user_email VARCHAR(255), ride_id INT)
+BEGIN
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = user_email
+	);
+
+    IF EXISTS (SELECT * FROM rides WHERE r_id = ride_id AND t_id IN (SELECT t_id FROM tickets WHERE u_id = @u_id)) THEN
+        IF EXISTS (SELECT * FROM connections WHERE r_id = ride_id) THEN
+            DELETE FROM connections WHERE r_id = ride_id;
+        END IF;
+        
+        DELETE FROM rides WHERE r_id = ride_id;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O usuário não possui essa oferta.';
+    END IF;
+END $$
+DELIMITER ;
+
+-- 20. DELETE REQUESTS
+
+DELIMITER $$
+CREATE PROCEDURE delete_request(user_email VARCHAR(255), ride_id INT)
+BEGIN
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = user_email
+	);
+
+    IF EXISTS (SELECT * FROM rides WHERE r_id = ride_id AND t_id IN (SELECT t_id FROM tickets WHERE u_id = @u_id)) THEN
+        IF EXISTS (SELECT * FROM connections WHERE r_id = ride_id) THEN
+            DELETE FROM connections WHERE r_id = ride_id;
+        END IF;
+        
+        DELETE FROM rides WHERE r_id = ride_id;
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'A viagem especificada não é uma solicitação válida ou não está associada ao usuário.';
+    END IF;
+END $$
+DELIMITER ;
+
+-- 21. GET USER PERMISSIONS LEVEL
+
+DELIMITER $$
+CREATE PROCEDURE get_user_permissions_level(user_email VARCHAR(255))
+BEGIN
+	SELECT up.up_level AS permission_level
+    FROM accounts AS acc
+    INNER JOIN user_permissions AS up ON acc.up_id = up.up_id
+    INNER JOIN users AS u ON acc.u_id = u.u_id
+    WHERE u.u_email = user_email;
+END $$
+DELIMITER ;
+
+-- 22. GET USER TYPE
+
+DELIMITER $$
+CREATE PROCEDURE get_user_type(user_email VARCHAR(255))
+BEGIN
+    SELECT ut.ut_type AS user_type
+    FROM accounts AS acc
+    INNER JOIN user_types AS ut ON acc.ut_id = ut.ut_id
+    INNER JOIN users AS u ON acc.u_id = u.u_id
+    WHERE u.u_email = user_email;
+END $$
+$$
 DELIMITER ;
