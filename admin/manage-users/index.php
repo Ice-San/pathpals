@@ -6,19 +6,26 @@
 
     session_start();
 
-    if(!isset($_SESSION["email"])) {
-        redirect("../../../signin/");
-    }
-
     $userPermission = getUserPermission($conn);
-    $userType = getUserType($conn);
-    
-    if($userPermission > 0) {
-        redirect("../../../signin/");
-    }
 
-    if($userType != "admin") {
-        redirect("../../../signin/");
+    mysqli_next_result($conn);
+
+    $userType = getUserType($conn);
+
+    if (isset($userPermission) && count($userPermission) > 0) {
+        foreach ($userPermission as $userPermissionCheck) {
+            if($userPermissionCheck["permission_level"] > 0) {
+                redirect("../../../signin/");
+            }
+        }
+    }
+    
+    if (isset($userType) && count($userType) > 0) {
+        foreach ($userType as $userTypeCheck) {
+            if($userTypeCheck["user_type"] != "admin") {
+                redirect("../../../signin/");
+            }
+        }
     }
 ?>
 <!DOCTYPE html>

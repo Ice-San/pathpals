@@ -1,11 +1,23 @@
 <?php
 include "../utils.php";
 include "../auth.php";
+include "./permission/get.php";
+include "./type/get.php";
 
 session_start();
 
 $email = $_POST['email'];
 $password = $_POST['password'];
+
+$_SESSION['email'] = $email;
+
+$userPermission = getUserPermission($conn);
+
+mysqli_next_result($conn);
+
+$userType = getUserType($conn);
+
+mysqli_next_result($conn);
 
 $check_password = $conn->prepare("SELECT p.pw_hashed_password FROM users AS u INNER JOIN passwords AS p ON u.u_id = p.u_id WHERE u.u_email = ?");
 $check_password->bind_param("s", $email);
@@ -27,6 +39,19 @@ if(!(password_verify($password, $hashed_password))) {
     redirect("../../../signin/");
 }
 
-$_SESSION['email'] = $email;
-redirect("../../../account/requests");
+if (isset($userPermission) && count($userPermission) > 0) {
+    foreach ($userPermission as $userPermissionCheck) {
+        if($userPermissionCheck["permission_level"] == 0) {
+            redirect("../../../admin/manage-users");
+        }
+    }
+}
+
+if (isset($userType) && count($userType) > 0) {
+    foreach ($userType as $userTypeCheck) {
+        if($userTypeCheck["user_type"] == "user") {
+            redirect("../../../account/requests");
+        }
+    }
+}
 ?>

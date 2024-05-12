@@ -1,6 +1,4 @@
 <?php
-    include "../../src/server/auth.php";
-
     function getUserType($conn) {
         $userType = 'CALL get_user_type("'. $_SESSION['email'] . '")';
         $userTypeQuery = mysqli_query($conn, $userType);
