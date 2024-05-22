@@ -1,5 +1,6 @@
 <?php
-include "../src/server/auth.php";
+include_once "../src/server/auth/index.php";
+include_once "../src/server/utils.php";
 
 session_start();
 ?>
@@ -53,7 +54,7 @@ session_start();
                         <div class="cars-container"></div>
                     </div>
 
-                    <form action="../src/server/user/get.php" method="POST" enctype="application/x-www-form-urlencoded">
+                    <form action="../src/server/auth/signin.php" method="POST" enctype="application/x-www-form-urlencoded">
                         <div class="form-content form-content-effect">
                             <input id="email-input" type="email" name="email" placeholder="Email" maxlength="100" required>
                         </div>

@@ -1,6 +1,4 @@
 <?php
-    include "../../src/server/auth.php";
-
     function getAllRequests($conn) {
         $displayAllRequests = "SELECT * FROM all_requested_view;";
         $requestsAllQuery = mysqli_query($conn , $displayAllRequests);

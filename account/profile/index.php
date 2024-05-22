@@ -1,7 +1,7 @@
 <?php
-include "../../src/server/auth.php";
-include "../../src/server/utils.php";
-include "../../src/server/user/info/get.php";
+include_once "../../src/server/auth/index.php";
+include_once "../../src/server/utils.php";
+include_once "../../src/server/user/get.php";
 
 session_start();
 

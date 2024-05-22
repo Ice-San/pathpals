@@ -87,7 +87,7 @@
 }
 
 .manage-container {
-    background-image: url("../../admin/src/assets/images/config-user.png");
+    background-image: url("../../account/users/assets/images/config-user.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -97,7 +97,7 @@
 }
 
 .requests-container {
-    background-image: url("../../admin/src/assets/images/requests-icon.png");
+    background-image: url("../../account/users/assets/images/requests-icon.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -107,7 +107,7 @@
 }
 
 .offers-container {
-    background-image: url("../../admin/src/assets/images/offers-icon.png");
+    background-image: url("../../account/users/assets/images/offers-icon.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

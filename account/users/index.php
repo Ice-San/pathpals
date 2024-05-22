@@ -1,10 +1,14 @@
 <?php
-    include "../../src/server/auth.php";
-    include "../../src/server/utils.php";
-    include "../../src/server/user/permission/get.php";
-    include "../../src/server/user/type/get.php";
+    include_once "../../src/server/auth/index.php";
+    include_once "../../src/server/utils.php";
+    include_once "../../src/server/user/permission/get.php";
+    include_once "../../src/server/user/type/get.php";
 
     session_start();
+
+    if(!isset($_SESSION['email'])) {
+        redirect("../../../signin/");
+    }
 
     $userPermission = getUserPermission($conn);
 
@@ -40,11 +44,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Mallanna&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../src/styles/index.css">
-    <link rel="stylesheet" href="../src/styles/media-querys.css">
-    <link rel="stylesheet" href="../../account/src/styles/banner.css">
-    <link rel="stylesheet" href="../../../src/styles/index.css">
-    <link rel="stylesheet" href="../../../src/styles/bottom-menu.css">
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/media-querys.css">
+    <link rel="stylesheet" href="../src/styles/banner.css">
+    <link rel="stylesheet" href="../../src/styles/index.css">
+    <link rel="stylesheet" href="../../src/styles/bottom-menu.css">
 </head>
 
 <body>
@@ -135,7 +139,7 @@
         </div>
     </div>
 
-    <script src="../src/scripts/check.js"></script>
-    <script src="../src/scripts/search.js"></script>
+    <script src="./scripts/check.js"></script>
+    <script src="./scripts/search.js"></script>
 </body>
 </html>

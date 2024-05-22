@@ -1,6 +1,6 @@
 <?php
-include "../../utils.php";
-include "../../auth.php";
+include_once "../../auth/index.php";
+include_once "../../utils.php";
 
 $requestFrom = $_POST['requestFrom'];
 $requestTo = $_POST['requestTo'];

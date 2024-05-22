@@ -1,6 +1,4 @@
 <?php
-    include "../../src/server/auth.php";
-
     function getAllOffers($conn) {
         $displayAllOffers = 'SELECT * FROM all_offers_view;';
         $offersAllQuery = mysqli_query($conn , $displayAllOffers);

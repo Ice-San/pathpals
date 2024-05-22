@@ -1,6 +1,4 @@
-<?php
-    include "../../src/server/auth.php";
-
+<?php   
     function getUserRequests($conn) {
         $displayMyRequests = "CALL get_user_requests('". $_SESSION['email'] . "');";
         $requestsMyQuery = mysqli_query($conn , $displayMyRequests);

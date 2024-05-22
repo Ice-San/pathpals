@@ -1,8 +1,8 @@
 <?php
-include "../../src/server/auth.php";
-include "../../src/server/utils.php";
-include "../../src/server/rides/requests/user/get.php";
-include "../../src/server/rides/requests/get.php";
+include_once "../../src/server/auth/index.php";
+include_once "../../src/server/utils.php";
+include_once "../../src/server/rides/requests/user/get.php";
+include_once "../../src/server/rides/requests/get.php";
 
 session_start();
 

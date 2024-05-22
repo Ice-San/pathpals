@@ -1,6 +1,6 @@
 <?php
-include "../utils.php";
-include "../auth.php";
+include_once "../../src/server/auth/index.php";
+include_once "../../src/server/utils.php";
 
 session_start();
 
