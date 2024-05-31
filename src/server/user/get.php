@@ -1,6 +1,4 @@
 <?php
-    include_once "../../src/server/auth/index.php";
-
     function getUserInfo($conn) {
         $userInfo = "CALL get_user_info('". $_SESSION['email'] . "');";
         $userInfoQuery = mysqli_query($conn, $userInfo);
