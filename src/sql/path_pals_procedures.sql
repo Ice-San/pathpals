@@ -165,10 +165,10 @@ BEGIN
 END $$
 DELIMITER ;
 
--- 12. CREATE A NEW PROCEDURE TO ADD REQUEST
+-- 12. CREATE ADD REQUEST
 
 DELIMITER $$
-CREATE PROCEDURE add_request(user_email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME)
+CREATE PROCEDURE add_request(user_email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME, end_datetime DATETIME)
 BEGIN
     SET @u_id = (
         SELECT u_id FROM users WHERE u_email = user_email
@@ -183,8 +183,8 @@ BEGIN
 		SELECT rt_id FROM ride_types WHERE rt_type = 'requested'
     );
 
-    INSERT INTO rides(r_from, r_to, r_start, t_id, rt_id)
-    VALUES(from_location, to_location, start_datetime, @t_id, @rt_id);
+    INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
+    VALUES(from_location, to_location, start_datetime, end_datetime, @t_id, @rt_id);
 END $$
 DELIMITER ;
 

@@ -1,27 +1,19 @@
-@media (max-width: 1388px) {
-    .request-container {
-        max-height: 200px;
-        height: 13vw;
-        min-height: 175px;
+@media(max-width: 1000px) {
+    .list-flex {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .list-division {
+        padding-bottom: 1px;
+
+        margin: 25px 0;
+        margin-bottom: 50px;
+
+        width: 90%;
+        height: auto;
     }
 }
-
-@media (max-width: 970px) {
-    .request-container {
-        max-height: 200px;
-        height: 13vw;
-        min-height: 175px;
-    }
-}
-
-@media (max-width: 602px) {
-    .request-container {
-        max-height: 200px;
-        height: 13vw;
-        min-height: 165px;
-    }
-}
-
 
 @media (max-width: 1086px) {
     .menu-container {
@@ -48,9 +40,13 @@
     .menu {
         height: 75px;
     }
+
+    .list-direction {
+        min-height: 200px;
+    }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 840px) {
     .list-titles h1 {
         font-family: "Manrope", "Mallana", Arial, Helvetica, sans-serif;
         font-size: clamp(30px, 5vw, 50px);
@@ -73,7 +69,10 @@
     }
 
     .form-list-date input {
-        width: 100%;
+        padding: 0 15px;
+        margin-left: 5px;
+    
+        width: 220px;
     }
 
     .submit-btn {
