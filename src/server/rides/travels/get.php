@@ -1,10 +1,7 @@
 <?php
-    include_once "../../auth/index.php";
-    include_once "../../utils.php";
-
     function getCurrentTravel($conn) {
-        $currentTravel = 'get_connections("'. $_SESSION['email'] . '")';
-        $currentTravelQuery = mysqli_query($conn , $currentTravel);
+        $currentTravelProcedure = "CALL get_connections('". $_SESSION['email'] . "')";
+        $currentTravelQuery = mysqli_query($conn , $currentTravelProcedure);
 
         $final_data = array();
         if (mysqli_num_rows($currentTravelQuery) > 0) {

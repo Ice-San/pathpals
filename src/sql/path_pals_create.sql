@@ -325,15 +325,15 @@ SET @t_id = (
 );
 
 INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
-VALUES('Castelo Branco', 'Lisboa', NOW(), NULL, LAST_INSERT_ID(), @rt_id);
+VALUES('Castelo Branco', 'Lisboa', NOW(), NOW(), LAST_INSERT_ID(), @rt_id);
 
 -- === TESTS BEGIN ===
 
 INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
-VALUES('Porto', 'Lisboa', DATE("2023-03-24 13:34:04"), NULL,  @t_id, @rt_id);
+VALUES('Porto', 'Lisboa', NOW(), NOW(),  @t_id, @rt_id);
 
 INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
-VALUES('Coimbra', 'Lisboa', DATE("2030-03-14 03:34:04"), NULL,  @t_id, @rt_id);
+VALUES('Coimbra', 'Lisboa', NOW(), NOW(),  @t_id, @rt_id);
 
 -- === TEST END ===
 
@@ -407,7 +407,8 @@ SELECT
     r.r_from AS ride_from,
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
-    r.r_start AS ride_start
+    r.r_start AS ride_start,
+    r.r_end AS ride_end
 FROM
     tickets AS t
 INNER JOIN
@@ -439,7 +440,8 @@ SELECT
     r.r_from AS ride_from,
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
-    r.r_start AS ride_start
+    r.r_start AS ride_start,
+    r.r_end AS ride_end
 FROM
     tickets AS t
 INNER JOIN
@@ -768,7 +770,7 @@ DELIMITER ;
 -- 12. CREATE ADD REQUEST
 
 DELIMITER $$
-CREATE PROCEDURE add_request(user_email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME)
+CREATE PROCEDURE add_request(user_email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME, end_datetime DATETIME)
 BEGIN
     SET @u_id = (
         SELECT u_id FROM users WHERE u_email = user_email
@@ -783,8 +785,8 @@ BEGIN
 		SELECT rt_id FROM ride_types WHERE rt_type = 'requested'
     );
 
-    INSERT INTO rides(r_from, r_to, r_start, t_id, rt_id)
-    VALUES(from_location, to_location, start_datetime, @t_id, @rt_id);
+    INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
+    VALUES(from_location, to_location, start_datetime, end_datetime, @t_id, @rt_id);
 END $$
 DELIMITER ;
 

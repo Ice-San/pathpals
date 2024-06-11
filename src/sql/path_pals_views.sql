@@ -12,7 +12,8 @@ SELECT
     r.r_from AS ride_from,
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
-    r.r_start AS ride_start
+    r.r_start AS ride_start,
+    r.r_end AS ride_end
 FROM
     tickets AS t
 INNER JOIN
@@ -44,7 +45,8 @@ SELECT
     r.r_from AS ride_from,
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
-    r.r_start AS ride_start
+    r.r_start AS ride_start,
+    r.r_end AS ride_end
 FROM
     tickets AS t
 INNER JOIN
