@@ -105,6 +105,7 @@
 
     width: 100%;
     height: auto;
+    min-height: 250px;
 }
 
 .content-flex h1 {
