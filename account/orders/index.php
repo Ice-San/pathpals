@@ -149,70 +149,54 @@ $userOffers = getUserOffers($conn);
                             <h1>Minhas Solicitações</h1>
                         </div>
 
-                        <?php
-                            if (isset($userRequests) && count($userRequests) > 0) {
-                                foreach ($userRequests as $userRequest) {
-                                    $rideId = $userRequest["ride_id"];
-                                    $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-                                    $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
-
-                                    $ride_start_datetime = $currentTravel['ride_start'];
-                                    $ride_start_timestamp = strtotime($ride_start_datetime);
-                                    $ride_end_datetime = $currentTravel['ride_end'];
-                                    $ride_end_timestamp = strtotime($ride_end_datetime);
-
-                                    if ($ride_start_timestamp !== false) {
-                                        $ride_start_time = date('H\h:i', $ride_start_timestamp);
-                                        $ride_start_date = date('d-m-Y', $ride_start_timestamp);
-                                    }
-
-                                    if ($ride_end_timestamp !== false) {
-                                        $ride_end_time = date('H\h:i', $ride_end_timestamp);
-                                    }
-        
-                                    echo '<div class="request-container">
-                                            <div class="request-position-left">
-                                                <div class="requests-user-info">
-                                                    <div class="requests-icon">
-                                                        <div class="requests-icon-container"></div>
-                                                    </div>
-        
-                                                    <div class="requests-user-text">
-                                                        <h1>'. $userRequest["username"] .'</h1>
-                                                        <p>'. $userRequest["career"] .' - '. $userRequest["class"] .'</p>
-                                                    </div>
+                    <?php
+                        if (isset($userRequests) && count($userRequests) > 0) {
+                            foreach ($userRequests as $userRequest) {
+                                $rideId = $userRequest["ride_id"];
+                                $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                                $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
+    
+                                echo '<div class="request-container">
+                                        <div class="request-position-left">
+                                            <div class="requests-user-info">
+                                                <div class="requests-icon">
+                                                    <div class="requests-icon-container"></div>
                                                 </div>
-        
-                                                <div class="requests-division">
-                                                    <div class="requests-division-container"></div>
-                                                </div>
-        
-                                                <div class="requests-destinations">
-                                                    <p><span>De: </span>'. $userRequest["ride_from"] .'</p>
-                                                    <p><span>Para: </span>'. $userRequest["ride_to"] .'</p>
-                                                    <p><span>Data: </span>'. $ride_start_date .'</p>
-                                                    <p><span>Agendado: </span>'. $ride_start_time .' - '. $ride_end_time .'</p>
+    
+                                                <div class="requests-user-text">
+                                                    <h1>'. $userRequest["username"] .'</h1>
+                                                    <p>'. $userRequest["career"] .' - '. $userRequest["class"] .'</p>
                                                 </div>
                                             </div>
-        
-                                            <div class="request-position-right">
-                                                <div class="requests-division"></div>
-        
-                                                <div class="requests-btn">
-                                                    <a href="../../src/server/rides/requests/delete.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
-                                                        <div class="requests-btn-container">
-                                                            <div class="requests-delete"></div>
-                                                        </div>
-                                                    </a>
-                                                </div>
+    
+                                            <div class="requests-division">
+                                                <div class="requests-division-container"></div>
                                             </div>
-                                        </div>';
-                                }
-                            } else {
-                                echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
+    
+                                            <div class="requests-destinations">
+                                                <p><span>De: </span>'. $userRequest["ride_from"] .'</p>
+                                                <p><span>Para: </span>'. $userRequest["ride_to"] .'</p>
+                                            </div>
+                                        </div>
+    
+                                        <div class="request-position-right">
+                                            <div class="requests-division"></div>
+    
+                                            <div class="requests-btn">
+                                                <a href="../../src/server/rides/requests/delete.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
+                                                    <div class="requests-btn-container">
+                                                        <div class="requests-delete"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>';
                             }
-                        ?>
-                    </div>
+                        } else {
+                            echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
+                        }
+                    ?>
+                </div>
 
                     <div class="list-division"></div>
 

@@ -330,10 +330,10 @@ VALUES('Castelo Branco', 'Lisboa', NOW(), NOW(), LAST_INSERT_ID(), @rt_id);
 -- === TESTS BEGIN ===
 
 INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
-VALUES('Porto', 'Lisboa', DATE("2023-03-24 13:34:04"), DATE("2023-03-24 15:34:04"),  @t_id, @rt_id);
+VALUES('Porto', 'Lisboa', NOW(), NOW(),  @t_id, @rt_id);
 
 INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
-VALUES('Coimbra', 'Lisboa', DATE("2030-03-14 03:34:04"), DATE("2023-03-14 23:54:44"),  @t_id, @rt_id);
+VALUES('Coimbra', 'Lisboa', NOW(), NOW(),  @t_id, @rt_id);
 
 -- === TEST END ===
 
