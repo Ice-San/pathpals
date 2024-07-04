@@ -4,11 +4,13 @@
 
 @keyframes formRequestEnterAnimation {
     0% {
-        transform: scale(0);
+        opacity: 0;
+        backdrop-filter: blur(0px);
     }
 
     100% {
-        transform: scale(1);
+        opacity: 1;
+        backdrop-filter: blur(12px);
     }
 }
 
@@ -18,14 +20,15 @@
 
 @keyframes formRequestExitAnimation {
     0% {
-        transform: scale(1);
+        opacity: 1;
+        backdrop-filter: blur(12px);
     }
 
     100% {
-        transform: scale(0);
+        opacity: 0;
+        backdrop-filter: blur(0px);
     }
 }
-
 
 .form-list-container-animation {
     animation: formListContainer 1s 1 ease-in-out;

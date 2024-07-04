@@ -210,7 +210,7 @@ $allRequests = getAllRequests($conn);
                                         </div>';
                                 }
                             } else {
-                                echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
+                                echo "<p class=\"error-message\">Não precisa de um transporte?</p>";
                             }
                         ?>
                     </div>
@@ -280,7 +280,7 @@ $allRequests = getAllRequests($conn);
                                         </div>';
                                 }
                             } else {
-                                echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
+                                echo "<p class=\"error-message\">Parece que hoje ninguém precisa de um transporte... :(</p>";
                             }
                         ?>
                     </div>

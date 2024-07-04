@@ -23,3 +23,7 @@ a {
 .unvisibility {
     display: none;
 }
+
+ul {
+    list-style: none;
+}

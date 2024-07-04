@@ -350,5 +350,77 @@ BEGIN
     INNER JOIN users AS u ON acc.u_id = u.u_id
     WHERE u.u_email = user_email;
 END $$
-$$
+DELIMITER ;
+
+-- 23. GET ALL USERS INFO
+
+DELIMITER $$
+CREATE PROCEDURE get_all_users_info(user_email VARCHAR(255))
+BEGIN    
+    SET @u_i_code = (
+        SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+        LIMIT 1
+    );
+    
+    SELECT * 
+    FROM all_users_info_view 
+    WHERE institution_code = @u_i_code
+      AND email <> user_email
+      AND username NOT IN (
+          SELECT u.u_username
+          FROM users u
+          INNER JOIN accounts a ON u.u_id = a.u_id
+          INNER JOIN user_types ut ON a.ut_id = ut.ut_id
+          WHERE ut.ut_type = 'admin'
+      )
+      AND username NOT IN (
+          SELECT u.u_username
+          FROM users u
+          INNER JOIN accounts a ON u.u_id = a.u_id
+          INNER JOIN user_permissions up ON a.up_id = up.up_id
+          WHERE up.up_level = 0
+      )
+	LIMIT 50;
+END $$
+DELIMITER ;
+
+-- 24. CREATE GET OFFERS PROCEDURE
+
+DELIMITER $$
+CREATE PROCEDURE get_offers_from_institution(user_email VARCHAR(255))
+BEGIN
+	SET @i_code = (
+		SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+	);
+    
+    SELECT * FROM all_offers_view WHERE institution_code = @i_code;
+END $$
+DELIMITER ;
+
+-- 25. CREATE GET REQUESTS PROCEDURE
+
+DELIMITER $$
+CREATE PROCEDURE get_requests_from_institution(user_email VARCHAR(255))
+BEGIN    
+	SET @i_code = (
+		SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+	);
+    
+    SELECT * FROM all_requested_view WHERE institution_code = @i_code;
+END $$
 DELIMITER ;

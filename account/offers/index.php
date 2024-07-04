@@ -210,7 +210,7 @@ $allOffers = getAllOffers($conn);
                                         </div>';
                                 }
                             } else {
-                                echo "<p class=\"error-message\">Parece que hoje ninguém consegue oferecer transporte... :(</p>";
+                                echo "<p class=\"error-message\">Não consegue oferecer um transporte? :(</p>";
                             }
                         ?>
                     </div>
@@ -281,7 +281,7 @@ $allOffers = getAllOffers($conn);
                                         </div>';
                                 }
                             } else {
-                                echo "<p class=\"error-message\">Ainda não aceitou nenhuma Solicitação ou Oferta.</p>";
+                                echo "<p class=\"error-message\">Parece que ninguém hoje pode oferecer transporte...</p>";
                             }
                         ?>
                     </div>

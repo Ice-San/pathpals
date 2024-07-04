@@ -68,6 +68,7 @@ session_start();
                                         <input id="institution-input" type="text" name="institution-code" placeholder="Código da Instituição" required>
                                     </div>
                                     <div class="form-error error-institution unvisibility"></div>
+                                    <?php if(isset($_SESSION['error_institutions'])) { echo "<div class='form-error error-email'>* ".$_SESSION['error_institutions']."</div>"; } ?>
                                 </div>
                             </div>
 

@@ -1,6 +1,6 @@
 <?php
     function getAllOffers($conn) {
-        $displayAllOffers = 'SELECT * FROM all_offers_view;';
+        $displayAllOffers = 'CALL get_offers_from_institution("'. $_SESSION['email'] .'");';
         $offersAllQuery = mysqli_query($conn , $displayAllOffers);
 
         $final_data = array();

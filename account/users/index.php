@@ -3,6 +3,8 @@
     include_once "../../src/server/utils.php";
     include_once "../../src/server/user/permission/get.php";
     include_once "../../src/server/user/type/get.php";
+    include_once "../../src/server/user/get.php";
+    include_once "../../src/server/admin/users/get.php";
 
     session_start();
 
@@ -15,6 +17,13 @@
     mysqli_next_result($conn);
 
     $userType = getUserType($conn);
+
+    mysqli_next_result($conn);
+
+    $allUsersInformations = getAllUserInfo($conn);
+
+    $allUsersInfoCount = $allUsersInformations['count_users'];
+    $allUsersInfoDatas = $allUsersInformations['data'];
 
     if (isset($userPermission) && count($userPermission) > 0) {
         foreach ($userPermission as $userPermissionCheck) {
@@ -65,53 +74,47 @@
 
         <div class="manage-background">
             <div class="data-count">
-                <h1>87</h1>
+                <?php 
+                    echo "<h1>". $allUsersInfoCount ."</h1>";
+                ?>
                 <p>Users</p>
             </div>
 
             <input type="text" id="search-bar" placeholder="Search">
 
-            <div class="table">
-                <div class="check-user">
-                    <input type="checkbox">
+            <ul>
+                <li class="header-list">
+                    <span>User</span>
+                    <span>Password</span>
+                    <span>Conta</span>
+                </li>
 
-                    <p>User</p>
-                </div>
+                <?php
+                    if (isset($allUsersInfoDatas) && count($allUsersInfoDatas) > 0) {
+                        foreach ($allUsersInfoDatas as $allUsersInfoData) {
+                            echo '<li class="result-list">
+                                    <span>
+                                        <div class="user-icon">
+                                                <div class="user-icon-container"></div>
+                                        </div>
+                                        <a href="">'. $allUsersInfoData["username"] .'</a>
+                                    </span>
+                                    <span><a href="">Recuperar</a></span>
+                                    <span class="delete-option"><a href="Apagar">Apagar</a></span>
+                                </li>';
+                        }
+                    } else {
+                        echo "<p class=\"error-message\">Parece que a instituição ainda não têm utilizadores... :(</p>";
+                    }
+                ?>
 
-                <div class="forgot-pass">
-                    <p>Recuperar</p>
-                </div>
-
-                <div class="delete-account">
-                    <p>Apagar</p>
-                </div>
-            </div>
-
-            <div class="table-extra">
-                <div class="table-content-left-extra">
-                    <input type="checkbox">
-
-                    <div class="user-icon">
-                        <div class="user-icon-container"></div>
-                    </div>
-
-                    <h1>IceSann_</h1>
-                </div>
-
-                <div class="table-content-middle-extra">
-                    <a href="./">Recuperar Password</a>
-                </div>
-
-                <div class="table-content-right-extra">
-                    <a href="./">Apagar Conta</a>
-                </div>
-            </div>
+            </ul>
         </div>
 
         <div class="bottom-menu">
             <div class="bottom-menu-container">
                 <div class="bottom-menu-position">
-                    <a href="../profile/">
+                    <a href="./">
                         <div class="bottom-options">
                             <div class="manage-container"></div>
                         </div>

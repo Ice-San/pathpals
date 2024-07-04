@@ -1,3 +1,21 @@
+@media (max-width: 1178px) {
+    .header-list span {
+        font-size: 4vw;
+    }
+
+    .result-list span a {
+        font-size: 2.8vw;
+    }
+
+    .user-icon {
+        width: 4vw;
+        min-width: 25px;
+    
+        height: 4vw;
+        min-height: 25px;
+    }
+}
+
 @media (max-width: 1060px) {
     .data-count h1 {
         font-size: 9vw;
@@ -12,229 +30,40 @@
     #search-bar {
         font-size: 2vw;
     }
-
-    .check-user input {
-        width: 2vw;
-        height: 2vw;
-    }
-    
-    .check-user p {
-        font-size: 2.4vw;
-    }
-
-    .user-icon {    
-        width: 5vw;
-        height: 5vw;
-    }
-
-    .forgot-pass p {
-        font-size: 2.4vw;
-    }
-
-    .delete-account p {
-        font-size: 2.4vw;
-    }
-
-    .table-content-left input {
-        width: 2vw;
-        height: 2vw;
-    }
-
-    .table-content-left h1 {
-        font-size: 2.4vw;
-    }
-
-    .table-content-middle a {
-        font-size: 2.2vw;
-    }
-
-    .table-content-right a {
-        font-size: 2.2vw;
-    }
-
-    .table-content-left-extra input {
-        width: 2vw;
-        height: 2vw;
-    }
-
-    .table-content-left-extra h1 {
-        font-size: 2.4vw;
-    }
-
-    .table-content-middle-extra a {
-        font-size: 2.2vw;
-    }
-
-    .table-content-right-extra a {
-        font-size: 2.2vw;
-    }
 }
 
-@media (max-width: 800px) {
-    .table {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        grid-gap: 50px;
-
-        padding-left: 0px;
-    
-        width: 90%;
-    }
-    
-    .table-extra {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: 1fr;
-        grid-gap: 50px;
-
-        padding-left: 0px;
-    
-        width: 90%;
+@media (max-width: 760px) {
+    .header-list span {
+        font-size: 5vw;
     }
 
-    .data-count h1 {
-        font-size: 12vw;
+    .result-list span a {
+        font-size: 3.5vw;
     }
 
-    .data-count p {
-        font-size: 3vw;
+    .user-icon {
+        width: 4.5vw;
+        min-width: 25px;
     
-        margin-top: -15px;
+        height: 4.5vw;
+        min-height: 25px;
     }
 
     #search-bar {
-        font-size: 3vw;
-    }
-
-    .check-user input {
-        width: 3vw;
-        height: 3vw;
-    }
-    
-    .check-user p {
-        font-size: 3.4vw;
-    }
-
-    .forgot-pass p {
-        font-size: 3.4vw;
-    }
-
-    .delete-account p {
-        font-size: 3.4vw;
-    }
-
-    .table-content-left input {
-        width: 3vw;
-        height: 3vw;
-    }
-
-    .table-content-left h1 {
-        font-size: 3.4vw;
-    }
-
-    .table-content-middle a {
-        font-size: 2.4vw;
-    }
-
-    .table-content-right a {
-        font-size: 2.4vw;
-    }
-
-    .table-content-left-extra input {
-        width: 3vw;
-        height: 3vw;
-    }
-
-    .table-content-left-extra h1 {
-        font-size: 3.4vw;
-    }
-
-    .table-content-middle-extra a {
-        font-size: 2.4vw;
-    }
-
-    .table-content-right-extra a {
-        font-size: 2.4vw;
+        font-size: 4vw;
     }
 }
 
-@media (max-width: 673px) {
-    .table {
-        grid-gap: 15px;
-    }
-    
-    .table-extra {
-        grid-gap: 15px;
+@media (max-width: 545px) {
+    .header-list span {
+        font-size: 30px;
     }
 
-    .data-count h1 {
-        font-size: 12vw;
+    .result-list span a {
+        font-size: 20px;
     }
 
-    .data-count p {
-        font-size: 3vw;
-    
-        margin-top: -15px;
-    }
-
-    #search-bar {
-        font-size: 3vw;
-    }
-
-    .check-user input {
-        width: 3vw;
-        height: 3vw;
-    }
-    
-    .check-user p {
-        font-size: 3.4vw;
-    }
-
-    .user-icon {    
-        width: 7vw;
-        height: 7vw;
-    }
-
-    .forgot-pass p {
-        font-size: 3.4vw;
-    }
-
-    .delete-account p {
-        font-size: 3.4vw;
-    }
-
-    .table-content-left input {
-        width: 3vw;
-        height: 3vw;
-    }
-
-    .table-content-left h1 {
-        font-size: 3.4vw;
-    }
-
-    .table-content-middle a {
-        font-size: 2.4vw;
-    }
-
-    .table-content-right a {
-        font-size: 2.4vw;
-    }
-
-    .table-content-left-extra input {
-        width: 3vw;
-        height: 3vw;
-    }
-
-    .table-content-left-extra h1 {
-        font-size: 3.4vw;
-    }
-
-    .table-content-middle-extra a {
-        font-size: 2.4vw;
-    }
-
-    .table-content-right-extra a {
-        font-size: 2.4vw;
+    .user-icon {
+        display: none;
     }
 }

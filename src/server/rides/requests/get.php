@@ -1,6 +1,6 @@
 <?php
     function getAllRequests($conn) {
-        $displayAllRequests = "SELECT * FROM all_requested_view;";
+        $displayAllRequests = "CALL get_requests_from_institution('". $_SESSION['email'] ."');";
         $requestsAllQuery = mysqli_query($conn , $displayAllRequests);
 
         $final_data = array();

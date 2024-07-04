@@ -17,7 +17,6 @@ CREATE TABLE persons (
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
 -- 2. USERS
 
 CREATE TABLE users (
@@ -372,24 +371,36 @@ SET @accounts_a_id = (
 );
 
 -- 11. CREATE A CONNECTION
+
 INSERT INTO connections(r_id, u_id_driver, u_id_traveler)
 VALUES(@r_id, @driver_u_id, @u_id);
 
 -- 12. CREATE INSTITUTIONS
+
 INSERT INTO institutions(i_code, i_name, i_description)
 VALUES("5D84V546ED", "IPC", "Instituto Politécnico de Castelo Branco");
 
 INSERT INTO institutions(i_code, i_name, i_description)
 VALUES("5478DF54C1", "ETPS", "Escola Técnologica e Profissional da Sertã");
 
-SET @institutions_i_id = (
-	SELECT i_id FROM institutions AS i WHERE i.i_id = LAST_INSERT_ID()
-);
-
 -- 13. CONNECT INSTITUTION
 
+SET @ipc_id = (
+    SELECT i_id FROM institutions WHERE i_code = '5D84V546ED'
+);
+
+SET @etps_id = (
+    SELECT i_id FROM institutions WHERE i_code = '5478DF54C1'
+);
+
 INSERT INTO institutions_account(i_id, a_id)
-VALUES(@institutions_i_id, @accounts_a_id);
+VALUE(@etps_id, 1);
+
+INSERT INTO institutions_account(i_id, a_id)
+VALUE(@etps_id, 2);
+
+INSERT INTO institutions_account(i_id, a_id)
+VALUE(@ipc_id, 3);
 
 -- === CREATE VIEWS ===
 
@@ -408,7 +419,8 @@ SELECT
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
     r.r_start AS ride_start,
-    r.r_end AS ride_end
+    r.r_end AS ride_end,
+    i.i_code AS institution_code
 FROM
     tickets AS t
 INNER JOIN
@@ -419,6 +431,12 @@ INNER JOIN
     rides AS r ON t.t_id = r.t_id
 INNER JOIN
     ride_types AS rt ON r.rt_id = rt.rt_id
+INNER JOIN
+    accounts AS a ON u.u_id = a.u_id
+INNER JOIN
+    institutions_account AS ia ON a.a_id = ia.a_id
+INNER JOIN
+    institutions AS i ON ia.i_id = i.i_id
 WHERE
     rt.rt_type = 'proposed'
     AND DATE(r.r_start) >= CURDATE()
@@ -441,7 +459,8 @@ SELECT
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
     r.r_start AS ride_start,
-    r.r_end AS ride_end
+    r.r_end AS ride_end,
+    i.i_code AS institution_code
 FROM
     tickets AS t
 INNER JOIN
@@ -452,6 +471,12 @@ INNER JOIN
     rides AS r ON t.t_id = r.t_id
 INNER JOIN
     ride_types AS rt ON r.rt_id = rt.rt_id
+INNER JOIN
+    accounts AS a ON u.u_id = a.u_id
+INNER JOIN
+    institutions_account AS ia ON a.a_id = ia.a_id
+INNER JOIN
+    institutions AS i ON ia.i_id = i.i_id
 WHERE
     rt.rt_type = 'requested'
     AND DATE(r.r_start) >= CURDATE()
@@ -506,6 +531,22 @@ FROM
     persons AS p
 JOIN
     users AS u ON p.p_id = u.p_id;
+    
+-- 5. CREATE GET ALL USERS INFO VIEW
+
+CREATE VIEW all_users_info_view AS
+SELECT 
+    u.u_username AS username, 
+    u.u_email AS email,
+    i.i_code AS institution_code
+FROM 
+    users u
+INNER JOIN 
+    accounts a ON u.u_id = a.u_id
+INNER JOIN 
+    institutions_account ia ON a.a_id = ia.a_id
+INNER JOIN 
+    institutions i ON ia.i_id = i.i_id;
 
 -- === FUNCTIONS ===
 
@@ -631,34 +672,43 @@ DELIMITER ;
 -- 3. CREATE USER
 
 DELIMITER $$
-CREATE PROCEDURE create_user(un VARCHAR(50), e VARCHAR(100), n VARCHAR(50), ln VARCHAR(50), g VARCHAR(20), p VARCHAR(255), t VARCHAR(10), l INT)
+CREATE PROCEDURE create_user(un VARCHAR(50), e VARCHAR(100), n VARCHAR(50), ln VARCHAR(50), g VARCHAR(20), p VARCHAR(255), t VARCHAR(10), l INT, i_code VARCHAR(30)) create_user_label:
 BEGIN
 	DECLARE user_exists INT;
 
     SELECT COUNT(*) INTO user_exists FROM users WHERE u_email = e;
 
-    IF user_exists = 0 THEN
-		INSERT INTO users(u_username, u_email, p_id)
-		VALUES(un, e, create_person(n, ln, g));
-
-		SET @u_id = (
-			SELECT u_id FROM users AS u WHERE u.u_id = LAST_INSERT_ID()
-		);
-
-		INSERT INTO passwords(pw_hashed_password, u_id)
-		VALUES(p, @u_id);
-
-		SET @ut_admin_id = (
-			SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = t
-		);
-
-		SET @up_admin_id = (
-			SELECT up_id FROM user_permissions AS up WHERE up.up_level = l
-		);
-
-		INSERT INTO accounts(u_id, ut_id, up_id)
-		VALUES(@u_id, @ut_admin_id, @up_admin_id);
+    IF user_exists > 0 THEN
+        LEAVE create_user_label;
     END IF;
+
+	INSERT INTO users(u_username, u_email, p_id)
+	VALUES(un, e, create_person(n, ln, g));
+
+	SET @u_id = (
+		SELECT u_id FROM users AS u WHERE u.u_id = LAST_INSERT_ID()
+	);
+
+	INSERT INTO passwords(pw_hashed_password, u_id)
+	VALUES(p, @u_id);
+
+	SET @ut_admin_id = (
+		SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = t
+	);
+
+	SET @up_admin_id = (
+		SELECT up_id FROM user_permissions AS up WHERE up.up_level = l
+	);
+
+	INSERT INTO accounts(u_id, ut_id, up_id)
+	VALUES(@u_id, @ut_admin_id, @up_admin_id);
+    
+    SET @i_id = (
+		SELECT i_id FROM institutions AS i WHERE i.i_code = i_code
+	);
+    
+    INSERT INTO institutions_account(i_id, a_id)
+    VALUES(@i_id, @u_id);
 END $$
 DELIMITER ;
 
@@ -953,4 +1003,77 @@ BEGIN
     WHERE u.u_email = user_email;
 END $$
 $$
+DELIMITER ;
+
+-- 23. GET ALL USERS INFO
+
+DELIMITER $$
+CREATE PROCEDURE get_all_users_info(user_email VARCHAR(255))
+BEGIN    
+    SET @u_i_code = (
+        SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+        LIMIT 1
+    );
+    
+    SELECT * 
+    FROM all_users_info_view 
+    WHERE institution_code = @u_i_code
+      AND email <> user_email
+      AND username NOT IN (
+          SELECT u.u_username
+          FROM users u
+          INNER JOIN accounts a ON u.u_id = a.u_id
+          INNER JOIN user_types ut ON a.ut_id = ut.ut_id
+          WHERE ut.ut_type = 'admin'
+      )
+      AND username NOT IN (
+          SELECT u.u_username
+          FROM users u
+          INNER JOIN accounts a ON u.u_id = a.u_id
+          INNER JOIN user_permissions up ON a.up_id = up.up_id
+          WHERE up.up_level = 0
+      )
+	LIMIT 50;
+END $$
+DELIMITER ;
+
+-- 24. CREATE GET OFFERS PROCEDURE
+
+DELIMITER $$
+CREATE PROCEDURE get_offers_from_institution(user_email VARCHAR(255))
+BEGIN
+	SET @i_code = (
+		SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+	);
+    
+    SELECT * FROM all_offers_view WHERE institution_code = @i_code;
+END $$
+DELIMITER ;
+
+-- 25. CREATE GET REQUESTS PROCEDURE
+
+DELIMITER $$
+CREATE PROCEDURE get_requests_from_institution(user_email VARCHAR(255))
+BEGIN    
+	SET @i_code = (
+		SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+	);
+    
+    SELECT * FROM all_requested_view WHERE institution_code = @i_code;
+END $$
 DELIMITER ;
