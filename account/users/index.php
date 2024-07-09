@@ -88,7 +88,15 @@
             </div>
 
             <form action="./" method="POST" enctype="application/x-www-form-urlencoded">
-                <input type="text" id="search-bar" name="adminSearch" placeholder="Procure pelo username ou email...">
+                <div class="search-bar">
+                    <button type="submit">
+                        <div class="search-icon">
+                            <div class="search-icon-container"></div>
+                        </div>
+                    </button>
+
+                    <input type="text" id="search-bar" name="adminSearch" placeholder="Procure pelo username ou email...">
+                </div>
             </form>
 
             <ul>
