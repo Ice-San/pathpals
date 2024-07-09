@@ -5,6 +5,7 @@
     include_once "../../src/server/user/type/get.php";
     include_once "../../src/server/user/get.php";
     include_once "../../src/server/admin/users/get.php";
+    include_once "../../src/server/admin/users/post.php";
 
     session_start();
 
@@ -24,6 +25,12 @@
 
     $allUsersInfoCount = $allUsersInformations['count_users'];
     $allUsersInfoDatas = $allUsersInformations['data'];
+
+    mysqli_next_result($conn);
+
+    $allUsersInfoBySearch = getAllUserInfoBySearch($conn);
+
+    $allUsersInfoBySearchDatas = $allUsersInfoBySearch['data'];
 
     if (isset($userPermission) && count($userPermission) > 0) {
         foreach ($userPermission as $userPermissionCheck) {
@@ -80,7 +87,9 @@
                 <p>Users</p>
             </div>
 
-            <input type="text" id="search-bar" placeholder="Search">
+            <form action="./" method="POST" enctype="application/x-www-form-urlencoded">
+                <input type="text" id="search-bar" name="adminSearch" placeholder="Procure pelo username ou email...">
+            </form>
 
             <ul>
                 <li class="header-list">
@@ -90,21 +99,40 @@
                 </li>
 
                 <?php
-                    if (isset($allUsersInfoDatas) && count($allUsersInfoDatas) > 0) {
-                        foreach ($allUsersInfoDatas as $allUsersInfoData) {
-                            echo '<li class="result-list">
-                                    <span>
-                                        <div class="user-icon">
-                                                <div class="user-icon-container"></div>
-                                        </div>
-                                        <a href="">'. $allUsersInfoData["username"] .'</a>
-                                    </span>
-                                    <span><a href="">Recuperar</a></span>
-                                    <span class="delete-option"><a href="Apagar">Apagar</a></span>
-                                </li>';
+                    if (!isset($allUsersInfoBySearch)) {
+                        if (isset($allUsersInfoDatas) && count($allUsersInfoDatas) > 0) {
+                            foreach ($allUsersInfoDatas as $allUsersInfoData) {
+                                echo '<li class="result-list">
+                                        <span>
+                                            <div class="user-icon">
+                                                    <div class="user-icon-container"></div>
+                                            </div>
+                                            <a href="">'. $allUsersInfoData["username"] .'</a>
+                                        </span>
+                                        <span><a href="">Recuperar</a></span>
+                                        <span class="delete-option"><a href="Apagar">Apagar</a></span>
+                                    </li>';
+                            }
+                        } else {
+                            echo "<p class=\"error-message\">Parece que a instituição ainda não têm utilizadores... :(</p>";
                         }
                     } else {
-                        echo "<p class=\"error-message\">Parece que a instituição ainda não têm utilizadores... :(</p>";
+                        if (isset($allUsersInfoBySearchDatas) && count($allUsersInfoBySearchDatas) > 0) {
+                            foreach ($allUsersInfoBySearchDatas as $allUsersInfoBySearchData) {
+                                echo '<li class="result-list">
+                                        <span>
+                                            <div class="user-icon">
+                                                    <div class="user-icon-container"></div>
+                                            </div>
+                                            <a href="">'. $allUsersInfoBySearchData["username"] .'</a>
+                                        </span>
+                                        <span><a href="">Recuperar</a></span>
+                                        <span class="delete-option"><a href="Apagar">Apagar</a></span>
+                                    </li>';
+                            }
+                        } else {
+                            echo "<p class=\"error-message\">Parece que a instituição ainda não têm utilizadores... :(</p>";
+                        }
                     }
                 ?>
 

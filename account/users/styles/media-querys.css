@@ -18,11 +18,11 @@
 
 @media (max-width: 1060px) {
     .data-count h1 {
-        font-size: 9vw;
+        font-size: 20vw;
     }
 
     .data-count p {
-        font-size: 2vw;
+        font-size: 4vw;
     
         margin-top: -15px;
     }
@@ -56,11 +56,11 @@
 
 @media (max-width: 545px) {
     .header-list span {
-        font-size: 30px;
+        font-size: 22px;
     }
 
     .result-list span a {
-        font-size: 20px;
+        font-size: 15px;
     }
 
     .user-icon {

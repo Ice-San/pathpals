@@ -355,7 +355,7 @@ DELIMITER ;
 -- 23. GET ALL USERS INFO
 
 DELIMITER $$
-CREATE PROCEDURE get_all_users_info(user_email VARCHAR(255))
+CREATE PROCEDURE get_all_users_info(user_email VARCHAR(255), user_search VARCHAR(255))
 BEGIN    
     SET @u_i_code = (
         SELECT i.i_code 
@@ -367,25 +367,48 @@ BEGIN
         LIMIT 1
     );
     
-    SELECT * 
-    FROM all_users_info_view 
-    WHERE institution_code = @u_i_code
-      AND email <> user_email
-      AND username NOT IN (
-          SELECT u.u_username
-          FROM users u
-          INNER JOIN accounts a ON u.u_id = a.u_id
-          INNER JOIN user_types ut ON a.ut_id = ut.ut_id
-          WHERE ut.ut_type = 'admin'
-      )
-      AND username NOT IN (
-          SELECT u.u_username
-          FROM users u
-          INNER JOIN accounts a ON u.u_id = a.u_id
-          INNER JOIN user_permissions up ON a.up_id = up.up_id
-          WHERE up.up_level = 0
-      )
-	LIMIT 50;
+    IF user_search IS NOT NULL THEN
+        SELECT * 
+        FROM all_users_info_view 
+        WHERE institution_code = @u_i_code
+          AND email <> user_email
+          AND (username LIKE CONCAT('%', user_search, '%') OR email LIKE CONCAT('%', user_search, '%'))
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_types ut ON a.ut_id = ut.ut_id
+              WHERE ut.ut_type = 'admin'
+          )
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_permissions up ON a.up_id = up.up_id
+              WHERE up.up_level = 0
+          )
+        LIMIT 50;
+    ELSE
+        SELECT * 
+        FROM all_users_info_view 
+        WHERE institution_code = @u_i_code
+          AND email <> user_email
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_types ut ON a.ut_id = ut.ut_id
+              WHERE ut.ut_type = 'admin'
+          )
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_permissions up ON a.up_id = up.up_id
+              WHERE up.up_level = 0
+          )
+        LIMIT 50;
+    END IF;
 END $$
 DELIMITER ;
 

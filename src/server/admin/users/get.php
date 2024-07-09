@@ -1,6 +1,7 @@
 <?php
     function getAllUserInfo($conn) {
-        $allUserInfo = "CALL get_all_users_info('". $_SESSION['email'] . "');";
+
+        $allUserInfo = "CALL get_all_users_info('". $_SESSION['email'] ."', '');";
         $allUserInfoQuery = mysqli_query($conn, $allUserInfo);
 
         $final_data = array();

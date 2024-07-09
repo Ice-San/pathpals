@@ -1,6 +1,9 @@
 .background {
     cursor: default;
 
+    font-family: 'Manrope', 'Mallanna', Arial, Helvetica, sans-serif;
+    font-weight: 300;
+
     width: 100%;
     height: 100vh;
 }
@@ -42,6 +45,11 @@
     margin-top: -20px;
 }
 
+.manage-background form {
+    width: 90%;
+    height: auto;
+}
+
 #search-bar {
     border: 2px solid #a7a7a7;
     border-radius: 12px;
@@ -54,9 +62,9 @@
     padding: 15px;
     margin-top: 35px;
     
-    width: 90%;
+    width: 100%;
     height: auto;
-
+    
     transition: all 0.3s ease-in-out;
 }
 
@@ -83,11 +91,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    margin: 15px 0;
 }
 
 .header-list span {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     grid-gap: 15px;
 
@@ -102,11 +112,13 @@
     display: flex;
     justify-content: space-between;
     align-self: center;
+
+    margin-bottom: 15px;
 }
 
 .result-list span {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     grid-gap: 20px;
 
