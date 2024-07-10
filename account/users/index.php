@@ -110,6 +110,10 @@
                     if (!isset($allUsersInfoBySearch)) {
                         if (isset($allUsersInfoDatas) && count($allUsersInfoDatas) > 0) {
                             foreach ($allUsersInfoDatas as $allUsersInfoData) {
+                                $userEmail = $allUsersInfoData["email"];
+                                $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                                $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
+
                                 echo '<li class="result-list">
                                         <span>
                                             <div class="user-icon">
@@ -118,7 +122,7 @@
                                             <a href="">'. $allUsersInfoData["username"] .'</a>
                                         </span>
                                         <span><a href="">Recuperar</a></span>
-                                        <span class="delete-option"><a href="Apagar">Apagar</a></span>
+                                        <span class="delete-option"><a href="../../src/server/user/delete.php?user_email='. $userEmail .'&previous_url='. $returnUrl .'">Apagar</a></span>
                                     </li>';
                             }
                         } else {
@@ -127,6 +131,10 @@
                     } else {
                         if (isset($allUsersInfoBySearchDatas) && count($allUsersInfoBySearchDatas) > 0) {
                             foreach ($allUsersInfoBySearchDatas as $allUsersInfoBySearchData) {
+                                $userEmail = $allUsersInfoBySearchData["email"];
+                                $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                                $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
+
                                 echo '<li class="result-list">
                                         <span>
                                             <div class="user-icon">
@@ -135,7 +143,7 @@
                                             <a href="">'. $allUsersInfoBySearchData["username"] .'</a>
                                         </span>
                                         <span><a href="">Recuperar</a></span>
-                                        <span class="delete-option"><a href="Apagar">Apagar</a></span>
+                                        <span class="delete-option"><a href="../../src/server/user/delete.php?user_email='. $userEmail .'&previous_url='. $returnUrl .'">Apagar</a></span>
                                     </li>';
                             }
                         } else {

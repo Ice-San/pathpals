@@ -447,3 +447,19 @@ BEGIN
     SELECT * FROM all_requested_view WHERE institution_code = @i_code;
 END $$
 DELIMITER ;
+
+-- 26. DELETE USER
+
+DELIMITER $$
+CREATE PROCEDURE delete_user(user_email VARCHAR(255))
+BEGIN
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = user_email
+	);
+
+	DELETE FROM institutions_account WHERE a_id IN (SELECT a_id FROM accounts WHERE u_id = @u_id);
+	DELETE FROM accounts WHERE u_id = @u_id;
+	DELETE FROM passwords WHERE u_id = @u_id;
+	DELETE FROM users WHERE u_id = @u_id;
+END $$
+DELIMITER ;
