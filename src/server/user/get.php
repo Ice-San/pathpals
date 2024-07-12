@@ -1,6 +1,8 @@
 <?php
     function getUserInfo($conn) {
-        $userInfo = "CALL get_user_info('". $_SESSION['email'] . "');";
+        $user_email = isset($_GET['user_email']) && !empty($_GET['user_email']) ? $_GET['user_email'] : $_SESSION['email'];
+
+        $userInfo = "CALL get_user_info('". mysqli_real_escape_string($conn, $user_email) . "');";
         $userInfoQuery = mysqli_query($conn, $userInfo);
 
         $final_data = array();

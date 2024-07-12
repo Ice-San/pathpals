@@ -119,7 +119,7 @@
                                             <div class="user-icon">
                                                     <div class="user-icon-container"></div>
                                             </div>
-                                            <a href="./edit">'. $allUsersInfoData["username"] .'</a>
+                                            <a href="./edit/?user_email='. $userEmail .'">'. $allUsersInfoData["username"] .'</a>
                                         </span>
                                         <span><a href="">Recuperar</a></span>
                                         <span class="delete-option"><a href="../../src/server/user/delete.php?user_email='. $userEmail .'&previous_url='. $returnUrl .'">Apagar</a></span>
@@ -140,7 +140,7 @@
                                             <div class="user-icon">
                                                     <div class="user-icon-container"></div>
                                             </div>
-                                            <a href="./edit">'. $allUsersInfoBySearchData["username"] .'</a>
+                                            <a href="./edit/?user_email='. $userEmail .'">'. $allUsersInfoBySearchData["username"] .'</a>
                                         </span>
                                         <span><a href="">Recuperar</a></span>
                                         <span class="delete-option"><a href="../../src/server/user/delete.php?user_email='. $userEmail .'&previous_url='. $returnUrl .'">Apagar</a></span>
