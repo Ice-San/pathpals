@@ -11,7 +11,7 @@ CREATE TABLE persons (
 	p_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     p_first_name VARCHAR(50) NULL,
     p_last_name VARCHAR(50) NULL,
-    p_birth_date DATE NULL,
+    p_age VARCHAR(2) NULL,
     p_genre VARCHAR(20) NULL,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -26,7 +26,7 @@ CREATE TABLE users (
     u_career VARCHAR(30) NULL,
     u_class VARCHAR(30) NULL,
     u_location VARCHAR(255) NULL,
-    u_about VARCHAR(255) NULL,
+    u_about VARCHAR(30) NULL,
     p_id INT NOT NULL,
     
     FOREIGN KEY (p_id) REFERENCES persons(p_id),
@@ -518,19 +518,28 @@ CREATE VIEW user_data_view AS
 SELECT
     p.p_first_name AS first_name,
     p.p_last_name AS last_name,
-    p.p_birth_date AS user_birthday,
+    p.p_age AS user_birthday,
     p.p_genre AS user_genre,
-    YEAR(CURDATE()) - YEAR(p.p_birth_date) - (RIGHT(CURDATE(), 5) < RIGHT(p.p_birth_date, 5)) AS user_age,
     u.u_username AS user_username,
     u.u_email AS user_email,
     u.u_career AS user_career,
     u.u_class AS user_class,
     u.u_location AS user_location,
-    u.u_about AS user_about
+    u.u_about AS user_about,
+    i.i_name AS institution_name,
+    pw.pw_hashed_password AS user_password
 FROM
     persons AS p
 JOIN
-    users AS u ON p.p_id = u.p_id;
+    users AS u ON p.p_id = u.p_id
+JOIN
+    accounts AS a ON u.u_id = a.u_id
+JOIN
+    institutions_account AS ia ON a.a_id = ia.a_id
+JOIN
+    institutions AS i ON ia.i_id = i.i_id
+LEFT JOIN
+    passwords AS pw ON u.u_id = pw.u_id;
     
 -- 5. CREATE GET ALL USERS INFO VIEW
 
@@ -1114,5 +1123,38 @@ BEGIN
 	DELETE FROM accounts WHERE u_id = @u_id;
 	DELETE FROM passwords WHERE u_id = @u_id;
 	DELETE FROM users WHERE u_id = @u_id;
+END $$
+DELIMITER ;
+
+-- 27. UPDATE USER INFO
+
+DELIMITER $$
+CREATE PROCEDURE update_user_info(p_user_email VARCHAR(100), p_first_name VARCHAR(50), p_last_name VARCHAR(50), p_age VARCHAR(2), p_username VARCHAR(50), p_career VARCHAR(30), p_class VARCHAR(30), p_location VARCHAR(255), p_about VARCHAR(30), p_password VARCHAR(255))
+BEGIN
+    SET @u_id = (
+        SELECT u_id FROM users WHERE u_email = p_user_email
+    );
+
+    UPDATE persons
+    SET 
+        p_first_name = p_first_name,
+        p_last_name = p_last_name,
+        p_age = p_age
+    WHERE p_id = @u_id;
+
+    UPDATE users
+    SET 
+        u_username = p_username,
+        u_career = p_career,
+        u_class = p_class,
+        u_location = p_location,
+        u_about = p_about
+    WHERE u_id = @u_id;
+    
+    IF p_password IS NOT NULL THEN
+        UPDATE passwords
+        SET pw_hashed_password = p_password
+        WHERE u_id = @u_id;
+    END IF;
 END $$
 DELIMITER ;

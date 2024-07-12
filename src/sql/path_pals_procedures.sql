@@ -463,3 +463,38 @@ BEGIN
 	DELETE FROM users WHERE u_id = @u_id;
 END $$
 DELIMITER ;
+
+-- 27. UPDATE USER INFO
+
+DELIMITER $$
+CREATE PROCEDURE update_user_info(p_user_email VARCHAR(100), p_first_name VARCHAR(50), p_last_name VARCHAR(50), p_age VARCHAR(2), p_username VARCHAR(50), p_career VARCHAR(30), p_class VARCHAR(30), p_location VARCHAR(255), p_about VARCHAR(30), p_password VARCHAR(255))
+BEGIN
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = p_user_email
+	);
+    
+
+    UPDATE persons
+    SET 
+        p_first_name = p_first_name,
+        p_last_name = p_last_name,
+        p_age = p_age
+    WHERE p_id = @u_id;
+    
+
+    UPDATE users
+    SET 
+        u_username = p_username,
+        u_career = p_career,
+        u_class = p_class,
+        u_location = p_location,
+        u_about = p_about
+    WHERE u_id = @u_id;
+    
+    IF p_password IS NOT NULL THEN
+        UPDATE passwords
+        SET pw_hashed_password = p_password
+        WHERE u_id = u_id;
+    END IF;
+END $$
+DELIMITER ;
