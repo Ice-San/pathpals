@@ -1,5 +1,5 @@
 <?php
-include_once "./src/server/auth.php";
+include_once "./src/server/auth/index.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,6 +8,7 @@ include_once "./src/server/auth.php";
     <meta name="viewport" content="width=device-width">
 
     <title>PathPals - Home</title>
+    <link rel="icon" type="image/png" href="./src/assets/images/pathpals-logo-blue.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

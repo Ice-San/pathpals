@@ -28,6 +28,7 @@ $allOffers = getAllOffers($conn);
     <meta name="viewport" content="width=device-width">
 
     <title>PathPals - Ofertas</title>
+    <link rel="icon" type="image/png" href="../../src/assets/images/pathpals-logo-blue.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,7 +96,7 @@ $allOffers = getAllOffers($conn);
                                     $ride_end_time = date('H\h:i', $ride_end_timestamp);
                                 }
 
-                                echo '<div class="request-container">
+                                echo '<div class="request-container during-rides-color">
                                         <div class="request-position-left">
                                             <div class="requests-user-info">
                                                 <div class="requests-icon">
@@ -171,7 +172,7 @@ $allOffers = getAllOffers($conn);
                                         $ride_end_time = date('H\h:i', $ride_end_timestamp);
                                     }
 
-                                    echo '<div class="request-container">
+                                    echo '<div class="request-container offers-color">
                                             <div class="request-position-left">
                                                 <div class="requests-user-info">
                                                     <div class="requests-icon">
@@ -248,7 +249,7 @@ $allOffers = getAllOffers($conn);
                                     }
 
 
-                                    echo '<div class="request-container">
+                                    echo '<div class="request-container offers-color">
                                             <div class="request-position-left">
                                                 <div class="requests-user-info">
                                                     <div class="requests-icon">

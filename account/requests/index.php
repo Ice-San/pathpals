@@ -28,6 +28,7 @@ $allRequests = getAllRequests($conn);
     <meta name="viewport" content="width=device-width">
 
     <title>PathPals - Solicitadas</title>
+    <link rel="icon" type="image/png" href="../../src/assets/images/pathpals-logo-blue.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
