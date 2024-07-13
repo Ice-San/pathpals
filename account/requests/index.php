@@ -276,7 +276,7 @@ $allRequests = getAllRequests($conn);
                                                 <div class="requests-division"></div>
 
                                                 <div class="requests-btn">
-                                                    <a href="./">
+                                                    <a href="../../src/server/rides/requests/accept.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
                                                         <div class="requests-btn-container">
                                                             <div class="requests-check"></div>
                                                         </div>
