@@ -95,7 +95,7 @@ $allRequests = getAllRequests($conn);
                                     $ride_end_time = date('H\h:i', $ride_end_timestamp);
                                 }
 
-                                echo '<div class="request-container">
+                                echo '<div class="request-container during-rides-color">
                                         <div class="request-position-left">
                                             <div class="requests-user-info">
                                                 <div class="requests-icon">
@@ -171,7 +171,7 @@ $allRequests = getAllRequests($conn);
                                         $ride_end_time = date('H\h:i', $ride_end_timestamp);
                                     }
         
-                                    echo '<div class="request-container">
+                                    echo '<div class="request-container requests-color">
                                             <div class="request-position-left">
                                                 <div class="requests-user-info">
                                                     <div class="requests-icon">
@@ -247,7 +247,7 @@ $allRequests = getAllRequests($conn);
                                         $ride_end_time = date('H\h:i', $ride_end_timestamp);
                                     }
 
-                                    echo '<div class="request-container">
+                                    echo '<div class="request-container requests-color">
                                             <div class="request-position-left">
                                                 <div class="requests-user-info">
                                                     <div class="requests-icon">
