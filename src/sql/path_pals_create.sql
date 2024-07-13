@@ -557,6 +557,20 @@ INNER JOIN
 INNER JOIN 
     institutions i ON ia.i_id = i.i_id;
 
+-- 6. GET ALL TICKETS
+
+CREATE VIEW all_tickets_view AS
+SELECT 
+	t.t_id AS ticket_id,
+    u.u_email AS user_email,
+    ts.ts_status AS ticket_status
+FROM
+	tickets AS t
+INNER JOIN
+	ticket_status AS ts ON ts.ts_id = t.ts_id
+INNER JOIN
+	users AS u ON t.u_id = u.u_id;
+
 -- === FUNCTIONS ===
 
 -- 1. CREATE USER TYPE
@@ -854,23 +868,55 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE accept_offer(r_id INT, accepting_user_email VARCHAR(255))
 BEGIN
-    SET @traveler_id = (
-            SELECT u_id FROM users WHERE u_email = accepting_user_email
-        );
+     SET @traveler_id = (
+        SELECT u_id 
+        FROM users 
+        WHERE u_email = accepting_user_email
+    );
 
     SET @num_accepted = (
-        SELECT COUNT(*) FROM connections WHERE u_id_traveler = @traveler_id
+        SELECT COUNT(*)
+        FROM connections
+        WHERE u_id_traveler = @traveler_id
     );
 
     IF @num_accepted > 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O utilizador já aceitou uma oferta ou  um pedido';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O usuário já aceitou uma oferta';
     ELSE
         SET @driver_id = (
-            SELECT u_id_driver FROM connections WHERE r_id = r_id
+            SELECT t.u_id FROM rides AS r
+            INNER JOIN tickets AS t ON t.t_id = r.t_id
+            INNER JOIN ride_types AS rt ON rt.rt_id = r.rt_id
+            WHERE r.r_id = r_id AND rt.rt_type = 'proposed'
+        );
+
+        SET @ticket_id = (
+			SELECT t.t_id 
+            FROM tickets AS t
+            WHERE t.u_id = @driver_id
         );
 
         INSERT INTO connections(r_id, u_id_driver, u_id_traveler)
         VALUES(r_id, @driver_id, @traveler_id);
+        
+        SET @connections_count = (
+			SELECT COUNT(*)
+            FROM connections AS c
+            WHERE c.c_id = LAST_INSERT_ID()
+        );
+        
+        SET @ticket_status_open_id = (
+			SELECT ts.ts_id FROM tickets AS t 
+            INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+            WHERE ts.ts_status = 'open'
+        );
+        
+        IF @connections_count > 0 THEN
+			UPDATE tickets AS t
+            SET
+				t.ts_id = @ticket_status_open_id
+			WHERE t.t_id = @ticket_id;
+		END IF;
     END IF;
 END $$
 DELIMITER ;
@@ -892,11 +938,39 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O utilizador já aceitou uma oferta ou um pedido';
     ELSE
         SET @traveler_id = (
-            SELECT u_id_traveler FROM connections WHERE r_id = r_id
+			SELECT t.u_id FROM rides AS r
+            INNER JOIN tickets AS t ON t.t_id = r.t_id
+            INNER JOIN ride_types AS rt ON rt.rt_id = r.rt_id
+            WHERE r.r_id = r_id AND rt.rt_type = 'requested'
+        );
+        
+        SET @ticket_id = (
+			SELECT t.t_id 
+            FROM tickets AS t
+            WHERE t.u_id = @traveler_id
         );
 
         INSERT INTO connections(r_id, u_id_traveler, u_id_driver)
         VALUES(r_id, @traveler_id, @driver_id);
+        
+        SET @connections_count = (
+			SELECT COUNT(*)
+            FROM connections AS c
+            WHERE c.c_id = LAST_INSERT_ID()
+        );
+        
+        SET @ticket_status_open_id = (
+			SELECT ts.ts_id FROM tickets AS t 
+            INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+            WHERE ts.ts_status = 'open'
+        );
+        
+        IF @connections_count > 0 THEN
+			UPDATE tickets AS t
+            SET
+				t.ts_id = @ticket_status_open_id
+			WHERE t.t_id = @ticket_id;
+		END IF;
     END IF;
 END $$
 DELIMITER ;
@@ -955,6 +1029,18 @@ BEGIN
 	);
 
     IF EXISTS (SELECT * FROM rides WHERE r_id = ride_id AND t_id IN (SELECT t_id FROM tickets WHERE u_id = @u_id)) THEN
+		SET @ticket_id = (
+			SELECT t.t_id FROM tickets AS t WHERE t.u_id = @u_id
+        );
+        
+        SET @ticket_status_close_id = (
+			SELECT ts.ts_id FROM ticket_status AS ts WHERE ts.ts_status = 'close'
+        );
+        
+        UPDATE tickets AS t
+		SET t.ts_id = @ticket_status_close_id
+		WHERE t.t_id = @ticket_id;
+    
         IF EXISTS (SELECT * FROM connections WHERE r_id = ride_id) THEN
             DELETE FROM connections WHERE r_id = ride_id;
         END IF;
@@ -976,7 +1062,20 @@ BEGIN
 	);
 
     IF EXISTS (SELECT * FROM rides WHERE r_id = ride_id AND t_id IN (SELECT t_id FROM tickets WHERE u_id = @u_id)) THEN
-        IF EXISTS (SELECT * FROM connections WHERE r_id = ride_id) THEN
+		SET @ticket_id = (
+			SELECT t.t_id FROM tickets AS t WHERE t.u_id = @u_id
+        );
+        
+        SET @ticket_status_close_id = (
+			SELECT ts.ts_id FROM ticket_status AS ts WHERE ts.ts_status = 'close'
+        );
+        
+        UPDATE tickets AS t
+		SET
+			t.ts_id = @ticket_status_close_id
+		WHERE t.t_id = @ticket_id;
+    
+        IF EXISTS (SELECT * FROM connections WHERE r_id = ride_id) THEN        
             DELETE FROM connections WHERE r_id = ride_id;
         END IF;
         
@@ -1088,7 +1187,12 @@ BEGIN
         WHERE u.u_email = user_email
 	);
     
-    SELECT * FROM all_offers_view WHERE institution_code = @i_code;
+    SELECT *
+    FROM all_offers_view AS aov
+    INNER JOIN tickets AS t ON t.t_id = aov.ticket_id
+    INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+    INNER JOIN users AS u ON u.u_id = t.u_id
+    WHERE institution_code = @i_code AND u.u_email != user_email AND ts.ts_status != 'open' AND ts.ts_status != 'close';
 END $$
 DELIMITER ;
 
@@ -1106,7 +1210,12 @@ BEGIN
         WHERE u.u_email = user_email
 	);
     
-    SELECT * FROM all_requested_view WHERE institution_code = @i_code;
+    SELECT *
+    FROM all_requested_view AS arv
+    INNER JOIN tickets AS t ON t.t_id = arv.ticket_id
+    INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+    INNER JOIN users AS u ON u.u_id = t.u_id
+    WHERE institution_code = @i_code AND u.u_email != user_email AND ts.ts_status != 'open' AND ts.ts_status != 'close';
 END $$
 DELIMITER ;
 

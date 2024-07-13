@@ -122,7 +122,7 @@ $userOffers = getUserOffers($conn);
                                             <div class="requests-division"></div>
 
                                             <div class="requests-btn">
-                                                <a href="../../src/server/rides/requests/delete.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
+                                                <a href="./">
                                                     <div class="requests-btn-container">
                                                         <div class="requests-delete"></div>
                                                     </div>

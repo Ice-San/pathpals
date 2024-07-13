@@ -205,7 +205,7 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O usuário já aceitou uma oferta';
     ELSE
         SET @driver_id = (
-            SELECT u_id_driver FROM connections WHERE r_id = r_id
+            SELECT u_id FROM tickets WHERE t_id = (SELECT t_id FROM rides WHERE r_id = r_id)
         );
 
         INSERT INTO connections(r_id, u_id_driver, u_id_traveler)

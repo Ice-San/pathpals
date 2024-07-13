@@ -123,7 +123,7 @@ $allRequests = getAllRequests($conn);
                                             <div class="requests-division"></div>
 
                                             <div class="requests-btn">
-                                                <a href="../../src/server/rides/requests/delete.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
+                                                <a href="./">
                                                     <div class="requests-btn-container">
                                                         <div class="requests-delete"></div>
                                                     </div>
@@ -229,6 +229,10 @@ $allRequests = getAllRequests($conn);
                         <?php
                             if (isset($allRequests) && count($allRequests) > 0) {
                                 foreach ($allRequests as $allRequest) {
+                                    $rideId = $allRequest["ride_id"];
+                                    $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                                    $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
+
                                     $ride_start_datetime = $allRequest['ride_start'];
                                     $ride_start_timestamp = strtotime($ride_start_datetime);
                                     $ride_end_datetime = $allRequest['ride_end'];
@@ -272,9 +276,11 @@ $allRequests = getAllRequests($conn);
                                                 <div class="requests-division"></div>
 
                                                 <div class="requests-btn">
-                                                    <div class="requests-btn-container">
-                                                        <div class="requests-check"></div>
-                                                    </div>
+                                                    <a href="./">
+                                                        <div class="requests-btn-container">
+                                                            <div class="requests-check"></div>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>';

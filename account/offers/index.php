@@ -123,7 +123,7 @@ $allOffers = getAllOffers($conn);
                                             <div class="requests-division"></div>
 
                                             <div class="requests-btn">
-                                                <a href="../../src/server/rides/requests/delete.php?ride_id='. $rideId .'&previous_url='. $returnUrl .'">
+                                                <a href="./">
                                                     <div class="requests-btn-container">
                                                         <div class="requests-delete"></div>
                                                     </div>
@@ -229,6 +229,10 @@ $allOffers = getAllOffers($conn);
                         <?php
                             if (isset($allOffers) && count($allOffers) > 0) {
                                 foreach ($allOffers as $allOffer) {
+                                    $rideId = $allOffer["ride_id"];
+                                    $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                                    $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
+
                                     $ride_start_datetime = $allOffer['ride_start'];
                                     $ride_start_timestamp = strtotime($ride_start_datetime);
                                     $ride_end_datetime = $allOffer['ride_end'];
@@ -273,9 +277,11 @@ $allOffers = getAllOffers($conn);
                                                 <div class="requests-division"></div>
 
                                                 <div class="requests-btn">
-                                                    <div class="requests-btn-container">
-                                                        <div class="requests-check"></div>
-                                                    </div>
+                                                    <a href="./">
+                                                        <div class="requests-btn-container">
+                                                            <div class="requests-check"></div>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>';
