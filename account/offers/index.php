@@ -78,7 +78,8 @@ $allOffers = getAllOffers($conn);
                     <?php
                         if (isset($currentTravels) && count($currentTravels) > 0) {
                             foreach ($currentTravels as $currentTravel) {
-                                $rideId = $currentTravel["ride_id"];
+                                $driverEmail = $currentTravel["driver_email"];
+                                $travelerEmail = $currentTravel["traveler_email"];
                                 $previousUrl = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                                 $returnUrl = basename(parse_url($previousUrl, PHP_URL_PATH));
 
@@ -96,7 +97,8 @@ $allOffers = getAllOffers($conn);
                                     $ride_end_time = date('H\h:i', $ride_end_timestamp);
                                 }
 
-                                echo '<div class="request-container during-rides-color">
+                                if($currentTravel['ride_type'] == "proposed") {
+                                    echo '<div class="request-container during-rides-color">
                                         <div class="request-position-left">
                                             <div class="requests-user-info">
                                                 <div class="requests-icon">
@@ -104,7 +106,7 @@ $allOffers = getAllOffers($conn);
                                                 </div>
 
                                                 <div class="requests-user-text">
-                                                    <h1>'. $currentTravel["driver_username"] .'</h1>
+                                                    <h1>'. $currentTravel["traveler_username"] .'</h1>
                                                 </div>
                                             </div>
 
@@ -124,14 +126,54 @@ $allOffers = getAllOffers($conn);
                                             <div class="requests-division"></div>
 
                                             <div class="requests-btn">
-                                                <a href="./">
+                                                <a href="../../src/server/rides/offers/cancel.php?driver_email='. $driverEmail .'&previous_url='. $returnUrl .'">
                                                     <div class="requests-btn-container">
-                                                        <div class="requests-delete"></div>
+                                                        <div class="requests-cancel"></div>
                                                     </div>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>';
+                                }
+
+                                if($currentTravel['ride_type'] == "requested") {
+                                    echo '<div class="request-container during-rides-color">
+                                        <div class="request-position-left">
+                                            <div class="requests-user-info">
+                                                <div class="requests-icon">
+                                                    <div class="requests-icon-container"></div>
+                                                </div>
+
+                                                <div class="requests-user-text">
+                                                    <h1>'. $currentTravel["traveler_username"] .'</h1>
+                                                </div>
+                                            </div>
+
+                                            <div class="requests-division">
+                                                <div class="requests-division-container"></div>
+                                            </div>
+
+                                            <div class="requests-destinations">
+                                                <p><span>De: </span>'. $currentTravel["ride_from"] .'</p>
+                                                <p><span>Para: </span>'. $currentTravel["ride_to"] .'</p>
+                                                <p><span>Data: </span>'. $ride_start_date .'</p>
+                                                <p><span>Agendado: </span>'. $ride_start_time .' - '. $ride_end_time .'</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="request-position-right">
+                                            <div class="requests-division"></div>
+
+                                            <div class="requests-btn">
+                                                <a href="../../src/server/rides/requests/cancel.php?traveler_email='. $travelerEmail .'&previous_url='. $returnUrl .'">
+                                                    <div class="requests-btn-container">
+                                                        <div class="requests-cancel"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>';
+                                }
                             }
                         } else {
                             echo "<p class=\"error-message\">Ainda não aceitou nenhuma Solicitação ou Oferta.</p>";
@@ -248,8 +290,36 @@ $allOffers = getAllOffers($conn);
                                         $ride_end_time = date('H\h:i', $ride_end_timestamp);
                                     }
 
+                                    if (isset($currentTravels) && count($currentTravels) > 0) {
+                                        echo '<div class="request-container offers-color">
+                                            <div class="request-position-left">
+                                                <div class="requests-user-info">
+                                                    <div class="requests-icon">
+                                                        <div class="requests-icon-container"></div>
+                                                    </div>
 
-                                    echo '<div class="request-container offers-color">
+                                                    <div class="requests-user-text">
+                                                        <h1>'. $allOffer["username"] .'</h1>
+                                                        <p>'. $allOffer["career"] .' - '. $allOffer["class"] .'</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="requests-division">
+                                                    <div class="requests-division-container"></div>
+                                                </div>
+
+                                                <div class="requests-destinations">
+                                                    <p><span>De: </span>'. $allOffer["ride_from"] .'</p>
+                                                    <p><span>Para: </span>'. $allOffer["ride_to"] .'</p>
+                                                    <p><span>Data: </span>'. $ride_start_date .'</p>
+                                                    <p><span>Agendado: </span>'. $ride_start_time .' - '. $ride_end_time .'</p>
+                                                </div>
+                                            </div>
+                                        </div>';
+                                    }
+
+                                    if (isset($currentTravels) && count($currentTravels) <= 0) {
+                                        echo '<div class="request-container offers-color">
                                             <div class="request-position-left">
                                                 <div class="requests-user-info">
                                                     <div class="requests-icon">
@@ -286,6 +356,7 @@ $allOffers = getAllOffers($conn);
                                                 </div>
                                             </div>
                                         </div>';
+                                    }
                                 }
                             } else {
                                 echo "<p class=\"error-message\">Parece que ninguém hoje pode oferecer transporte...</p>";

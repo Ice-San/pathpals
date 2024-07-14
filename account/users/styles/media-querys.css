@@ -7,6 +7,10 @@
         font-size: 2.8vw;
     }
 
+    .result-list span p {
+        font-size: 2.8vw;
+    }
+
     .user-icon {
         width: 4vw;
         min-width: 25px;
@@ -41,6 +45,10 @@
         font-size: 3.5vw;
     }
 
+    .result-list span p {
+        font-size: 3.5vw;
+    }
+
     .user-icon {
         width: 4.5vw;
         min-width: 25px;
@@ -60,6 +68,10 @@
     }
 
     .result-list span a {
+        font-size: 15px;
+    }
+
+    .result-list span p {
         font-size: 15px;
     }
 

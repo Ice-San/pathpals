@@ -103,7 +103,7 @@
             <ul>
                 <li class="header-list">
                     <span>User</span>
-                    <span>Password</span>
+                    <span>Perfil</span>
                     <span>Conta</span>
                 </li>
 
@@ -120,9 +120,9 @@
                                             <div class="user-icon">
                                                     <div class="user-icon-container"></div>
                                             </div>
-                                            <a href="./edit/?user_email='. $userEmail .'">'. $allUsersInfoData["username"] .'</a>
+                                            <p>'. $allUsersInfoData["username"] .'</p>
                                         </span>
-                                        <span><a href="">Recuperar</a></span>
+                                        <span><a href="./edit/?user_email='. $userEmail .'">Editar</a></span>
                                         <span class="delete-option"><a href="../../src/server/user/delete.php?user_email='. $userEmail .'&previous_url='. $returnUrl .'">Apagar</a></span>
                                     </li>';
                             }
@@ -141,9 +141,9 @@
                                             <div class="user-icon">
                                                     <div class="user-icon-container"></div>
                                             </div>
-                                            <a href="./edit/?user_email='. $userEmail .'">'. $allUsersInfoBySearchData["username"] .'</a>
+                                            <p>'. $allUsersInfoBySearchData["username"] .'</p>
                                         </span>
-                                        <span><a href="">Recuperar</a></span>
+                                        <span><a href="./edit/?user_email='. $userEmail .'">Editar</a></span>
                                         <span class="delete-option"><a href="../../src/server/user/delete.php?user_email='. $userEmail .'&previous_url='. $returnUrl .'">Apagar</a></span>
                                     </li>';
                             }
@@ -156,24 +156,12 @@
             </ul>
         </div>
 
-        <div class="bottom-menu">
+        <div class="bottom-menu-admin">
             <div class="bottom-menu-container">
-                <div class="bottom-menu-position">
+                <div class="bottom-menu-position-admin">
                     <a href="./">
                         <div class="bottom-options">
                             <div class="manage-container"></div>
-                        </div>
-                    </a>
-
-                    <a href="./">
-                        <div class="bottom-options">
-                            <div class="requests-container"></div>
-                        </div>
-                    </a>
-
-                    <a href="./">
-                        <div class="bottom-options">
-                            <div class="offers-container"></div>
                         </div>
                     </a>
 

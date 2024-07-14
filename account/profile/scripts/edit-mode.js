@@ -16,6 +16,8 @@ const errorUsername = document.getElementById("edit-username-error");
 const errorPassword = document.getElementById("edit-password-error");
 const errorConfirmPassword = document.getElementById("edit-confirm-password-error");
 
+const editInfoLock = document.querySelectorAll(".info-description-exception");
+
 editBtn.addEventListener("click", () => {
     editBtnImage.classList.toggle("edit-container");
     editBtnImage.classList.toggle("edit-close-container");
@@ -36,6 +38,10 @@ editBtn.addEventListener("click", () => {
 
     for(i = 0; i < editInfoInput.length; i++) {
         editInfoInput[i].classList.toggle("unvisibility");
+    }
+
+    for(i = 0; i < editInfoLock.length; i++) {
+        editInfoLock[i].classList.toggle("info-description-input-lock");
     }
 
     editSaveBtn.classList.toggle("unvisibility");

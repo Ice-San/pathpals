@@ -169,6 +169,13 @@
     transition: all 0.3s ease-in-out;
 }
 
+.result-list span p {
+    color: #4b4b4b;
+    font-size: 2vw;
+
+    transition: all 0.3s ease-in-out;
+}
+
 .result-list span a {
     color: #4b4b4b;
     font-size: 2vw;

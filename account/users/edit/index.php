@@ -85,6 +85,7 @@ if (isset($userType) && count($userType) > 0) {
                             <div class="username">
                                 <div class="username-container"></div>
                             </div>
+
                             <?php echo '<input id="edit-username" type="text" name="new_username" minlenght="1" maxlength="23" placeholder="Escreva um novo Username..." value="'. $userInfo['user_username'] .'">'; ?>
                         </div>
 
@@ -152,7 +153,7 @@ if (isset($userType) && count($userType) > 0) {
                                     <h1>Email</h1>
                                 </div>
                     
-                                <div class="info-description-exception">
+                                <div class="info-description-exception info-description-input-lock">
                                     <?php echo isset($userInfo['user_email']) ? '<p>'. $userInfo['user_email'] . '</p>' : '<p></p>'; ?>
                                 </div>
                             </div>
@@ -167,8 +168,7 @@ if (isset($userType) && count($userType) > 0) {
                                 </div>
                     
                                 <div class="info-description">
-                                    <p>******</p>
-                                    <?php echo '<input id="edit-password" type="password" class="unvisibility" name="new_password" minlenght="1" maxlength="255" placeholder="Escreva uma nova Password para a sua conta" value="'. $userInfo['user_password'] .'">'; ?>
+                                    <?php echo '<input id="edit-password" type="password" name="new_password" minlenght="1" maxlength="255" placeholder="Escreva uma nova Password para a sua conta" value="'. $userInfo['user_password'] .'">'; ?>
                                 </div>
 
                                 <div class="error unvisibility" id="edit-password-error">
@@ -186,8 +186,7 @@ if (isset($userType) && count($userType) > 0) {
                                 </div>
                     
                                 <div class="info-description">
-                                    <p>******</p>
-                                    <?php echo '<input id="edit-confirm-password" type="password" class="unvisibility" name="new_confirm_password" minlenght="1" maxlength="255" placeholder="Escreva uma nova Password para a sua conta" value="'. $userInfo['user_password'] .'">'; ?>
+                                    <?php echo '<input id="edit-confirm-password" type="password" name="new_confirm_password" minlenght="1" maxlength="255" placeholder="Escreva uma nova Password para a sua conta" value="'. $userInfo['user_password'] .'">'; ?>
                                 </div>
 
                                 <div class="error unvisibility" id="edit-confirm-password-error">
@@ -204,7 +203,7 @@ if (isset($userType) && count($userType) > 0) {
                                     <h1>Escola</h1>
                                 </div>
                     
-                                <div class="info-description-exception">
+                                <div class="info-description-exception info-description-input-lock">
                                     <?php echo isset($userInfo['institution_name']) ? '<p>'. $userInfo['institution_name'] . '</p>' : '<p></p>'; ?>
                                 </div>
                             </div>
@@ -247,24 +246,12 @@ if (isset($userType) && count($userType) > 0) {
                 </button>
         </form>
 
-            <div class="bottom-menu">
+            <div class="bottom-menu-admin">
                 <div class="bottom-menu-container">
-                    <div class="bottom-menu-position">
+                    <div class="bottom-menu-position-admin">
                         <a href="../">
                             <div class="bottom-options">
                                 <div class="manage-container"></div>
-                            </div>
-                        </a>
-
-                        <a href="../">
-                            <div class="bottom-options">
-                                <div class="requests-container"></div>
-                            </div>
-                        </a>
-
-                        <a href="../">
-                            <div class="bottom-options">
-                                <div class="offers-container"></div>
                             </div>
                         </a>
 
