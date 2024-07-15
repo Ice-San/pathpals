@@ -40,9 +40,11 @@ session_start();
         </div>
 
         <div class="background-container">
-            <div class="back-btn">
-                <div class="back-btn-container"></div>
-            </div>
+            <a href="../">
+                <div class="back-btn">
+                    <div class="back-btn-container"></div>
+                </div>
+            </a>
 
             <div class="center-signup">
                 <div class="center-signup-content">

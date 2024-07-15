@@ -1,7 +1,7 @@
-DROP DATABASE path_pals_db;
-CREATE DATABASE path_pals_db;
+DROP DATABASE u325475326_path_pals_db;
+CREATE DATABASE u325475326_path_pals_db;
 
-USE path_pals_db;
+USE u325475326_path_pals_db;
 
 -- === TABLES ===
 
