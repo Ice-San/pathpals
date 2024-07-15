@@ -1,7 +1,6 @@
 <?php
     include_once "./src/server/auth/index.php";
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
