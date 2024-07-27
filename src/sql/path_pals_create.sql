@@ -1,7 +1,7 @@
-DROP DATABASE path_pals_db;
-CREATE DATABASE path_pals_db;
+DROP DATABASE u325475326_path_pals_db;
+CREATE DATABASE u325475326_path_pals_db;
 
-USE path_pals_db;
+USE u325475326_path_pals_db;
 
 -- === TABLES ===
 
@@ -11,12 +11,11 @@ CREATE TABLE persons (
 	p_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     p_first_name VARCHAR(50) NULL,
     p_last_name VARCHAR(50) NULL,
-    p_birth_date DATE NULL,
+    p_age VARCHAR(2) NULL,
     p_genre VARCHAR(20) NULL,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
 
 -- 2. USERS
 
@@ -27,7 +26,7 @@ CREATE TABLE users (
     u_career VARCHAR(30) NULL,
     u_class VARCHAR(30) NULL,
     u_location VARCHAR(255) NULL,
-    u_about VARCHAR(255) NULL,
+    u_about VARCHAR(30) NULL,
     p_id INT NOT NULL,
     
     FOREIGN KEY (p_id) REFERENCES persons(p_id),
@@ -229,14 +228,14 @@ INSERT INTO persons(p_first_name, p_last_name, p_genre)
 VALUES ('Rúben', 'Costa', 'M');
 
 INSERT INTO users(u_username, u_email, p_id)
-VALUES('Cavalo47', 'cavalo47@gmail.com', LAST_INSERT_ID());
+VALUES('userTest47', 'userTest47@gmail.com', LAST_INSERT_ID());
 
 SET @u_id = (
 	SELECT u_id FROM users AS u WHERE u.u_id = LAST_INSERT_ID()
 );
 
 INSERT INTO passwords(pw_hashed_password, u_id)
-VALUES('ruben3947583763826', @u_id);
+VALUES('admin123admin', @u_id);
 
 SET @ut_admin_id = (
 	SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = 'admin'
@@ -255,14 +254,14 @@ INSERT INTO persons(p_first_name, p_last_name, p_genre)
 VALUES ('Rodrigo', 'Costa', 'M');
 
 INSERT INTO users(u_username, u_email, p_id)
-VALUES('Cavalo45', 'cavalo45@gmail.com', LAST_INSERT_ID());
+VALUES('userTest45', 'userTest45@gmail.com', LAST_INSERT_ID());
 
 SET @u_id = (
 	SELECT u_id FROM users AS u WHERE u.u_id = LAST_INSERT_ID()
 );
 
 INSERT INTO passwords(pw_hashed_password, u_id)
-VALUES('rodrigo2344', @u_id);
+VALUES('123', @u_id);
 
 SET @ut_director_id = (
 	SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = 'director'
@@ -281,14 +280,14 @@ INSERT INTO persons(p_first_name, p_last_name, p_genre)
 VALUES ('Daniel', 'Costa', 'M');
 
 INSERT INTO users(u_username, u_email, p_id)
-VALUES('Cavalo46', 'cavalo46@gmail.com', LAST_INSERT_ID());
+VALUES('userTest46', 'userTest46@gmail.com', LAST_INSERT_ID());
 
 SET @u_id = (
 	SELECT u_id FROM users AS u WHERE u.u_id = LAST_INSERT_ID()
 );
 
 INSERT INTO passwords(pw_hashed_password, u_id)
-VALUES('daniel45555', @u_id);
+VALUES('123', @u_id);
 
 SET @ut_user_id = (
 	SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = 'user'
@@ -325,15 +324,15 @@ SET @t_id = (
 );
 
 INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
-VALUES('Castelo Branco', 'Lisboa', NOW(), NULL, LAST_INSERT_ID(), @rt_id);
+VALUES('Castelo Branco', 'Lisboa', NOW(), NOW(), LAST_INSERT_ID(), @rt_id);
 
 -- === TESTS BEGIN ===
 
 INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
-VALUES('Porto', 'Lisboa', DATE("2023-03-24 13:34:04"), NULL,  @t_id, @rt_id);
+VALUES('Porto', 'Lisboa', NOW(), NOW(),  @t_id, @rt_id);
 
 INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
-VALUES('Coimbra', 'Lisboa', DATE("2030-03-14 03:34:04"), NULL,  @t_id, @rt_id);
+VALUES('Coimbra', 'Lisboa', NOW(), NOW(),  @t_id, @rt_id);
 
 -- === TEST END ===
 
@@ -347,14 +346,14 @@ INSERT INTO persons(p_first_name, p_last_name, p_genre)
 VALUES ('João', 'Machado', 'M');
 
 INSERT INTO users(u_username, u_email, p_id)
-VALUES('Cavalo49', 'cavalo49@gmail.com', LAST_INSERT_ID());
+VALUES('userTest49', 'userTest49@gmail.com', LAST_INSERT_ID());
 
 SET @driver_u_id = (
 	SELECT u_id FROM users AS u WHERE u.u_id = LAST_INSERT_ID()
 );
 
 INSERT INTO passwords(pw_hashed_password, u_id)
-VALUES('joao492498', @u_id);
+VALUES('123', @u_id);
 
 SET @ut_user_id = (
 	SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = 'user'
@@ -372,24 +371,36 @@ SET @accounts_a_id = (
 );
 
 -- 11. CREATE A CONNECTION
+
 INSERT INTO connections(r_id, u_id_driver, u_id_traveler)
 VALUES(@r_id, @driver_u_id, @u_id);
 
 -- 12. CREATE INSTITUTIONS
+
 INSERT INTO institutions(i_code, i_name, i_description)
 VALUES("5D84V546ED", "IPC", "Instituto Politécnico de Castelo Branco");
 
 INSERT INTO institutions(i_code, i_name, i_description)
 VALUES("5478DF54C1", "ETPS", "Escola Técnologica e Profissional da Sertã");
 
-SET @institutions_i_id = (
-	SELECT i_id FROM institutions AS i WHERE i.i_id = LAST_INSERT_ID()
-);
-
 -- 13. CONNECT INSTITUTION
 
+SET @ipc_id = (
+    SELECT i_id FROM institutions WHERE i_code = '5D84V546ED'
+);
+
+SET @etps_id = (
+    SELECT i_id FROM institutions WHERE i_code = '5478DF54C1'
+);
+
 INSERT INTO institutions_account(i_id, a_id)
-VALUES(@institutions_i_id, @accounts_a_id);
+VALUE(@etps_id, 1);
+
+INSERT INTO institutions_account(i_id, a_id)
+VALUE(@etps_id, 2);
+
+INSERT INTO institutions_account(i_id, a_id)
+VALUE(@ipc_id, 3);
 
 -- === CREATE VIEWS ===
 
@@ -407,7 +418,9 @@ SELECT
     r.r_from AS ride_from,
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
-    r.r_start AS ride_start
+    r.r_start AS ride_start,
+    r.r_end AS ride_end,
+    i.i_code AS institution_code
 FROM
     tickets AS t
 INNER JOIN
@@ -418,6 +431,12 @@ INNER JOIN
     rides AS r ON t.t_id = r.t_id
 INNER JOIN
     ride_types AS rt ON r.rt_id = rt.rt_id
+INNER JOIN
+    accounts AS a ON u.u_id = a.u_id
+INNER JOIN
+    institutions_account AS ia ON a.a_id = ia.a_id
+INNER JOIN
+    institutions AS i ON ia.i_id = i.i_id
 WHERE
     rt.rt_type = 'proposed'
     AND DATE(r.r_start) >= CURDATE()
@@ -439,7 +458,9 @@ SELECT
     r.r_from AS ride_from,
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
-    r.r_start AS ride_start
+    r.r_start AS ride_start,
+    r.r_end AS ride_end,
+    i.i_code AS institution_code
 FROM
     tickets AS t
 INNER JOIN
@@ -450,6 +471,12 @@ INNER JOIN
     rides AS r ON t.t_id = r.t_id
 INNER JOIN
     ride_types AS rt ON r.rt_id = rt.rt_id
+INNER JOIN
+    accounts AS a ON u.u_id = a.u_id
+INNER JOIN
+    institutions_account AS ia ON a.a_id = ia.a_id
+INNER JOIN
+    institutions AS i ON ia.i_id = i.i_id
 WHERE
     rt.rt_type = 'requested'
     AND DATE(r.r_start) >= CURDATE()
@@ -491,19 +518,58 @@ CREATE VIEW user_data_view AS
 SELECT
     p.p_first_name AS first_name,
     p.p_last_name AS last_name,
-    p.p_birth_date AS user_birthday,
+    p.p_age AS user_birthday,
     p.p_genre AS user_genre,
-    YEAR(CURDATE()) - YEAR(p.p_birth_date) - (RIGHT(CURDATE(), 5) < RIGHT(p.p_birth_date, 5)) AS user_age,
     u.u_username AS user_username,
     u.u_email AS user_email,
     u.u_career AS user_career,
     u.u_class AS user_class,
     u.u_location AS user_location,
-    u.u_about AS user_about
+    u.u_about AS user_about,
+    i.i_name AS institution_name,
+    pw.pw_hashed_password AS user_password
 FROM
     persons AS p
 JOIN
-    users AS u ON p.p_id = u.p_id;
+    users AS u ON p.p_id = u.p_id
+JOIN
+    accounts AS a ON u.u_id = a.u_id
+JOIN
+    institutions_account AS ia ON a.a_id = ia.a_id
+JOIN
+    institutions AS i ON ia.i_id = i.i_id
+LEFT JOIN
+    passwords AS pw ON u.u_id = pw.u_id;
+    
+-- 5. CREATE GET ALL USERS INFO VIEW
+
+CREATE VIEW all_users_info_view AS
+SELECT 
+    u.u_username AS username, 
+    u.u_email AS email,
+    i.i_code AS institution_code
+FROM 
+    users u
+INNER JOIN 
+    accounts a ON u.u_id = a.u_id
+INNER JOIN 
+    institutions_account ia ON a.a_id = ia.a_id
+INNER JOIN 
+    institutions i ON ia.i_id = i.i_id;
+
+-- 6. GET ALL TICKETS
+
+CREATE VIEW all_tickets_view AS
+SELECT 
+	t.t_id AS ticket_id,
+    u.u_email AS user_email,
+    ts.ts_status AS ticket_status
+FROM
+	tickets AS t
+INNER JOIN
+	ticket_status AS ts ON ts.ts_id = t.ts_id
+INNER JOIN
+	users AS u ON t.u_id = u.u_id;
 
 -- === FUNCTIONS ===
 
@@ -629,34 +695,43 @@ DELIMITER ;
 -- 3. CREATE USER
 
 DELIMITER $$
-CREATE PROCEDURE create_user(un VARCHAR(50), e VARCHAR(100), n VARCHAR(50), ln VARCHAR(50), g VARCHAR(20), p VARCHAR(255), t VARCHAR(10), l INT)
+CREATE PROCEDURE create_user(un VARCHAR(50), e VARCHAR(100), n VARCHAR(50), ln VARCHAR(50), g VARCHAR(20), p VARCHAR(255), t VARCHAR(10), l INT, i_code VARCHAR(30)) create_user_label:
 BEGIN
 	DECLARE user_exists INT;
 
     SELECT COUNT(*) INTO user_exists FROM users WHERE u_email = e;
 
-    IF user_exists = 0 THEN
-		INSERT INTO users(u_username, u_email, p_id)
-		VALUES(un, e, create_person(n, ln, g));
-
-		SET @u_id = (
-			SELECT u_id FROM users AS u WHERE u.u_id = LAST_INSERT_ID()
-		);
-
-		INSERT INTO passwords(pw_hashed_password, u_id)
-		VALUES(p, @u_id);
-
-		SET @ut_admin_id = (
-			SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = t
-		);
-
-		SET @up_admin_id = (
-			SELECT up_id FROM user_permissions AS up WHERE up.up_level = l
-		);
-
-		INSERT INTO accounts(u_id, ut_id, up_id)
-		VALUES(@u_id, @ut_admin_id, @up_admin_id);
+    IF user_exists > 0 THEN
+        LEAVE create_user_label;
     END IF;
+
+	INSERT INTO users(u_username, u_email, p_id)
+	VALUES(un, e, create_person(n, ln, g));
+
+	SET @u_id = (
+		SELECT u_id FROM users AS u WHERE u.u_id = LAST_INSERT_ID()
+	);
+
+	INSERT INTO passwords(pw_hashed_password, u_id)
+	VALUES(p, @u_id);
+
+	SET @ut_admin_id = (
+		SELECT ut_id FROM user_types AS ut WHERE ut.ut_type = t
+	);
+
+	SET @up_admin_id = (
+		SELECT up_id FROM user_permissions AS up WHERE up.up_level = l
+	);
+
+	INSERT INTO accounts(u_id, ut_id, up_id)
+	VALUES(@u_id, @ut_admin_id, @up_admin_id);
+    
+    SET @i_id = (
+		SELECT i_id FROM institutions AS i WHERE i.i_code = i_code
+	);
+    
+    INSERT INTO institutions_account(i_id, a_id)
+    VALUES(@i_id, @u_id);
 END $$
 DELIMITER ;
 
@@ -711,7 +786,11 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE get_all_offers()
 BEGIN
-    SELECT * FROM all_offers_view;
+    SELECT * FROM all_offers_view AS aov 
+    INNER JOIN tickets AS t ON t.t_id = aov.ticket_id
+    INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+    INNER JOIN users AS u ON u.u_id = t.u_id
+    WHERE ts.ts_status != 'open' AND ts.ts_status != 'close';
 END $$
 DELIMITER ;
 
@@ -720,7 +799,12 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE get_all_requests()
 BEGIN
-    SELECT * FROM all_requested_view;
+    SELECT *
+    FROM all_requested_view AS arv
+    INNER JOIN tickets AS t ON t.t_id = arv.ticket_id
+    INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+    INNER JOIN users AS u ON u.u_id = t.u_id
+    WHERE ts.ts_status != 'open' AND ts.ts_status != 'close';
 END $$
 DELIMITER ;
 
@@ -729,7 +813,11 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE get_user_offers(user_email VARCHAR(255))
 BEGIN
-    SELECT * FROM all_offers_view AS aov WHERE aov.user_email = user_email;
+    SELECT * FROM all_offers_view AS aov 
+    INNER JOIN tickets AS t ON t.t_id = aov.ticket_id
+    INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+    INNER JOIN users AS u ON u.u_id = t.u_id
+    WHERE aov.user_email = user_email AND ts.ts_status != 'open' AND ts.ts_status != 'close';
 END $$
 DELIMITER ;
 
@@ -737,8 +825,13 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE get_user_requests(user_email VARCHAR(255))
-BEGIN
-    SELECT * FROM all_requested_view AS arv WHERE arv.user_email = user_email;
+BEGIN    
+    SELECT *
+    FROM all_requested_view AS arv
+    INNER JOIN tickets AS t ON t.t_id = arv.ticket_id
+    INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+    INNER JOIN users AS u ON u.u_id = t.u_id
+    WHERE u.u_email = user_email AND ts.ts_status != 'open' AND ts.ts_status != 'close';
 END $$
 DELIMITER ;
 
@@ -768,7 +861,7 @@ DELIMITER ;
 -- 12. CREATE ADD REQUEST
 
 DELIMITER $$
-CREATE PROCEDURE add_request(user_email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME)
+CREATE PROCEDURE add_request(user_email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME, end_datetime DATETIME)
 BEGIN
     SET @u_id = (
         SELECT u_id FROM users WHERE u_email = user_email
@@ -783,8 +876,8 @@ BEGIN
 		SELECT rt_id FROM ride_types WHERE rt_type = 'requested'
     );
 
-    INSERT INTO rides(r_from, r_to, r_start, t_id, rt_id)
-    VALUES(from_location, to_location, start_datetime, @t_id, @rt_id);
+    INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
+    VALUES(from_location, to_location, start_datetime, end_datetime, @t_id, @rt_id);
 END $$
 DELIMITER ;
 
@@ -793,23 +886,59 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE accept_offer(r_id INT, accepting_user_email VARCHAR(255))
 BEGIN
-    SET @traveler_id = (
-            SELECT u_id FROM users WHERE u_email = accepting_user_email
-        );
+     SET @traveler_id = (
+        SELECT u_id FROM users WHERE u_email = accepting_user_email
+    );
 
     SET @num_accepted = (
-        SELECT COUNT(*) FROM connections WHERE u_id_traveler = @traveler_id
+        SELECT COUNT(*) FROM connections WHERE u_id_driver = @driver_id
     );
 
     IF @num_accepted > 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O utilizador já aceitou uma oferta ou  um pedido';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O utilizador já aceitou uma oferta';
     ELSE
+        /*SET @driver_id = (
+            SELECT t.u_id FROM rides AS r
+            INNER JOIN tickets AS t ON t.t_id = r.t_id
+            INNER JOIN ride_types AS rt ON rt.rt_id = r.rt_id
+            WHERE r.r_id = r_id AND rt.rt_type = 'proposed'
+        );*/
+        
+        # ------
         SET @driver_id = (
-            SELECT u_id_driver FROM connections WHERE r_id = r_id
+            SELECT t.u_id
+            FROM rides AS r
+            INNER JOIN tickets AS t ON t.t_id = r.t_id
+            WHERE r.r_id = r_id
+        );
+        # ------
+        
+        SET @ticket_id = (
+            SELECT t.t_id 
+            FROM tickets AS t
+            INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+            INNER JOIN rides AS r ON r.t_id = t.t_id
+            WHERE t.u_id = @driver_id AND r.r_id = r_id AND ts.ts_status != 'open' AND ts.ts_status != 'close'
         );
 
         INSERT INTO connections(r_id, u_id_driver, u_id_traveler)
         VALUES(r_id, @driver_id, @traveler_id);
+        
+        SET @connections_count = (
+            SELECT COUNT(*)
+            FROM connections AS c
+            WHERE c.c_id = LAST_INSERT_ID()
+        );
+        
+        SET @ticket_status_open_id = (
+            SELECT ts.ts_id 
+            FROM ticket_status AS ts
+            WHERE ts.ts_status = 'open'
+        );
+        
+		UPDATE tickets AS t
+		SET t.ts_id = @ticket_status_open_id
+		WHERE t.t_id = @ticket_id;
     END IF;
 END $$
 DELIMITER ;
@@ -820,9 +949,9 @@ DELIMITER $$
 CREATE PROCEDURE accept_request(r_id INT, accepting_user_email VARCHAR(255))
 BEGIN
     SET @driver_id = (
-            SELECT u_id FROM users WHERE u_email = accepting_user_email
-        );
-
+        SELECT u_id FROM users WHERE u_email = accepting_user_email
+    );
+    
     SET @num_accepted = (
         SELECT COUNT(*) FROM connections WHERE u_id_driver = @driver_id
     );
@@ -831,11 +960,40 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O utilizador já aceitou uma oferta ou um pedido';
     ELSE
         SET @traveler_id = (
-            SELECT u_id_traveler FROM connections WHERE r_id = r_id
+            SELECT t.u_id
+            FROM rides AS r
+            INNER JOIN tickets AS t ON t.t_id = r.t_id
+            WHERE r.r_id = r_id
         );
-
+        
+        SET @ticket_id = (
+            SELECT t.t_id 
+            FROM tickets AS t
+            INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+            INNER JOIN rides AS r ON r.t_id = t.t_id
+            WHERE t.u_id = @traveler_id AND r.r_id = r_id AND ts.ts_status != 'open' AND ts.ts_status != 'close'
+        );
+        
         INSERT INTO connections(r_id, u_id_traveler, u_id_driver)
         VALUES(r_id, @traveler_id, @driver_id);
+        
+        SET @connections_count = (
+            SELECT COUNT(*)
+            FROM connections AS c
+            WHERE c.c_id = LAST_INSERT_ID()
+        );
+        
+        SET @ticket_status_open_id = (
+            SELECT ts.ts_id 
+            FROM ticket_status AS ts
+            WHERE ts.ts_status = 'open'
+        );
+        
+        IF @connections_count > 0 THEN
+            UPDATE tickets AS t
+            SET t.ts_id = @ticket_status_open_id
+            WHERE t.t_id = @ticket_id;
+		END IF;
     END IF;
 END $$
 DELIMITER ;
@@ -855,10 +1013,42 @@ DELIMITER $$
 CREATE PROCEDURE cancel_requests(user_email VARCHAR(255))
 BEGIN
     SET @u_id = (
-		SELECT u_id FROM users WHERE u_email = user_email
-        );
+        SELECT u_id FROM users WHERE u_email = user_email
+    );
+    
+    SET @connections_traveler_count = (
+        SELECT COUNT(*) FROM connections WHERE u_id_traveler = @u_id
+    );
+    
+    SET @connections_driver_count = (
+        SELECT COUNT(*) FROM connections WHERE u_id_driver = @u_id
+    );
+    
+    SET @ticket_id = (
+        SELECT t.t_id
+        FROM connections AS c
+        INNER JOIN rides AS r ON r.r_id = c.r_id
+        INNER JOIN tickets AS t ON t.t_id = r.t_id
+        WHERE u_id_driver = @u_id OR u_id_traveler = @u_id
+    );
 
-    DELETE FROM connections WHERE u_id_traveler = @u_id;
+    IF @connections_traveler_count > 0 THEN
+        DELETE FROM connections WHERE u_id_traveler = @u_id;
+    END IF;
+    
+    IF @connections_driver_count > 0 THEN
+        DELETE FROM connections WHERE u_id_driver = @u_id;
+    END IF;
+    
+    SET @ticket_status_close_id = (
+        SELECT ts.ts_id 
+        FROM ticket_status AS ts
+        WHERE ts.ts_status = 'close'
+    );
+    
+    UPDATE tickets AS t
+    SET t.ts_id = @ticket_status_close_id
+    WHERE t.t_id = @ticket_id;
 END $$
 DELIMITER ;
 
@@ -868,10 +1058,42 @@ DELIMITER $$
 CREATE PROCEDURE cancel_offers(user_email VARCHAR(255))
 BEGIN
     SET @u_id = (
-		SELECT u_id FROM users WHERE u_email = user_email
-        );
+        SELECT u_id FROM users WHERE u_email = user_email
+    );
+    
+    SET @connections_traveler_count = (
+        SELECT COUNT(*) FROM connections WHERE u_id_traveler = @u_id
+    );
+    
+    SET @connections_driver_count = (
+        SELECT COUNT(*) FROM connections WHERE u_id_driver = @u_id
+    );
+    
+    SET @ticket_id = (
+        SELECT t.t_id
+        FROM connections AS c
+        INNER JOIN rides AS r ON r.r_id = c.r_id
+        INNER JOIN tickets AS t ON t.t_id = r.t_id
+        WHERE u_id_driver = @u_id OR u_id_traveler = @u_id
+    );
 
-    DELETE FROM connections WHERE u_id_driver = @u_id;
+    IF @connections_traveler_count > 0 THEN
+        DELETE FROM connections WHERE u_id_traveler = @u_id;
+    END IF;
+    
+    IF @connections_driver_count > 0 THEN
+        DELETE FROM connections WHERE u_id_driver = @u_id;
+    END IF;
+    
+    SET @ticket_status_close_id = (
+        SELECT ts.ts_id 
+        FROM ticket_status AS ts
+        WHERE ts.ts_status = 'close'
+    );
+    
+    UPDATE tickets AS t
+    SET t.ts_id = @ticket_status_close_id
+    WHERE t.t_id = @ticket_id;
 END $$
 DELIMITER ;
 
@@ -894,6 +1116,20 @@ BEGIN
 	);
 
     IF EXISTS (SELECT * FROM rides WHERE r_id = ride_id AND t_id IN (SELECT t_id FROM tickets WHERE u_id = @u_id)) THEN
+		SET @ticket_id = (
+			SELECT t.t_id FROM tickets AS t 
+            INNER JOIN rides AS r ON r.t_id = t.t_id
+            WHERE t.u_id = @u_id AND r.r_id = ride_id
+        );
+        
+        SET @ticket_status_close_id = (
+			SELECT ts.ts_id FROM ticket_status AS ts WHERE ts.ts_status = 'close'
+        );
+        
+        UPDATE tickets AS t
+		SET t.ts_id = @ticket_status_close_id
+		WHERE t.t_id = @ticket_id;
+    
         IF EXISTS (SELECT * FROM connections WHERE r_id = ride_id) THEN
             DELETE FROM connections WHERE r_id = ride_id;
         END IF;
@@ -915,7 +1151,22 @@ BEGIN
 	);
 
     IF EXISTS (SELECT * FROM rides WHERE r_id = ride_id AND t_id IN (SELECT t_id FROM tickets WHERE u_id = @u_id)) THEN
-        IF EXISTS (SELECT * FROM connections WHERE r_id = ride_id) THEN
+		SET @ticket_id = (
+			SELECT t.t_id FROM tickets AS t 
+            INNER JOIN rides AS r ON r.t_id = t.t_id
+            WHERE t.u_id = @u_id AND r.r_id = ride_id
+        );
+        
+        SET @ticket_status_close_id = (
+			SELECT ts.ts_id FROM ticket_status AS ts WHERE ts.ts_status = 'close'
+        );
+        
+        UPDATE tickets AS t
+		SET
+			t.ts_id = @ticket_status_close_id
+		WHERE t.t_id = @ticket_id;
+    
+        IF EXISTS (SELECT * FROM connections WHERE r_id = ride_id) THEN        
             DELETE FROM connections WHERE r_id = ride_id;
         END IF;
         
@@ -951,4 +1202,159 @@ BEGIN
     WHERE u.u_email = user_email;
 END $$
 $$
+DELIMITER ;
+
+-- 23. GET ALL USERS INFO
+
+DELIMITER $$
+CREATE PROCEDURE get_all_users_info(user_email VARCHAR(255), user_search VARCHAR(255))
+BEGIN    
+    SET @u_i_code = (
+        SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+        LIMIT 1
+    );
+    
+    IF user_search IS NOT NULL THEN
+        SELECT * 
+        FROM all_users_info_view 
+        WHERE institution_code = @u_i_code
+          AND email <> user_email
+          AND (username LIKE CONCAT('%', user_search, '%') OR email LIKE CONCAT('%', user_search, '%'))
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_types ut ON a.ut_id = ut.ut_id
+              WHERE ut.ut_type = 'admin'
+          )
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_permissions up ON a.up_id = up.up_id
+              WHERE up.up_level = 0
+          )
+        LIMIT 50;
+    ELSE
+        SELECT * 
+        FROM all_users_info_view 
+        WHERE institution_code = @u_i_code
+          AND email <> user_email
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_types ut ON a.ut_id = ut.ut_id
+              WHERE ut.ut_type = 'admin'
+          )
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_permissions up ON a.up_id = up.up_id
+              WHERE up.up_level = 0
+          )
+        LIMIT 50;
+    END IF;
+END $$
+DELIMITER ;
+
+-- 24. CREATE GET OFFERS PROCEDURE
+
+DELIMITER $$
+CREATE PROCEDURE get_offers_from_institution(user_email VARCHAR(255))
+BEGIN
+	SET @i_code = (
+		SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+	);
+    
+    SELECT *
+    FROM all_offers_view AS aov
+    INNER JOIN tickets AS t ON t.t_id = aov.ticket_id
+    INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+    INNER JOIN users AS u ON u.u_id = t.u_id
+    WHERE institution_code = @i_code AND u.u_email != user_email AND ts.ts_status != 'open' AND ts.ts_status != 'close';
+END $$
+DELIMITER ;
+
+-- 25. CREATE GET REQUESTS PROCEDURE
+
+DELIMITER $$
+CREATE PROCEDURE get_requests_from_institution(user_email VARCHAR(255))
+BEGIN    
+	SET @i_code = (
+		SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+	);
+    
+    SELECT *
+    FROM all_requested_view AS arv
+    INNER JOIN tickets AS t ON t.t_id = arv.ticket_id
+    INNER JOIN ticket_status AS ts ON ts.ts_id = t.ts_id
+    INNER JOIN users AS u ON u.u_id = t.u_id
+    WHERE institution_code = @i_code AND u.u_email != user_email AND ts.ts_status != 'open' AND ts.ts_status != 'close';
+END $$
+DELIMITER ;
+
+-- 26. DELETE USER
+
+DELIMITER $$
+CREATE PROCEDURE delete_user(user_email VARCHAR(255))
+BEGIN
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = user_email
+	);
+
+	DELETE FROM institutions_account WHERE a_id IN (SELECT a_id FROM accounts WHERE u_id = @u_id);
+	DELETE FROM accounts WHERE u_id = @u_id;
+	DELETE FROM passwords WHERE u_id = @u_id;
+	DELETE FROM users WHERE u_id = @u_id;
+END $$
+DELIMITER ;
+
+-- 27. UPDATE USER INFO
+
+DELIMITER $$
+CREATE PROCEDURE update_user_info(p_user_email VARCHAR(100), p_first_name VARCHAR(50), p_last_name VARCHAR(50), p_age VARCHAR(2), p_username VARCHAR(50), p_career VARCHAR(30), p_class VARCHAR(30), p_location VARCHAR(255), p_about VARCHAR(30), p_password VARCHAR(255))
+BEGIN
+    SET @u_id = (
+        SELECT u_id FROM users WHERE u_email = p_user_email
+    );
+
+    UPDATE persons
+    SET 
+        p_first_name = p_first_name,
+        p_last_name = p_last_name,
+        p_age = p_age
+    WHERE p_id = @u_id;
+
+    UPDATE users
+    SET 
+        u_username = p_username,
+        u_career = p_career,
+        u_class = p_class,
+        u_location = p_location,
+        u_about = p_about
+    WHERE u_id = @u_id;
+    
+    IF p_password IS NOT NULL THEN
+        UPDATE passwords
+        SET pw_hashed_password = p_password
+        WHERE u_id = @u_id;
+    END IF;
+END $$
 DELIMITER ;

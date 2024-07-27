@@ -1,6 +1,4 @@
 <?php
-    
-
     function getUserPermission($conn) {
         $userPermission = 'CALL get_user_permissions_level("'. $_SESSION['email'] . '")';
         $userPermissionQuery = mysqli_query($conn, $userPermission);

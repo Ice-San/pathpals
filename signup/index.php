@@ -1,5 +1,6 @@
 <?php
-include "../src/server/auth.php";
+include_once "../src/server/auth/index.php";
+include_once "../src/server/utils.php";
 
 session_start();
 ?>
@@ -10,6 +11,7 @@ session_start();
     <meta name="viewport" content="width=device-width">
 
     <title>PathPals - SignUp</title>
+    <link rel="icon" type="image/png" href="../src/assets/images/pathpals-logo-blue.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,9 +39,11 @@ session_start();
         </div>
 
         <div class="background-container">
-            <div class="back-btn">
-                <div class="back-btn-container"></div>
-            </div>
+            <a href="../">
+                <div class="back-btn">
+                    <div class="back-btn-container"></div>
+                </div>
+            </a>
 
             <div class="center-signup">
                 <div class="center-signup-content">
@@ -67,6 +71,7 @@ session_start();
                                         <input id="institution-input" type="text" name="institution-code" placeholder="Código da Instituição" required>
                                     </div>
                                     <div class="form-error error-institution unvisibility"></div>
+                                    <?php if(isset($_SESSION['error_institutions'])) { echo "<div class='form-error error-email'>* ".$_SESSION['error_institutions']."</div>"; } ?>
                                 </div>
                             </div>
 

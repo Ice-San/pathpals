@@ -1,28 +1,3 @@
-@media (max-width: 1388px) {
-    .request-container {
-        max-height: 200px;
-        height: 13vw;
-        min-height: 175px;
-    }
-}
-
-@media (max-width: 970px) {
-    .request-container {
-        max-height: 200px;
-        height: 13vw;
-        min-height: 175px;
-    }
-}
-
-@media (max-width: 602px) {
-    .request-container {
-        max-height: 200px;
-        height: 13vw;
-        min-height: 165px;
-    }
-}
-
-
 @media (max-width: 1086px) {
     .menu-container {
         width: 65%;
@@ -35,28 +10,39 @@
     }
 }
 
-@media (max-width: 785px) {
-    .menu-container {
-        width: 75%;
-        min-width: 380px;
+@media(max-width: 1000px) {
+    .list-flex {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .menu-container a {
-        font-size: clamp(19px, 3.6vw, 45px);
-    }
+    .list-division {
+        padding-bottom: 1px;
 
-    .menu {
-        height: 75px;
+        margin: 25px 0;
+        margin-bottom: 50px;
+
+        width: 90%;
+        height: auto;
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 840px) {
     .list-titles h1 {
         font-family: "Manrope", "Mallana", Arial, Helvetica, sans-serif;
         font-size: clamp(30px, 5vw, 50px);
         font-weight: 400;
     
         margin-bottom: 10px;
+    }
+
+    .close-btn-position {
+        width: 35px;
+        height: 35px;
+    }
+
+    .form-list-title {
+        display: none;
     }
 
     .form-list-inputs {
@@ -73,10 +59,46 @@
     }
 
     .form-list-date input {
-        width: 100%;
+        padding: 0 15px;
+        margin-left: 5px;
+    
+        width: 220px;
     }
 
     .submit-btn {
         margin-top: 5px;
+    }
+}
+
+@media (max-width: 785px) {
+    .menu-container {
+        width: 100%;
+        min-width: 300px;
+    }
+
+    .menu-container a {
+        font-size: clamp(19px, 3.6vw, 45px);
+
+        padding: 0 10px;
+    }
+
+    .menu {
+        height: 75px;
+    }
+
+    .list-direction {
+        min-height: 200px;
+    }
+}
+
+@media (max-width: 406px) {
+    .list-titles h1 {
+        font-size: 26px;
+    }
+
+    .error-message {
+        font-size: 12px;
+        
+        margin: 0 10px;
     }
 }

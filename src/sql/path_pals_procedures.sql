@@ -165,10 +165,10 @@ BEGIN
 END $$
 DELIMITER ;
 
--- 12. CREATE A NEW PROCEDURE TO ADD REQUEST
+-- 12. CREATE ADD REQUEST
 
 DELIMITER $$
-CREATE PROCEDURE add_request(user_email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME)
+CREATE PROCEDURE add_request(user_email VARCHAR(255), from_location VARCHAR(100), to_location VARCHAR(100), start_datetime DATETIME, end_datetime DATETIME)
 BEGIN
     SET @u_id = (
         SELECT u_id FROM users WHERE u_email = user_email
@@ -183,8 +183,8 @@ BEGIN
 		SELECT rt_id FROM ride_types WHERE rt_type = 'requested'
     );
 
-    INSERT INTO rides(r_from, r_to, r_start, t_id, rt_id)
-    VALUES(from_location, to_location, start_datetime, @t_id, @rt_id);
+    INSERT INTO rides(r_from, r_to, r_start, r_end, t_id, rt_id)
+    VALUES(from_location, to_location, start_datetime, end_datetime, @t_id, @rt_id);
 END $$
 DELIMITER ;
 
@@ -205,7 +205,7 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'O usuário já aceitou uma oferta';
     ELSE
         SET @driver_id = (
-            SELECT u_id_driver FROM connections WHERE r_id = r_id
+            SELECT u_id FROM tickets WHERE t_id = (SELECT t_id FROM rides WHERE r_id = r_id)
         );
 
         INSERT INTO connections(r_id, u_id_driver, u_id_traveler)
@@ -350,5 +350,151 @@ BEGIN
     INNER JOIN users AS u ON acc.u_id = u.u_id
     WHERE u.u_email = user_email;
 END $$
-$$
+DELIMITER ;
+
+-- 23. GET ALL USERS INFO
+
+DELIMITER $$
+CREATE PROCEDURE get_all_users_info(user_email VARCHAR(255), user_search VARCHAR(255))
+BEGIN    
+    SET @u_i_code = (
+        SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+        LIMIT 1
+    );
+    
+    IF user_search IS NOT NULL THEN
+        SELECT * 
+        FROM all_users_info_view 
+        WHERE institution_code = @u_i_code
+          AND email <> user_email
+          AND (username LIKE CONCAT('%', user_search, '%') OR email LIKE CONCAT('%', user_search, '%'))
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_types ut ON a.ut_id = ut.ut_id
+              WHERE ut.ut_type = 'admin'
+          )
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_permissions up ON a.up_id = up.up_id
+              WHERE up.up_level = 0
+          )
+        LIMIT 50;
+    ELSE
+        SELECT * 
+        FROM all_users_info_view 
+        WHERE institution_code = @u_i_code
+          AND email <> user_email
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_types ut ON a.ut_id = ut.ut_id
+              WHERE ut.ut_type = 'admin'
+          )
+          AND username NOT IN (
+              SELECT u.u_username
+              FROM users u
+              INNER JOIN accounts a ON u.u_id = a.u_id
+              INNER JOIN user_permissions up ON a.up_id = up.up_id
+              WHERE up.up_level = 0
+          )
+        LIMIT 50;
+    END IF;
+END $$
+DELIMITER ;
+
+-- 24. CREATE GET OFFERS PROCEDURE
+
+DELIMITER $$
+CREATE PROCEDURE get_offers_from_institution(user_email VARCHAR(255))
+BEGIN
+	SET @i_code = (
+		SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+	);
+    
+    SELECT * FROM all_offers_view WHERE institution_code = @i_code;
+END $$
+DELIMITER ;
+
+-- 25. CREATE GET REQUESTS PROCEDURE
+
+DELIMITER $$
+CREATE PROCEDURE get_requests_from_institution(user_email VARCHAR(255))
+BEGIN    
+	SET @i_code = (
+		SELECT i.i_code 
+        FROM users u
+        INNER JOIN accounts a ON u.u_id = a.u_id
+        INNER JOIN institutions_account ia ON a.a_id = ia.a_id
+        INNER JOIN institutions i ON ia.i_id = i.i_id
+        WHERE u.u_email = user_email
+	);
+    
+    SELECT * FROM all_requested_view WHERE institution_code = @i_code;
+END $$
+DELIMITER ;
+
+-- 26. DELETE USER
+
+DELIMITER $$
+CREATE PROCEDURE delete_user(user_email VARCHAR(255))
+BEGIN
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = user_email
+	);
+
+	DELETE FROM institutions_account WHERE a_id IN (SELECT a_id FROM accounts WHERE u_id = @u_id);
+	DELETE FROM accounts WHERE u_id = @u_id;
+	DELETE FROM passwords WHERE u_id = @u_id;
+	DELETE FROM users WHERE u_id = @u_id;
+END $$
+DELIMITER ;
+
+-- 27. UPDATE USER INFO
+
+DELIMITER $$
+CREATE PROCEDURE update_user_info(p_user_email VARCHAR(100), p_first_name VARCHAR(50), p_last_name VARCHAR(50), p_age VARCHAR(2), p_username VARCHAR(50), p_career VARCHAR(30), p_class VARCHAR(30), p_location VARCHAR(255), p_about VARCHAR(30), p_password VARCHAR(255))
+BEGIN
+    SET @u_id = (
+		SELECT u_id FROM users WHERE u_email = p_user_email
+	);
+    
+
+    UPDATE persons
+    SET 
+        p_first_name = p_first_name,
+        p_last_name = p_last_name,
+        p_age = p_age
+    WHERE p_id = @u_id;
+    
+
+    UPDATE users
+    SET 
+        u_username = p_username,
+        u_career = p_career,
+        u_class = p_class,
+        u_location = p_location,
+        u_about = p_about
+    WHERE u_id = @u_id;
+    
+    IF p_password IS NOT NULL THEN
+        UPDATE passwords
+        SET pw_hashed_password = p_password
+        WHERE u_id = u_id;
+    END IF;
+END $$
 DELIMITER ;

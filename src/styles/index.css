@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Mallanna', 'Manrope', Arial, Helvetica, sans-serif;
     font-weight: 100;
@@ -22,4 +26,8 @@ a {
 
 .unvisibility {
     display: none;
+}
+
+ul {
+    list-style: none;
 }
