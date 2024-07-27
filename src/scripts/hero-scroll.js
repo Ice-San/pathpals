@@ -1,4 +1,4 @@
-const heroTitle = document.querySelector(".title h1");
+const heroTitle = document.querySelector(".content-text h1");
 
 window.addEventListener("scroll", () => {
     let y = scrollY;

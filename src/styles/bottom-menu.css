@@ -12,20 +12,6 @@
     height: 85px;
 }
 
-.bottom-menu-admin {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-
-    width: auto;
-    height: 85px;
-}
-
 .bottom-menu-container {
     background-color: white;
     box-shadow: 0px -10px 40.2px -22px rgb(0,0,0);
@@ -46,16 +32,6 @@
 }
 
 .bottom-menu-position {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    width: 100%;
-    min-width: 400px;
-    height: 100%;
-}
-
-.bottom-menu-position-admin {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -111,7 +87,7 @@
 }
 
 .manage-container {
-    background-image: url("../../account/users/assets/images/config-user.png");
+    background-image: url("../../admin/src/assets/images/config-user.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -121,7 +97,7 @@
 }
 
 .requests-container {
-    background-image: url("../../account/users/assets/images/requests-icon.png");
+    background-image: url("../../admin/src/assets/images/requests-icon.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -131,7 +107,7 @@
 }
 
 .offers-container {
-    background-image: url("../../account/users/assets/images/offers-icon.png");
+    background-image: url("../../admin/src/assets/images/offers-icon.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -142,11 +118,6 @@
 
 @media (max-width: 600px) {
     .bottom-menu {
-        width: 100%;
-        height: 65px;
-    }
-
-    .bottom-menu-admin {
         width: 100%;
         height: 65px;
     }

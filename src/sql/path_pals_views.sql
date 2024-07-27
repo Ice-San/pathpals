@@ -12,9 +12,7 @@ SELECT
     r.r_from AS ride_from,
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
-    r.r_start AS ride_start,
-    r.r_end AS ride_end,
-    i.i_code AS institution_code
+    r.r_start AS ride_start
 FROM
     tickets AS t
 INNER JOIN
@@ -25,12 +23,6 @@ INNER JOIN
     rides AS r ON t.t_id = r.t_id
 INNER JOIN
     ride_types AS rt ON r.rt_id = rt.rt_id
-INNER JOIN
-    accounts AS a ON u.u_id = a.u_id
-INNER JOIN
-    institutions_account AS ia ON a.a_id = ia.a_id
-INNER JOIN
-    institutions AS i ON ia.i_id = i.i_id
 WHERE
     rt.rt_type = 'proposed'
     AND DATE(r.r_start) >= CURDATE()
@@ -52,9 +44,7 @@ SELECT
     r.r_from AS ride_from,
     r.r_to AS ride_to,
     rt.rt_type AS ride_type,
-    r.r_start AS ride_start,
-    r.r_end AS ride_end,
-    i.i_code AS institution_code
+    r.r_start AS ride_start
 FROM
     tickets AS t
 INNER JOIN
@@ -65,12 +55,6 @@ INNER JOIN
     rides AS r ON t.t_id = r.t_id
 INNER JOIN
     ride_types AS rt ON r.rt_id = rt.rt_id
-INNER JOIN
-    accounts AS a ON u.u_id = a.u_id
-INNER JOIN
-    institutions_account AS ia ON a.a_id = ia.a_id
-INNER JOIN
-    institutions AS i ON ia.i_id = i.i_id
 WHERE
     rt.rt_type = 'requested'
     AND DATE(r.r_start) >= CURDATE()
@@ -112,41 +96,16 @@ CREATE VIEW user_data_view AS
 SELECT
     p.p_first_name AS first_name,
     p.p_last_name AS last_name,
-    p.p_age AS user_birthday,
+    p.p_birth_date AS user_birthday,
     p.p_genre AS user_genre,
+    YEAR(CURDATE()) - YEAR(p.p_birth_date) - (RIGHT(CURDATE(), 5) < RIGHT(p.p_birth_date, 5)) AS user_age,
     u.u_username AS user_username,
     u.u_email AS user_email,
     u.u_career AS user_career,
     u.u_class AS user_class,
     u.u_location AS user_location,
-    u.u_about AS user_about,
-    i.i_name AS institution_name,
-    pw.pw_hashed_password AS user_password
+    u.u_about AS user_about
 FROM
     persons AS p
 JOIN
-    users AS u ON p.p_id = u.p_id
-JOIN
-    accounts AS a ON u.u_id = a.u_id
-JOIN
-    institutions_account AS ia ON a.a_id = ia.a_id
-JOIN
-    institutions AS i ON ia.i_id = i.i_id
-LEFT JOIN
-    passwords AS pw ON u.u_id = pw.u_id;
-    
--- 5. CREATE GET ALL USERS INFO VIEW
-
-CREATE VIEW all_users_info_view AS
-SELECT 
-    u.u_username AS username, 
-    u.u_email AS email,
-    i.i_code AS institution_code
-FROM 
-    users u
-INNER JOIN 
-    accounts a ON u.u_id = a.u_id
-INNER JOIN 
-    institutions_account ia ON a.a_id = ia.a_id
-INNER JOIN 
-    institutions i ON ia.i_id = i.i_id;
+    users AS u ON p.p_id = u.p_id;

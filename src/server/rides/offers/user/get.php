@@ -1,4 +1,6 @@
 <?php
+    include "../../src/server/auth.php";
+
     function getUserOffers($conn) {
         $userOffers = "CALL get_user_offers('". $_SESSION['email'] . "');";
         $userOffersQuery = mysqli_query($conn , $userOffers);

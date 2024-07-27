@@ -1,6 +1,6 @@
 <?php
-include_once "../auth/index.php";
-include_once "../utils.php";
+include "../utils.php";
+include "../auth.php";
 
 session_start();
 
@@ -17,15 +17,7 @@ if($check_email_exists->num_rows > 0) {
     redirect("../../../signup/"); 
 }
 
-$check_institution_code = "SELECT * FROM institutions WHERE i_code ='$institutionCode'";
-$check_institution_code_exists = mysqli_query($conn, $check_institution_code);
-
-if($check_institution_code_exists->num_rows == 0) {
-    $_SESSION['error_institutions'] = "Não existe nenhuma instituição com esse código...";
-    redirect("../../../signup/"); 
-}
-
-$register_users = "CALL create_user('$username', '$email', '', '', '', '$password', 'user', 3, '$institutionCode')";
+$register_users = "CALL create_user('$username', '$email', '', '', '', '$password', 'user', 3)";
 $create_user = mysqli_query($conn, $register_users);
 
 if($create_user) {

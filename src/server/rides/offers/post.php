@@ -1,6 +1,6 @@
 <?php
-include_once "../../auth/index.php";
-include_once "../../utils.php";
+include "../../utils.php";
+include "../../auth.php";
 
 $offerFrom = $_POST['offerFrom'];
 $offerTo = $_POST['offerTo'];

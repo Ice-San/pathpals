@@ -1,6 +1,5 @@
 <?php
-include_once "../src/server/auth/index.php";
-include_once "../src/server/utils.php";
+include "../src/server/auth.php";
 
 session_start();
 ?>
@@ -12,7 +11,6 @@ session_start();
     <meta name="viewport" content="width=device-width">
 
     <title>PathPals - SignIn</title>
-    <link rel="icon" type="image/png" href="../src/assets/images/pathpals-logo-blue.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,11 +38,9 @@ session_start();
         </div>
 
         <div class="background-container">
-            <a href="../">
-                <div class="back-btn">
-                    <div class="back-btn-container"></div>
-                </div>
-            </a>
+            <div class="back-btn">
+                <div class="back-btn-container"></div>
+            </div>
 
             <div class="center-signup">
                 <div class="center-signup-content">
@@ -57,7 +53,7 @@ session_start();
                         <div class="cars-container"></div>
                     </div>
 
-                    <form action="../src/server/auth/signin.php" method="POST" enctype="application/x-www-form-urlencoded">
+                    <form action="../src/server/user/get.php" method="POST" enctype="application/x-www-form-urlencoded">
                         <div class="form-content form-content-effect">
                             <input id="email-input" type="email" name="email" placeholder="Email" maxlength="100" required>
                         </div>

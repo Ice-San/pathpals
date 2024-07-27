@@ -1,135 +1,15 @@
-@media (max-width: 1240px) {
-    .edit-mode h1 {
-        font-size: 2.8vw;
+@media (max-width: 612px) {
+    .icon-background {
+        margin-top: 225px;
     }
     
-    .edit-mode p {
-        font-size: 1.5vw;
-    
-        margin-top: 5px;
-    }
-
-    .unsee-banner {
-        margin-top: 90px;
-    }
-
-    .info-background-top  {
-        justify-content: space-evenly;
-    }
-
-    .info-description p {
-        font-size: 1.6vw;
-    }
-
-    .info-description input {
-        font-size: 1.6vw;
-    }
-
-    .error-message {
-        font-size: 1.8vw;
-        color: rgb(250, 55, 55);
-    }
-    
-    .username-background .error-message {
-        font-size: 1.8vw;
-        color: rgb(250, 55, 55);
+    .icon {  
+        margin-top: 125px;
     }
 }
 
-@media (max-width: 980px) {
-    .edit-mode h1 {
-        font-size: 3.6vw;
-    }
-    
-    .edit-mode p {
-        font-size: 2vw;
-    
-        margin-top: 5px;
-    }
-
-    .info-description p {
-        font-size: 2vw;
-    }
-
-    .info-description input {
-        font-size: 2vw;
-    }
-
-    .error-message {
-        font-size: 2.5vw;
-        color: rgb(250, 55, 55);
-    }
-    
-    .username-background .error-message {
-        font-size: 2.5vw;
-        color: rgb(250, 55, 55);
-    }
-}
-
-@media (max-width: 725px) {
-    .info-background {
-        margin-top: 20px;
-
-        flex-wrap: wrap;
-        justify-content: flex-start;
-
-        padding: 0 25px;
-    
-        width: 100%;
-    }
-
-    .info-background-top  {
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .info-description p {
-        font-size: 4vw;
-    }
-
-    .info-description input {
-        font-size: 4vw;
-    }
-
-    .save-btn {
-        margin-right: 5px;
-        margin-bottom: 85px;
-    }
-}
-
-@media (max-width: 550px) {
-    .edit-mode h1 {
-        font-size: 5.5vw;
-    }
-    
-    .edit-mode p {
-        display: none;
-    }
-
-    .info-description p {
-        font-size: 5vw;
-    }
-
-    .info-description-exception p {
-        font-size: 5vw;
-    }
-
-    .info-description input {
-        font-size: 5vw;
-    }
-
-    .info-title h1 {
-        font-size: 30px;
-    }
-
-    .error-message {
-        font-size: 3.8vw;
-        font-weight: 400;
-        color: rgb(250, 55, 55);
-    }
-    
-    .username-background .error-message {
-        font-size: 3.8vw;
-        color: rgb(250, 55, 55);
+@media (max-width: 609px) {
+    .icon-background {
+        margin-top: 100px;
     }
 }

@@ -1,6 +1,8 @@
 <?php
+    include "../../src/server/auth.php";
+
     function getAllOffers($conn) {
-        $displayAllOffers = 'CALL get_offers_from_institution("'. $_SESSION['email'] .'");';
+        $displayAllOffers = 'SELECT * FROM all_offers_view;';
         $offersAllQuery = mysqli_query($conn , $displayAllOffers);
 
         $final_data = array();

@@ -1,6 +1,8 @@
 <?php
+    include "../../src/server/auth.php";
+
     function getAllRequests($conn) {
-        $displayAllRequests = "CALL get_requests_from_institution('". $_SESSION['email'] ."');";
+        $displayAllRequests = "SELECT * FROM all_requested_view;";
         $requestsAllQuery = mysqli_query($conn , $displayAllRequests);
 
         $final_data = array();

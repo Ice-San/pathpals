@@ -1,17 +1,16 @@
 .background {
     width: 100%;
-    max-height: 100vh;
-    height: 70vw;
-    min-height: 500px;
+    height: 100vh;
 
-    overflow: hidden;
+    margin-bottom: 100vh;
 }
 
 .background-container {
-    background-image: url("../assets/images/background.png");
+    background-image: url("../assets/background.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+
 
     width: 100%;
     height: 100%;
@@ -25,176 +24,108 @@
     height: 100%;
 }
 
-.signup-btn-position {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    width: 100%;
-    height: 105px;
-}
-
-.pp-logo {
-    margin-top: 15px;
-    margin-left: 15px;
-
-    width: 4vw;
-    min-width: 70px;
-    height: 5.2vw;
-    min-height: 90px;
-
-    transition: all 0.3s ease-in-out;
-}
-
-.pp-logo-container {
-    background-image: url("../../src/assets/images/pathpals-logo.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    width: 100%;
-    height: 100%;
-}
-
-.pp-logo:hover {
-    transform: scale(0.9) rotate(15deg);
-    
-    transition: all 0.3s ease-in-out;
-}
-
 .signup-btn {
-    background-color: #DCDCDC;
-    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.75);
-    
-    border-radius: 8px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 
-    cursor: pointer;
+    width: 100%;
+    height: 60px;
+}
+
+.signup-btn-content {
+    background-color: #DCDCDC;
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    margin-right: 15px;
+    border-radius: 6px;
 
-    width: 125px;
-    height: 40px;
+    margin-right: 20px;
 
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
+
+    width: 135px;
+    height: 35px;
 }
 
-.signup-btn p {
-    font-family: "Mallanna";
-    font-size: 25px;
+.signup-btn-content p {
+    font-family: 'Mallana', 'Manrope', Arial, Helvetica, sans-serif;
+    font-size: 21px;
+    font-weight: 500;
 
     color: black;
 }
 
-.signup-btn:hover {
-    transform: scale(0.8) rotate(5deg);
+.signup-btn-content:hover {
+    transform: scale(0.95);
 
-    transition: all 0.2s ease-in-out;
+    background-color: #cecece;
+
+    transition: all 0.3s ease-in-out;
 }
 
-.text-image {
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
     position: relative;
+
+    overflow: hidden;
+
+    width: 100%;
+    height: 93.9vh;
+}
+
+.content-text {
+    display: flex;
+    justify-content: center;
+
+    cursor: default;
 
     width: 100%;
     height: 100%;
 }
 
-.title {
-    font-family: "Kaushan Script", "Mallanna", "Manrope", Arial, Helvetica, sans-serif;
-    font-size: clamp(50px, 7vw, 175px);
-    font-weight: 50;
+@media (min-width: 1635px) {
+    .content-text h1 {  
+        padding-top: 175px;
+    }
+
+    .content-img {
+        width: clamp(1000px, 75vw, 1600px);
+        height: clamp(650px, 50vw, 1000px);
+    }
+}
+
+.content-text h1 {
+    font-family: 'Kaushan Script', 'Manrope', 'Mallana', Arial, Helvetica, sans-serif;
+    font-size: clamp(100px, 15vw, 325px);
+    font-weight: 100;
+
+    padding-top: 100px;
 
     position: absolute;
     z-index: 1;
-
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-
-    width: 100%;
-    height: 100%;
 }
 
-.persons-position {
+.content-img {
     position: absolute;
     z-index: 2;
 
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    
-    width: 100%;
-    height: 100%;
+    width: clamp(1000px, 75vw, 1600px);
+    height: clamp(650px, 50vw, 1000px);
 }
 
-.persons {
-    min-width: 450px;
-    width: 66vw;
-
-    min-height: 345px;
-    height: 45vw;
-}
-
-.persons-container {
-    background-image: url("../assets/images/persons-render.png");
-    background-repeat: no-repeat;
+.content-img-container {
+    background-image: url("../assets/persons-render.png");
     background-position: center;
     background-size: cover;
-    
-    width: 100%;
-    height: 100%;
-}
-
-.arrow-down-background {
-    position: absolute;
-    z-index: 3;
-
-    font-family: 'Manrope', 'Mallana', Arial, Helvetica, sans-serif;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    grid-gap: 10px;
-
-    background: transparent;
-    background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgba(0,0,0,0.7525385154061625) 15%, rgba(0, 0, 0, 0) 30%);
-
-    width: 100%;
-    height: 100%;
-}
-
-.arrow-down-background h1 {
-    color: white;
-    font-size: 1.8vw;
-}
-
-.arrow {
-    margin-bottom: 130px;
-
-    animation: arrow-moving 1s infinite ease-in-out;
-
-    width: 3vw;
-    height: 3vw;
-}
-
-@keyframes arrow-moving {
-    0% {transform: translateY(0px);}
-    50% {transform: translateY(10px);}
-    100% {transform: translateY(0px);}
-}
-
-.arrow-container {
-    background-image: url("../assets/images/arrow-down-icon.png");
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
 
-    filter: invert();
-    
     width: 100%;
     height: 100%;
 }
