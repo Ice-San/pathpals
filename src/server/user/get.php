@@ -1,7 +1,10 @@
 <?php
-    function getUserInfo($conn) {
-        $userInfo = "CALL get_user_info('". $_SESSION['email'] . "');";
-        $userInfoQuery = mysqli_query($conn, $userInfo);
+include "../utils.php";
+include "../auth.php";
+include "./permission/get.php";
+include "./type/get.php";
+
+session_start();
 
 $email = $_POST['email'];
 $password = $_POST['password'];
